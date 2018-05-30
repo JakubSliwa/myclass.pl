@@ -15,6 +15,15 @@ import pl.js.entity.exercise.BasicSolution;
 @Table(name = "students")
 public class Student extends User {
 
+	public Student(String login, String password) {
+		super(login, password);
+		// TODO Auto-generated constructor stub
+	}
+
+	public Student() {
+
+	}
+
 	private double grade;
 	@ManyToOne
 	Classroom classroom;

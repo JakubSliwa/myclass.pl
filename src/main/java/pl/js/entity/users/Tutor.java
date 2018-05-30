@@ -12,10 +12,18 @@ import pl.js.entity.Classroom;
 import pl.js.entity.exercise.AdvancedExercise;
 import pl.js.entity.exercise.BasicExercise;
 
-
 @Entity
 @Table(name = "tutors")
 public class Tutor extends User {
+
+	public Tutor(String login, String password) {
+		super(login, password);
+
+	}
+
+	public Tutor() {
+
+	}
 
 	@ManyToOne
 	Classroom classroom;
