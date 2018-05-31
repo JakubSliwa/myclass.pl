@@ -14,7 +14,7 @@
 				value="com.mysql.jdbc.Driver" />
 			<property
 				name="javax.persistence.schema-generation.database.action"
-				value="drop-and-create" />
+				value="none" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
