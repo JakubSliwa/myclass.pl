@@ -3,8 +3,9 @@ package pl.js.entity.users;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.MappedSuperclass;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 @MappedSuperclass
 public abstract class User {
@@ -35,13 +36,13 @@ public abstract class User {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public String setPassword(String password) {
+		return this.password = BCrypt.hashpw(password, BCrypt.gensalt());
 	}
 
 	public User(String login, String password) {
 		this.login = login;
-		this.password = password;
+		this.setPassword(password);
 	}
 
 	public User() {

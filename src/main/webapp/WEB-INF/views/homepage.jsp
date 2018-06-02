@@ -53,6 +53,8 @@
 	</ul>
 	</nav>
 
+	<c:url value="../sys_school/login" var="login" />
+	<c:url value="../sys_school/classroom" var="signup" />
 	<!-- Header -->
 	<header class="masthead d-flex">
 	<div class="container text-center my-auto">
@@ -60,7 +62,7 @@
 		<h3 class="mb-5">
 			<em>Twój system zarządzania lekcjami.</em>
 		</h3>
-		<c:url value="../sys_school/login" var="login" />
+
 		` <a class="btn btn-primary btn-xl js-scroll-trigger" href="${login}">Zaloguj
 			się</a> &nbsp; &nbsp; &nbsp;<a
 			class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Poznaj
@@ -78,7 +80,7 @@
 					Zanim zaczniesz korzystać z myclass, zapoznaj się z <a
 						href="#pricing">cennikiem</a>
 				</p>
-				<a class="btn btn-dark btn-xl js-scroll-trigger" href="#services">Załóż
+				<a class="btn btn-dark btn-xl js-scroll-trigger" href="${signup}">Załóż
 					konto</a>
 			</div>
 		</div>
@@ -211,7 +213,7 @@
 
 							<!--BUTTON START-->
 							<div class="generic_price_btn clearfix">
-								<a href="">Wybierz</a>
+								<a href="${signup}">Wybierz</a>
 							</div>
 							<!--//BUTTON END-->
 
@@ -268,7 +270,7 @@
 
 							<!--BUTTON START-->
 							<div class="generic_price_btn clearfix">
-								<a href="">Wybierz</a>
+								<a href="${signup}">Wybierz</a>
 							</div>
 							<!--//BUTTON END-->
 
@@ -326,7 +328,7 @@
 
 							<!--BUTTON START-->
 							<div class="generic_price_btn clearfix">
-								<a href="">Wybierz</a>
+								<a href="${signup}">Wybierz</a>
 							</div>
 							<!--//BUTTON END-->
 						</div>

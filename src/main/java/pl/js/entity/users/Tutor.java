@@ -20,10 +20,12 @@ public class Tutor extends User {
 		super(login, password);
 
 	}
+	
 
 	public Tutor() {
 
 	}
+	
 
 	@ManyToOne
 	Classroom classroom;
