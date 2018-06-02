@@ -15,7 +15,7 @@ import pl.js.entity.users.Admin;
 @Controller
 @Transactional
 
-public class HomeController {
+public class AdminController {
 
 	@Autowired
 	AdminDao adminDao;

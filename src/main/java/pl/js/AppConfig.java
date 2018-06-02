@@ -10,12 +10,13 @@ import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "pl.js")
+@ComponentScan(basePackages = "pl.js.*")
 @EnableTransactionManagement
 public class AppConfig extends WebMvcConfigurerAdapter {
 
@@ -38,6 +39,13 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
 		JpaTransactionManager tm = new JpaTransactionManager(emf);
 		return tm;
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+		registry.addResourceHandler("/css/**").addResourceLocations("/css/");
+		super.addResourceHandlers(registry);
 	}
 
 	/*
