@@ -37,7 +37,6 @@ public class LoginAndSignUpController {
 		Classroom classroomToView = classroomDao.findAById(classroomId);
 		model.addAttribute("class", classroomToView);
 		model.addAttribute("tutors", new Tutor());
-
 		return "signUpPage";
 	}
 
@@ -46,11 +45,11 @@ public class LoginAndSignUpController {
 		model.addAttribute("tutor", tutor);
 		session.setAttribute("tutor", tutor);
 		Classroom classroom = (Classroom) session.getAttribute("class");
-		long classroomId = classroom.getId();
 		tutor.setClassroom(classroom);
 		tutorDao.save(tutor);
-		return "tutorViews/tutorPanel";
+		return "redirect:/dashboard";
 	}
+
 
 	@GetMapping("/classroom")
 	public String classroom(Model model) {

@@ -7,9 +7,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "advancedSolutions")
 public class AdvancedSolution extends Solution {
-	
+	private double grade;
 	@ManyToOne
 	AdvancedExercise advancedExercise;
+
+	public double getGrade() {
+		return grade;
+	}
+
+	public void setGrade(double grade) {
+		this.grade = grade;
+	}
 
 	public AdvancedExercise getAdvancedExercise() {
 		return advancedExercise;

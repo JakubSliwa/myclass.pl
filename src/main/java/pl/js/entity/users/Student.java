@@ -8,7 +8,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import pl.js.entity.Classroom;
+import pl.js.entity.exercise.AdvancedExercise;
 import pl.js.entity.exercise.AdvancedSolution;
+import pl.js.entity.exercise.BasicExercise;
 import pl.js.entity.exercise.BasicSolution;
 
 @Entity
@@ -20,17 +22,23 @@ public class Student extends User {
 		// TODO Auto-generated constructor stub
 	}
 
+	private double grade;
+
 	public Student() {
 
 	}
 
-	private double grade;
 	@ManyToOne
 	Classroom classroom;
 	@OneToMany
 	List<BasicSolution> basicSolution;;
 	@OneToMany
 	List<AdvancedSolution> advancedSolution;;
+
+	@OneToMany
+	List<BasicExercise> basicExercises;;
+	@OneToMany
+	List<AdvancedExercise> advancedExercises;;
 
 	public Classroom getClassroom() {
 		return classroom;
@@ -62,6 +70,22 @@ public class Student extends User {
 
 	public void setAdvancedSolution(List<AdvancedSolution> advancedSolution) {
 		this.advancedSolution = advancedSolution;
+	}
+
+	public List<BasicExercise> getBasicExercises() {
+		return basicExercises;
+	}
+
+	public void setBasicExercises(List<BasicExercise> basicExercises) {
+		this.basicExercises = basicExercises;
+	}
+
+	public List<AdvancedExercise> getAdvancedExercises() {
+		return advancedExercises;
+	}
+
+	public void setAdvancedExercises(List<AdvancedExercise> advancedExercises) {
+		this.advancedExercises = advancedExercises;
 	}
 
 }

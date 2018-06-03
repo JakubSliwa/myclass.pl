@@ -16,34 +16,36 @@
 
 <!--===============================================================================================-->
 <link rel="icon" type="image/png"
-	href="vendor/login/images/icons/favicon.ico" />
+	href="resources/login/images/icons/favicon.ico" />
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	href="vendor/login/vendor/bootstrap/css/bootstrap.min.css">
+	href="resources/login/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	href="vendor/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	href="resources/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	href="vendor/login/fonts/iconic/css/material-design-iconic-font.min.css">
+	href="resources/login/fonts/iconic/css/material-design-iconic-font.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	href="vendor/login/vendor/animate/animate.css">
+	href="resources/login/vendor/animate/animate.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	href="vendor/login/vendor/css-hamburgers/hamburgers.min.css">
+	href="resources/login/vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	href="vendor/login/vendor/animsition/css/animsition.min.css">
+	href="resources/login/vendor/animsition/css/animsition.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	href="vendor/login/vendor/select2/select2.min.css">
+	href="resources/login/vendor/select2/select2.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	href="vendor/login/vendor/daterangepicker/daterangepicker.css">
+	href="resources/login/vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="vendor/login/css/util.css">
-<link rel="stylesheet" type="text/css" href="vendor/login/css/main.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/login/css/util.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/login/css/main.css">
 <!--===============================================================================================-->
 </head>
 
@@ -57,13 +59,15 @@
 						jedynym dostępnym pakietem jest pakiet basic. Twoja klasa to:
 						${class.name} </span>
 					<span class="login100-form-avatar"> <img
-						src="vendor/login/images/hello.png" alt="AVATAR">
+						src="resources/login/images/hello.png" alt="AVATAR">
 					</span>
+
 					<div class="wrap-input100 validate-input m-t-85 m-b-35"
 						data-validate="Wprowadź login">
-						<form:input path="login" type="text" name="login" />
+						<form:input path="login" class="input100" type="text" name="login" />
 						<span class="focus-input100" data-placeholder="Podaj swój login"></span>
 					</div>
+					
 					<div class="wrap-input100 validate-input m-b-50"
 						data-validate="Wprowadź hasło">
 						<form:input path="password" class="input100" type="password"
@@ -81,22 +85,21 @@
 			</div>
 		</div>
 	</div>
-	<script src="vendor/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="resources/login/vendor/jquery/jquery-3.2.1.min.js"></script>
 	<!--===============================================================================================-->
-	<script src="vendor/login/vendor/animsition/js/animsition.min.js"></script>
+	<script src="resources/login/vendor/animsition/js/animsition.min.js"></script>
 	<!--===============================================================================================-->
-	<script src="vendor/login/vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="resources/login/vendor/bootstrap/js/popper.js"></script>
+	<script src="resources/login/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<!--===============================================================================================-->
-	<script src="vendor/login/vendor/select2/select2.min.js"></script>
+	<script src="resources/login/vendor/select2/select2.min.js"></script>
 	<!--===============================================================================================-->
-	<script src="vendor/login/vendor/daterangepicker/moment.min.js"></script>
-	<script src="vendor/login/vendor/daterangepicker/daterangepicker.js"></script>
+	<script src="resources/login/vendor/daterangepicker/moment.min.js"></script>
+	<script src="resources/login/vendor/daterangepicker/daterangepicker.js"></script>
 	<!--===============================================================================================-->
-	<script src="vendor/login/vendor/countdowntime/countdowntime.js"></script>
+	<script src="resources/login/vendor/countdowntime/countdowntime.js"></script>
 	<!--===============================================================================================-->
-	<script src="vendor/login/js/main.js"></script>
-
+	<script src="resources/login/js/main.js"></script>
 </body>
 
 </html>

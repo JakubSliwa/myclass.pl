@@ -14,22 +14,27 @@
 <title>Myclass.pl - korepetycje pod kontrolą</title>
 
 <!-- Bootstrap Core CSS -->
-<link href="vendor/homepage/bootstrap/css/bootstrap.min.css"
+<link href="resources/homepage/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!-- Custom Fonts -->
-<link href="vendor/homepage/font-awesome/css/font-awesome.min.css"
+<link href="resources/homepage/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
 	rel="stylesheet" type="text/css">
-<link href="vendor/homepage/simple-line-icons/css/simple-line-icons.css"
+<link
+	href="resources/homepage/simple-line-icons/css/simple-line-icons.css"
 	rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="css/stylish-portfolio.min.css" rel="stylesheet">
-<link href="css/stylish-portfolio.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
+<link href="resources/homepage/css/stylish-portfolio.min.css"
+	rel="stylesheet">
+<link href="resources/homepage/css/stylish-portfolio.css"
+	rel="stylesheet">
+<link href="resources/homepage/css/style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="resources/tutorDashboard/js/gritter/css/jquery.gritter.css" />
 </head>
 
 <body id="page-top">
@@ -46,8 +51,6 @@
 			href="#about">Poznaj szczegóły</a></li>
 		<li class="sidebar-nav-item"><a class="js-scroll-trigger"
 			href="#services">Cennik</a></li>
-		<li class="sidebar-nav-item"><a class="js-scroll-trigger"
-			href="#portfolio">Portfolio</a></li>
 		<li class="sidebar-nav-item"><a class="js-scroll-trigger"
 			href="#callout">Kontakt</a></li>
 	</ul>
@@ -98,7 +101,7 @@
 		<div class="row">
 			<div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
 				<span class="service-icon rounded-circle mx-auto mb-3"> <i>
-						<img src="<c:url value="img/account.png"/>" />
+						<img src="<c:url value="resources/homepage/img/account.png"/>" />
 				</i>
 				</span>
 				<h4>
@@ -109,7 +112,7 @@
 			</div>
 			<div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
 				<span class="service-icon rounded-circle mx-auto mb-3"> <i>
-						<img src="<c:url value="img/control.png"/>" />
+						<img src="<c:url value="resources/homepage/img/control.png"/>" />
 				</i>
 				</span>
 				<h4>
@@ -120,7 +123,7 @@
 			</div>
 			<div class="col-lg-3 col-md-6 mb-5 mb-md-0">
 				<span class="service-icon rounded-circle mx-auto mb-3"> <i>
-						<img src="<c:url value="img/growth.png"/>" />
+						<img src="<c:url value="resources/homepage/img/growth.png"/>" />
 				</i>
 				</span>
 				<h4>
@@ -131,7 +134,7 @@
 			</div>
 			<div class="col-lg-3 col-md-6">
 				<span class="service-icon rounded-circle mx-auto mb-3"> <i>
-						<img src="<c:url value="img/cash.png"/>" />
+						<img src="<c:url value="resources/homepage/img/cash.png"/>" />
 				</i>
 				</span>
 				<h4>
@@ -376,6 +379,31 @@
 	</div>
 	</footer>
 
+	<div id="gritter-notice-wrapper">
+		<div id="gritter-item-1" class="gritter-item-wrapper my-sticky-class"
+			style="">
+			<div class="gritter-top"></div>
+			<div class="gritter-item">
+				<div class="gritter-close" style="display: inline;"></div>
+				<img src="resources/login/images/hello.png" class="gritter-image">
+				<div class="gritter-with-image">
+					<span class="gritter-title">Witaj!</span>
+					<p>
+						Nasza strona internetowa używa plików cookies (tzw. ciasteczka) w
+						celach statystycznych, reklamowych oraz funkcjonalnych. Dzięki nim
+						możemy indywidualnie dostosować stronę do twoich potrzeb. Każdy
+						może zaakceptować pliki cookies albo ma możliwość wyłączenia ich w
+						przeglądarce, dzięki czemu nie będą zbierane żadne informacje. <a
+							href="https://www.aboutcookies.org/" target="_blank"
+							style="color: #ffd777">Czytaj więcej </a>.
+					</p>
+				</div>
+				<div style="clear: both"></div>
+			</div>
+			<div class="gritter-bottom"></div>
+		</div>
+	</div>
+
 
 
 	<!-- Scroll to Top Button-->
@@ -384,16 +412,44 @@
 	</a>
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="vendor/homepage/jquery/jquery.min.js"></script>
-	<script src="vendor/homepage/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="resources/homepage/jquery/jquery.min.js"></script>
+	<script src="resources/homepage/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Plugin JavaScript -->
-	<script src="vendor/homepage/jquery-easing/jquery.easing.min.js"></script>
+	<script src="resources/homepage/jquery-easing/jquery.easing.min.js"></script>
 
 	<!-- Custom scripts for this template -->
-	<script src="js/stylish-portfolio.min.js"></script>
+	<script src="resources/homepage/js/stylish-portfolio.min.js"></script>
 
 
+
+	<script type="text/javascript"
+		src="resources/tutorDashboard/js/gritter/js/jquery.gritter.js"></script>
+	<script type="text/javascript"
+		src="resources/tutorDashboard/js/gritter-conf.js"></script>
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							var unique_id = $.gritter
+									.add({
+
+										title : 'Welcome to Dashgum!',
+
+										text : 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo. Free version for <a href="http://blacktie.co" target="_blank" style="color:#ffd777">BlackTie.co</a>.',
+
+										image : 'resources/tutorDashboard/img/ui-sam.jpg',
+
+										sticky : true,
+
+										time : '',
+
+										class_name : 'my-sticky-class'
+									});
+
+							return false;
+						});
+	</script>
 
 
 </body>
