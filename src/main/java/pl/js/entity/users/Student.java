@@ -9,8 +9,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import pl.js.entity.Classroom;
-import pl.js.entity.exercise.AdvancedExercise;
-import pl.js.entity.exercise.AdvancedSolution;
 import pl.js.entity.exercise.BasicExercise;
 import pl.js.entity.exercise.BasicSolution;
 
@@ -34,21 +32,14 @@ public class Student extends User {
 	Classroom classroom;
 	@OneToMany
 	List<BasicSolution> basicSolution;;
-	@OneToMany
-	List<AdvancedSolution> advancedSolution;;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "student")
 	List<BasicExercise> basicExercises;
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "student")
-	List<AdvancedExercise> advancedExercises;;
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((advancedExercises == null) ? 0 : advancedExercises.hashCode());
-		result = prime * result + ((advancedSolution == null) ? 0 : advancedSolution.hashCode());
 		result = prime * result + ((basicExercises == null) ? 0 : basicExercises.hashCode());
 		result = prime * result + ((basicSolution == null) ? 0 : basicSolution.hashCode());
 		result = prime * result + ((classroom == null) ? 0 : classroom.hashCode());
@@ -67,16 +58,6 @@ public class Student extends User {
 		if (getClass() != obj.getClass())
 			return false;
 		Student other = (Student) obj;
-		if (advancedExercises == null) {
-			if (other.advancedExercises != null)
-				return false;
-		} else if (!advancedExercises.equals(other.advancedExercises))
-			return false;
-		if (advancedSolution == null) {
-			if (other.advancedSolution != null)
-				return false;
-		} else if (!advancedSolution.equals(other.advancedSolution))
-			return false;
 		if (basicExercises == null) {
 			if (other.basicExercises != null)
 				return false;
@@ -127,22 +108,6 @@ public class Student extends User {
 
 	public void setBasicSolution(List<BasicSolution> basicSolution) {
 		this.basicSolution = basicSolution;
-	}
-
-	public List<AdvancedSolution> getAdvancedSolution() {
-		return advancedSolution;
-	}
-
-	public void setAdvancedSolution(List<AdvancedSolution> advancedSolution) {
-		this.advancedSolution = advancedSolution;
-	}
-
-	public List<AdvancedExercise> getAdvancedExercises() {
-		return advancedExercises;
-	}
-
-	public void setAdvancedExercises(List<AdvancedExercise> advancedExercises) {
-		this.advancedExercises = advancedExercises;
 	}
 
 }
