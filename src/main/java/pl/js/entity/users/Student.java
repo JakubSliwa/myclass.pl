@@ -14,17 +14,17 @@ import pl.js.entity.exercise.AdvancedSolution;
 import pl.js.entity.exercise.BasicExercise;
 import pl.js.entity.exercise.BasicSolution;
 
-
 @Entity
 @Table(name = "students")
 
 public class Student extends User {
 
-	public Student(String login, String password) {
-		super(login, password);
-	}
-
 	private double grade;
+
+	public Student(String login, String password, String email) {
+		super(login, password, email);
+
+	}
 
 	public Student() {
 
@@ -40,7 +40,7 @@ public class Student extends User {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "student")
 	List<BasicExercise> basicExercises;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "student")
 	List<AdvancedExercise> advancedExercises;;
 
 	@Override
