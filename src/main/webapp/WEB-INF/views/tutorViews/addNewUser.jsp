@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Tutor - zarządzaj swoją klasą</title>
+<title>Tutor - dodaj nowego studenta</title>
 <!-- Bootstrap core CSS -->
 <link href="resources/tutorDashboard/css/bootstrap.css" rel="stylesheet">
 <!--external css-->
@@ -41,7 +41,6 @@
 <body>
 	<c:url value="../sys_school/adduser" var="newUser" />
 	<c:url value="../sys_school/invitestudent" var="newStudent" />
-	<c:url value="../sys_school/createexercise" var="newExercise" />
 	<section id="container"> <!-- **********************************************************************************************************************************************************
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
@@ -196,80 +195,38 @@
 
 
 			<div class="row mt">
-				<div class="col-md-12">
-					<div class="content-panel">
-						<table class="table table-striped table-advance table-hover">
-							<h4>
-								<i class="fa fa-angle-right"></i> Ostatnio dodane zadania
-							</h4>
-							<hr>
-							<thead>
-								<tr>
-									<th><i class="fa fa-user"></i> Uczeń</th>
-									<th class="hidden-phone"><i class="fa fa-tasks"></i>
-										Zadanie</th>
-									<th><i class="fa fa-archive"></i>Treść zadania</th>
-									<th><i class=" fa fa-calendar-check-o"></i> Dodano</th>
-									<th><i class=" fa fa-calendar"></i> Deadline</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${basicExercises}" var="basicExercise">
-									<tr>
-										<td>${basicExercise.student.login}</td>
-										<td>${basicExercise.name}<br></td>
-										<td>${basicExercise.description}</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+				<div class="col-lg-12">
+					<div class="form-panel">
+						<h4 class="mb">
+							<i class="fa fa-angle-right"></i> Form Elements
+						</h4>
+						<form:form class="form-horizontal style-form" method="post"
+							modelAttribute="students">
+							<div class="form-group">
+								<label class="col-sm-2 col-sm-2 control-label">Login</label>
+								<div class="col-sm-10">
+									<form:input path="login" class="form-control" type="text"
+										placeholder="Podaj login nowego studenta" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 col-sm-2 control-label">Hasło</label>
+								<div class="col-sm-10">
+									<form:input path="password" class="form-control"
+										placeholder="Podaj hasło dostępu dla studenta" type="password" />
+								</div>
+							</div>
+
+							<input class="btn btn-primary"  type="submit"
+								value="Załóż nowe konto studenta">
+						</form:form>
 					</div>
-					<!-- /content-panel -->
 				</div>
-				<!-- /col-md-12 -->
-			</div>
-			<!-- /row -->
-			<div class="row mt">
-				<div class="col-md-12">
-					<div class="content-panel">
-						<table class="table table-striped table-advance table-hover">
-							<h4>
-								<i class="fa fa-angle-right"></i> Ostatnio dodane rozwiązania
-							</h4>
-							<hr>
-							<thead>
-								<tr>
-									<th><i class="fa fa-user"></i> Uczeń</th>
-									<th class="hidden-phone"><i class="fa fa-tasks"></i>
-										Zadanie</th>
-									<th><i class="fa fa-archive"></i>Odpowiedź</th>
-									<th><i class=" fa fa-calendar-check-o"></i> Dodano</th>
-									<th><i class=" fa fa-calendar"></i> Deadline</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${basicExercises}" var="basicExercise">
-									<tr>
-										<td>${basicExercise.student.login}</td>
-										<td>${basicExercise.name}<br></td>
-										<td>${basicExercise.description}</td>
-										<td>Data</td>
-										<td>Data</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
-					<!-- /content-panel -->
-				</div>
-				<!-- /col-md-12 -->
 			</div>
 			<!-- /row -->
 
+
+			<div class="row"></div>
 
 			<div class="row mt">
 				<!--CUSTOM CHART START -->
@@ -490,6 +447,11 @@
 		
 		
 		
+		
+		
+		
+		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -524,6 +486,11 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
+	
 	
 	
 	

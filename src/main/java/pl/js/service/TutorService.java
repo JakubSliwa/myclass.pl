@@ -1,11 +1,18 @@
 package pl.js.service;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import pl.js.dao.BasicExcerciseDao;
 import pl.js.dao.StudentDao;
+import pl.js.entity.Classroom;
 import pl.js.entity.exercise.BasicExercise;
+import pl.js.entity.users.Student;
 
 @Service
 public class TutorService {
@@ -15,9 +22,14 @@ public class TutorService {
 	@Autowired
 	BasicExcerciseDao basicExcerciseDao;
 
+	public void addNewStudent(@ModelAttribute Student student, HttpSession session) {
+		Classroom classroom = (Classroom) session.getAttribute("class");
+		student.setClassroom(classroom);
+		studentDao.save(student);
+	}
 
-	public void addNewExercise(BasicExercise basicExercise) {
-		basicExcerciseDao.save(basicExercise);
+	public List<Student> getStudentList() {
+		return studentDao.getAll();
 	}
 
 	public StudentDao getStudentDao() {
@@ -34,5 +46,15 @@ public class TutorService {
 
 	public void setBasicExcerciseDao(BasicExcerciseDao basicExcerciseDao) {
 		this.basicExcerciseDao = basicExcerciseDao;
+	}
+
+	public void addNewBasicExercise(@ModelAttribute BasicExercise basicExercise) {
+		basicExcerciseDao.save(basicExercise);
+
+	}
+
+	public List<BasicExercise> getBasicExerciseList() {
+
+		return basicExcerciseDao.getAll();
 	}
 }

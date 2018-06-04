@@ -55,9 +55,11 @@
 			<div class="wrap-login100 p-t-85 p-b-20">
 				<form:form method="post" modelAttribute="tutors"
 					class="login100-form validate-form">
-					<span class="login100-form-title p-b-70"> Witaj, obecnie
-						jedynym dostępnym pakietem jest pakiet basic. Twoja klasa to:
-						${class.name} </span>
+
+					<span class="login100-form-title p-b-70"> ${class.name} <br>
+					<h3>Witaj, obecnie jedynym dostępnym pakietem jest pakiet
+							basic.</h3>
+					</span>
 					<span class="login100-form-avatar"> <img
 						src="resources/login/images/hello.png" alt="AVATAR">
 					</span>
@@ -67,7 +69,7 @@
 						<form:input path="login" class="input100" type="text" name="login" />
 						<span class="focus-input100" data-placeholder="Podaj swój login"></span>
 					</div>
-					
+
 					<div class="wrap-input100 validate-input m-b-50"
 						data-validate="Wprowadź hasło">
 						<form:input path="password" class="input100" type="password"
