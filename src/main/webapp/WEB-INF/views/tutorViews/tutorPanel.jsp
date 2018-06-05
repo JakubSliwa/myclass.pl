@@ -255,7 +255,7 @@
 								<c:forEach items="${basicExercises}" var="basicExercise">
 									<tr>
 										<td>${basicExercise.student.login}</td>
-										<td>${basicExercise.name}<br></td>
+										<td>${basicExercise.title}<br></td>
 										<td>${basicExercise.description}</td>
 										<td>Data</td>
 										<td>Data</td>

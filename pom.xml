@@ -59,5 +59,6 @@
 			<artifactId>joda-time-hibernate</artifactId>
 			<version>1.4</version>
 		</dependency>
+
 	</dependencies>
 </project>

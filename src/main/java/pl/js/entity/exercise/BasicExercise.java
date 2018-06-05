@@ -33,7 +33,7 @@ public class BasicExercise extends Exercise {
 	}
 
 	public void setAdded(DateTime added) {
-		this.added = added;
+		this.added = DateTime.now();
 	}
 
 	public DateTime getDeadline() {
@@ -41,7 +41,8 @@ public class BasicExercise extends Exercise {
 	}
 
 	public void setDeadline(DateTime deadline) {
-		this.deadline = deadline;
+		this.deadline = DateTime.now();
+
 	}
 
 	@Override

@@ -5,9 +5,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
-
 @MappedSuperclass
 public abstract class Exercise {
 	@Id
@@ -15,7 +12,6 @@ public abstract class Exercise {
 	private long id;
 	private String title;
 	private String description;
-	
 
 	public long getId() {
 		return id;
@@ -40,8 +36,6 @@ public abstract class Exercise {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-
 
 	@Override
 	public int hashCode() {

@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Tutor - dodaj nowego studenta</title>
+<title>Tutor - dodaj nowe zadanie</title>
 <!-- Bootstrap core CSS -->
 <link href="resources/tutorDashboard/css/bootstrap.css" rel="stylesheet">
 <!--external css-->
@@ -203,8 +203,8 @@
 								<label class="col-sm-2 col-sm-2 control-label">Temat
 									zadania</label>
 								<div class="col-sm-10">
-									<form:input path="name" class="form-control" type="text"
-										placeholder="Nazwij zadanie" />
+									<form:input path="title" class="form-control" type="text"
+										placeholder="Tytuł zadania" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -223,6 +223,13 @@
 										items="${students}" />
 								</div>
 							</div>
+							<div class="form-group">
+								<label class="col-sm-2 col-sm-2 control-label">Do kiedy?</label>
+								<div class="col-sm-10" class="form-control">
+									<form:input itemValue="deadline" path="deadline" type="date" />
+								</div>
+							</div> --%>
+
 
 							<input class="btn btn-primary" type="submit"
 								value="Dodaj zadanie">
@@ -477,6 +484,10 @@
 		
 		
 		
+		
+		
+		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -511,6 +522,10 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
 	
 	
 	
