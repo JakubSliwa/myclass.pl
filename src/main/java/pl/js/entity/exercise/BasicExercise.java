@@ -1,24 +1,30 @@
 package pl.js.entity.exercise;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import pl.js.entity.users.Student;
 
 @Entity
 @Table(name = "basicExercises")
+
 public class BasicExercise extends Exercise {
 	@ManyToOne(fetch = FetchType.EAGER)
 	Student student;
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime added;
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime deadline;
+	@Column
+	private LocalDate added;
+
+	@Column
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	private LocalDateTime deadline;
 
 	public Student getStudent() {
 		return student;
@@ -28,21 +34,20 @@ public class BasicExercise extends Exercise {
 		this.student = student;
 	}
 
-	public DateTime getAdded() {
+	public LocalDate getAdded() {
 		return added;
 	}
 
-	public void setAdded(DateTime added) {
-		this.added = DateTime.now();
+	public void setAdded(LocalDate added) {
+		this.added = added;
 	}
 
-	public DateTime getDeadline() {
+	public LocalDateTime getDeadline() {
 		return deadline;
 	}
 
-	public void setDeadline(DateTime deadline) {
-		this.deadline = DateTime.now();
-
+	public void setDeadline(LocalDateTime deadline) {
+		this.deadline = deadline;
 	}
 
 	@Override

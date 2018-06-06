@@ -1,13 +1,14 @@
 package pl.js.service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -53,6 +54,8 @@ public class TutorService {
 	}
 
 	public void addNewBasicExercise(@ModelAttribute BasicExercise basicExercise) {
+		basicExercise.setAdded(LocalDate.now());
+		basicExercise.setDeadline(LocalDateTime.now().plusDays(14));
 		basicExcerciseDao.save(basicExercise);
 	}
 

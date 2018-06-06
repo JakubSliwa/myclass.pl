@@ -209,8 +209,8 @@
 									<th class="hidden-phone"><i class="fa fa-tasks"></i>
 										Zadanie</th>
 									<th><i class="fa fa-archive"></i>Treść zadania</th>
-									<th><i class=" fa fa-calendar-check-o"></i> Dodano</th>
-									<th><i class=" fa fa-calendar"></i> Deadline</th>
+									<th><i class=" fa fa-calendar"></i>Dodano</th>
+									<th><i class=" fa fa-calendar"></i>Deadline</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -218,10 +218,10 @@
 								<c:forEach items="${basicExercises}" var="basicExercise">
 									<tr>
 										<td>${basicExercise.student.login}</td>
-										<td>${basicExercise.name}<br></td>
+										<td>${basicExercise.title}<br></td>
 										<td>${basicExercise.description}</td>
-										<td>Data</td>
-										<td>Data</td>
+										<td>${basicExercise.added}</td>
+										<td>${basicExercise.deadline}</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -257,8 +257,8 @@
 										<td>${basicExercise.student.login}</td>
 										<td>${basicExercise.title}<br></td>
 										<td>${basicExercise.description}</td>
-										<td>Data</td>
-										<td>Data</td>
+										<td>${basicExercise.added}</td>
+										<td>${basicExercise.deadline}</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -490,6 +490,7 @@
 		
 		
 		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -506,7 +507,7 @@
                     return myNavFunction(this.id);
                 },
                 ajax: {
-                    url: "show_data.php?action=1",
+                    url: "show_data.?action=1",
                     modal: true
                 },
                 legend: [
@@ -524,6 +525,7 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
 	
 	
 	

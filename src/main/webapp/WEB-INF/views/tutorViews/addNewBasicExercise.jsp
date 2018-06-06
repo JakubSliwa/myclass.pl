@@ -223,14 +223,12 @@
 										items="${students}" />
 								</div>
 							</div>
-							<div class="form-group">
+							<%-- <div class="form-group">
 								<label class="col-sm-2 col-sm-2 control-label">Do kiedy?</label>
 								<div class="col-sm-10" class="form-control">
-									<form:input itemValue="deadline" path="deadline" type="date" />
+									<form:input itemValue="deadline" path="deadline" type="datetime" />
 								</div>
 							</div> --%>
-
-
 							<input class="btn btn-primary" type="submit"
 								value="Dodaj zadanie">
 						</form:form>
@@ -488,6 +486,11 @@
 		
 		
 		
+		
+		
+		
+		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -522,6 +525,11 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
+	
 	
 	
 	

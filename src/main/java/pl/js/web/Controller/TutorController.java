@@ -1,15 +1,17 @@
 package pl.js.web.Controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +28,13 @@ public class TutorController {
 
 	@Autowired
 	StudentService studentService;
+
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+	}
 
 	public TutorController(TutorService tutorService, StudentService studentService) {
 		this.tutorService = tutorService;
@@ -66,7 +75,6 @@ public class TutorController {
 
 	@PostMapping("/createexercise")
 	public String addNewExercise(@ModelAttribute BasicExercise basicExercise) {
-
 		tutorService.addNewBasicExercise(basicExercise);
 		return "redirect:/dashboard";
 	}
