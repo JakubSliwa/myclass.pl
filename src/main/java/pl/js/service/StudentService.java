@@ -1,16 +1,11 @@
 package pl.js.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import pl.js.entity.users.Student;
 
-import pl.js.dao.StudentDao;
+public interface StudentService {
+	public Student findStudentByEmail(String email);
 
-@Service
-@SessionAttributes({ "class" })
-public class StudentService {
-	@Autowired
-	StudentDao studentDao;
+	public void save(Student student);
 
-	
+	public Student findByUserName(String username);
 }

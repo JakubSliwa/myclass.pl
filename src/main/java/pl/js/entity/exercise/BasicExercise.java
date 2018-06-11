@@ -19,12 +19,20 @@ import pl.js.entity.users.Student;
 public class BasicExercise extends Exercise {
 	@ManyToOne(fetch = FetchType.EAGER)
 	Student student;
-	@Column
+
 	private LocalDate added;
 
-	@Column
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	private LocalDateTime deadline;
+	private LocalDate deadline;
+
+	private int daysToAdd;
+
+	public int getDaysToAdd() {
+		return daysToAdd;
+	}
+
+	public void setDaysToAdd(int daysToAdd) {
+		this.daysToAdd = daysToAdd;
+	}
 
 	public Student getStudent() {
 		return student;
@@ -42,12 +50,12 @@ public class BasicExercise extends Exercise {
 		this.added = added;
 	}
 
-	public LocalDateTime getDeadline() {
+	public LocalDate getDeadline() {
 		return deadline;
 	}
 
-	public void setDeadline(LocalDateTime deadline) {
-		this.deadline = deadline;
+	public void setDeadline(int daysToAdd) {
+		this.deadline = LocalDate.now().plusDays(daysToAdd);
 	}
 
 	@Override

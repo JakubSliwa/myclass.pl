@@ -56,7 +56,14 @@
 								<label class="col-sm-2 col-sm-2 control-label">Login</label>
 								<div class="col-sm-10">
 									<form:input path="login" class="form-control" type="text"
-										placeholder="Podaj login nowego studenta" />
+										placeholder="Podaj login nowego ucznia" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 col-sm-2 control-label">Email</label>
+								<div class="col-sm-10">
+									<form:input path="email" class="form-control"
+										placeholder="Podaj adres email nowego ucznia" type="email" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -306,6 +313,9 @@
 		
 		
 		
+		
+		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -340,6 +350,9 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
 	
 	
 	

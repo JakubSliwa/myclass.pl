@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Myclass.pl - panel rejestracji</title>
+<title>Myclass.pl - panel logowania</title>
 
 <!--===============================================================================================-->
 <link rel="icon" type="image/png"
@@ -56,9 +56,8 @@
 				<form:form method="post" modelAttribute="tutors"
 					class="login100-form validate-form">
 
-					<span class="login100-form-title p-b-70"> ${class.name} <br>
-						<h3>Witaj, obecnie jedynym dostępnym pakietem jest pakiet
-							basic.</h3>
+					<span class="login100-form-title p-b-70"> <br>
+						<h3>Myclass.pl</h3>
 					</span>
 					<span class="login100-form-avatar"> <img
 						src="resources/login/images/hello.png" alt="AVATAR">

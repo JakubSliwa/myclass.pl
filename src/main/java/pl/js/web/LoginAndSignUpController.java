@@ -2,18 +2,24 @@ package pl.js.web;
 
 import javax.servlet.http.HttpSession;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pl.js.dao.ClassroomDao;
 import pl.js.dao.TutorDao;
 import pl.js.entity.Classroom;
+import pl.js.entity.users.Student;
 import pl.js.entity.users.Tutor;
+import pl.js.entity.users.User;
+import pl.js.repository.StudentRepository;
 
 @Controller
 @SessionAttributes({ "class", "	tutor" })
@@ -24,10 +30,25 @@ public class LoginAndSignUpController {
 	@Autowired
 	TutorDao tutorDao;
 
+	@Autowired
+	StudentRepository studentRepository;
+
 	@GetMapping("/login")
 	public String login() {
 
 		return "loginPage";
+	}
+
+	@PostMapping("/loginUser")
+	@ResponseBody
+	public String loginUser(@RequestParam String email, @RequestParam String password) {
+		Student student = studentRepository.findByEmail(email);
+		
+		
+		if (BCrypt.checkpw(password, student.getPassword())) {
+			return "success";
+		}
+		return "fail";
 	}
 
 	@GetMapping("/signup")
@@ -49,7 +70,6 @@ public class LoginAndSignUpController {
 		tutorDao.save(tutor);
 		return "redirect:/dashboard";
 	}
-
 
 	@GetMapping("/classroom")
 	public String classroom(Model model) {

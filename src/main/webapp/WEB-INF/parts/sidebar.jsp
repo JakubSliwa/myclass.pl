@@ -7,6 +7,7 @@
 <head>
 </head>
 <body>
+	<c:url value="../sys_school/dashboard" var="dashboard" />
 	<aside>
 	<div id="sidebar" class="nav-collapse ">
 		<!-- sidebar menu start-->
@@ -19,7 +20,7 @@
 			</p>
 			<h5 class="centered">${tutor.login}</h5>
 
-			<li class="mt"><a class="active" href="index.html"> <i
+			<li class="mt"><a class="active" href="${dashboard}"> <i
 					class="fa fa-dashboard"></i> <span>Panel główny</span>
 			</a></li>
 

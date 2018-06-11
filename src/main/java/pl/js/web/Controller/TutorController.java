@@ -1,8 +1,13 @@
 package pl.js.web.Controller;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +20,26 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import pl.js.dao.ClassroomDao;
+import pl.js.dao.StudentDao;
 import pl.js.entity.exercise.BasicExercise;
 import pl.js.entity.users.Student;
 import pl.js.service.StudentService;
 import pl.js.service.TutorService;
 
 @Controller
+@SessionAttributes({ "class" })
 public class TutorController {
 	@Autowired
 	TutorService tutorService;
-
 	@Autowired
 	StudentService studentService;
+	@Autowired
+	StudentDao studentDao;
+	@Autowired
+	ClassroomDao classroomDao;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -55,7 +67,8 @@ public class TutorController {
 	}
 
 	@GetMapping("/invitestudent")
-	public String showViewToAddNewStudent(Model model) {
+	public String showViewToAddNewStudent(HttpSession session, Model model) {
+
 		model.addAttribute("students", new Student());
 		return "tutorViews/addNewUser";
 	}
@@ -75,6 +88,7 @@ public class TutorController {
 
 	@PostMapping("/createexercise")
 	public String addNewExercise(@ModelAttribute BasicExercise basicExercise) {
+
 		tutorService.addNewBasicExercise(basicExercise);
 		return "redirect:/dashboard";
 	}

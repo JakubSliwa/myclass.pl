@@ -1,12 +1,11 @@
 package pl.js.service;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,12 +54,12 @@ public class TutorService {
 
 	public void addNewBasicExercise(@ModelAttribute BasicExercise basicExercise) {
 		basicExercise.setAdded(LocalDate.now());
-		basicExercise.setDeadline(LocalDateTime.now().plusDays(14));
+		basicExercise.setDeadline(basicExercise.getDaysToAdd());
 		basicExcerciseDao.save(basicExercise);
 	}
 
 	public List<BasicExercise> getBasicExerciseList() {
-
 		return basicExcerciseDao.getAll();
 	}
+
 }

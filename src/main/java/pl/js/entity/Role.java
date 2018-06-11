@@ -4,13 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import pl.js.entity.users.User;
+
 @Entity
-@Table(name = "classrooms")
-
-public class Classroom {
-
+@Table(name = "roles")
+public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -33,7 +34,7 @@ public class Classroom {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Classroom other = (Classroom) obj;
+		Role other = (Role) obj;
 		if (id != other.id)
 			return false;
 		if (name == null) {

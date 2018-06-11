@@ -18,15 +18,6 @@ public class Tutor extends User {
 
 	}
 
-	@ManyToOne
-	Classroom classroom;
 
-	public Classroom getClassroom() {
-		return classroom;
-	}
-
-	public void setClassroom(Classroom classroom) {
-		this.classroom = classroom;
-	}
 
 }
