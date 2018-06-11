@@ -18,7 +18,7 @@
 					src="resources/login/images/hello.png" class="img-circle"
 					width="60"></a>
 			</p>
-			<h5 class="centered">${tutor.login}</h5>
+			<h5 class="centered">${tutor.username}</h5>
 
 			<li class="mt"><a class="active" href="${dashboard}"> <i
 					class="fa fa-dashboard"></i> <span>Panel główny</span>

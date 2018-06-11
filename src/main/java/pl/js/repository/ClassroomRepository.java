@@ -7,5 +7,7 @@ import pl.js.entity.Classroom;
 
 @Repository
 public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
-	
+
+	Classroom findAById(long classroomId);
+
 }

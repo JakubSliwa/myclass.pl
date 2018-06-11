@@ -66,7 +66,7 @@
 			<em>Twój system zarządzania lekcjami.</em>
 		</h3>
 
-		` <a class="btn btn-primary btn-xl js-scroll-trigger" href="${login}">Zaloguj
+		 <a class="btn btn-primary btn-xl js-scroll-trigger" href="${login}">Zaloguj
 			się</a> &nbsp; &nbsp; &nbsp;<a
 			class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Poznaj
 			szczegóły</a>

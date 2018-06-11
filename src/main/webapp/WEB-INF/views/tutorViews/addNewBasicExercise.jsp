@@ -70,7 +70,7 @@
 								<label class="col-sm-2 col-sm-2 control-label">Kto ma
 									wykonać?</label>
 								<div class="col-sm-10">
-									<form:select itemValue="id" path="student.id" itemLabel="login"
+									<form:select itemValue="id" path="student.id" itemLabel="username"
 										items="${students}" />
 								</div>
 							</div>

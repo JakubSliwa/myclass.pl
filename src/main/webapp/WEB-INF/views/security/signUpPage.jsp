@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@	taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%-- <%@	taglib prefix="form" uri="http://www.springframework.org/tags/form"%> --%>
+<%@	taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Myclass.pl - panel logowania</title>
+<title>Myclass.pl - panel rejestracji</title>
 
 <!--===============================================================================================-->
 <link rel="icon" type="image/png"
@@ -53,39 +53,41 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-t-85 p-b-20">
-				<form method="post" action="loginUser"
+				<form:form method="post" modelAttribute="tutors"
 					class="login100-form validate-form">
 
-					<span class="login100-form-title p-b-70"> <br>
-						<h3>Myclass.pl</h3>
-					</span> <span class="login100-form-avatar"> <img
+					<span class="login100-form-title p-b-70"> ${class.name} <br>
+						<h3>Witaj, obecnie jedynym dostępnym pakietem jest pakiet
+							basic.</h3>
+					</span>
+					<span class="login100-form-avatar"> <img
 						src="resources/login/images/hello.png" alt="AVATAR">
 					</span>
 
 					<div class="wrap-input100 validate-input m-t-85 m-b-35"
 						data-validate="Wprowadź login">
-						<input class="input100" type="text" name="login" /> <span
-							class="focus-input100" data-placeholder="Podaj swój login"></span>
+						<form:input path="username" class="input100" type="text" name="username" />
+						<span class="focus-input100" data-placeholder="Podaj swój login"></span>
 					</div>
 					<div class="wrap-input100 validate-input m-b-50"
 						data-validate="Wprowadź email">
-						<input class="input100" type="text" name="email" />
+						<form:input path="email" class="input100" type="text" name="email" />
 						<span class="focus-input100" data-placeholder="Podaj swój email"></span>
 					</div>
 					<div class="wrap-input100 validate-input m-b-50"
 						data-validate="Wprowadź hasło">
-						<input class="input100" type="password"
-							name="password" /> <span class="focus-input100"
-							data-placeholder="Podaj swoje hasło"></span>
+						<form:input path="password" class="input100" type="password"
+							name="password" />
+						<span class="focus-input100" data-placeholder="Podaj swoje hasło"></span>
 					</div>
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">Zaloguj się</button>
+						<button class="login100-form-btn">Zarejestruj się</button>
 					</div>
 					<ul class="login-more p-t-190">
 						<li class="m-b-8"><span class="txt1"> Potrzebujesz
 								pomocy?</span> <a href="#" class="txt2"> Kliknij tutaj</a></li>
 					</ul>
-				</form>
+				</form:form>
 			</div>
 		</div>
 	</div>

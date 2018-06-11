@@ -8,6 +8,7 @@
 </head>
 <body>
 	<c:url value="../sys_school/dashboard" var="dashboard" />
+	<c:url value="../sys_school/logout" var="logout" />
 	<header class="header black-bg">
 	<div class="sidebar-toggle-box">
 		<div class="fa fa-bars tooltips" data-placement="right"
@@ -61,7 +62,7 @@
 	</div>
 	<div class="top-menu">
 		<ul class="nav pull-right top-menu">
-			<li><a class="logout" href="login.html">Logout</a></li>
+			<li><a class="logout" href="logout">Logout</a></li>
 		</ul>
 	</div>
 	</header>

@@ -13,52 +13,100 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import pl.js.dao.ClassroomDao;
-import pl.js.dao.TutorDao;
 import pl.js.entity.Classroom;
 import pl.js.entity.users.Student;
 import pl.js.entity.users.Tutor;
-import pl.js.entity.users.User;
+import pl.js.repository.ClassroomRepository;
 import pl.js.repository.StudentRepository;
+import pl.js.repository.TutorRepository;
+import pl.js.service.ClassroomService;
+import pl.js.service.TutorService;
 
 @Controller
 @SessionAttributes({ "class", "	tutor" })
 public class LoginAndSignUpController {
 	@Autowired
-	ClassroomDao classroomDao;
-
+	ClassroomRepository classroomRepository;
 	@Autowired
-	TutorDao tutorDao;
+	ClassroomService classroomService;
+	@Autowired
+	TutorRepository tutorRepository;
 
 	@Autowired
 	StudentRepository studentRepository;
+	@Autowired
+	TutorService tutorService;
 
 	@GetMapping("/login")
 	public String login() {
 
-		return "loginPage";
+		return "security/preLoginPage";
 	}
 
-	@PostMapping("/loginUser")
-	@ResponseBody
-	public String loginUser(@RequestParam String email, @RequestParam String password) {
-		Student student = studentRepository.findByEmail(email);
-		
-		
-		if (BCrypt.checkpw(password, student.getPassword())) {
-			return "success";
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.getMaxInactiveInterval();
+		return "security/logout";
+	}
+
+	@GetMapping("/loginTutor")
+	public String loginTutor() {
+
+		return "security/tutorLoginPage";
+	}
+
+	@PostMapping("/loginTutor")
+	public String loginTutor(@RequestParam String email, @RequestParam String password, HttpSession session,
+			Model model) {
+		Tutor tutor = tutorRepository.findByEmail(email);
+		if (tutor == null) {
+			return "errors/nullPointerError";
 		}
-		return "fail";
+		session.setAttribute("tutor", tutor);
+		session.setAttribute("class", tutor.getClassroom());
+		if ((BCrypt.checkpw(password, tutor.getPassword()) && "ROLE_TUTOR".equals(tutor.getRole().getRole()))) {
+			return "redirect:/dashboard";
+		} else {
+			return "errors/loginError";
+		}
+
+	}
+
+	@GetMapping("/loginStudent")
+	public String loginStudent() {
+
+		return "security/studentLoginPage";
+	}
+
+	@PostMapping("/loginStudent")
+	@ResponseBody
+	public String loginStudent(@RequestParam String email, @RequestParam String password, HttpSession session,
+			Model model) {
+		Student student = studentRepository.findByEmail(email);
+		if (student == null) {
+			return "errors/nullPointerError";
+		}
+		session.setAttribute("student", student);
+		session.setAttribute("class", student.getClassroom());
+		if ((BCrypt.checkpw(password, student.getPassword()) && "ROLE_STUDENT".equals(student.getRole().getRole()))) {
+			return "success " + password + " " + student.getPassword();
+		} else {
+			return "errors/loginError";
+		}
 	}
 
 	@GetMapping("/signup")
 	public String signUp(HttpSession session, Model model) {
-		Classroom classroom = (Classroom) session.getAttribute("class");
-		long classroomId = classroom.getId();
-		Classroom classroomToView = classroomDao.findAById(classroomId);
-		model.addAttribute("class", classroomToView);
+		Long id;
+		try {
+			id = classroomService.getClassroomId(session);
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+
+		}
+		model.addAttribute("class", id);
 		model.addAttribute("tutors", new Tutor());
-		return "signUpPage";
+		return "security/signUpPage";
 	}
 
 	@PostMapping("/signup")
@@ -67,7 +115,7 @@ public class LoginAndSignUpController {
 		session.setAttribute("tutor", tutor);
 		Classroom classroom = (Classroom) session.getAttribute("class");
 		tutor.setClassroom(classroom);
-		tutorDao.save(tutor);
+		tutorService.save(tutor);
 		return "redirect:/dashboard";
 	}
 
@@ -81,7 +129,7 @@ public class LoginAndSignUpController {
 	public String createClassroom(@ModelAttribute Classroom classroom, Model model, HttpSession session) {
 		session.setAttribute("class", classroom);
 		model.addAttribute("class", classroom);
-		classroomDao.save(classroom);
+		classroomRepository.save(classroom);
 		return "redirect:/signup";
 	}
 }

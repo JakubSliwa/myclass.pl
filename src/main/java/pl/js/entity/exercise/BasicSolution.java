@@ -6,12 +6,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "basicSolutions")
+
 public class BasicSolution extends Solution {
 
 	@ManyToOne
 	BasicExercise basicExercise;
-    
 
+	public BasicSolution() {
+		super();
+
+	}
 
 	public BasicExercise getBasicExercise() {
 		return basicExercise;
@@ -45,4 +49,5 @@ public class BasicSolution extends Solution {
 			return false;
 		return true;
 	}
+
 }

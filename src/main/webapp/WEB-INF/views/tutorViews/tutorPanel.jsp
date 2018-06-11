@@ -40,7 +40,7 @@
 			<%@ include file="/WEB-INF/parts/topMenu.jsp"%>
 			<!-- /row mt -->
 
-
+			
 			<div class="row mt">
 				<div class="col-md-12">
 					<div class="content-panel">
@@ -63,7 +63,7 @@
 							<tbody>
 								<c:forEach items="${basicExercises}" var="basicExercise">
 									<tr>
-										<td>${basicExercise.student.login}</td>
+										<td>${basicExercise.student.username}</td>
 										<td>${basicExercise.title}<br></td>
 										<td>${basicExercise.description}</td>
 										<td>${basicExercise.added}</td>
@@ -100,7 +100,7 @@
 							<tbody>
 								<c:forEach items="${basicExercises}" var="basicExercise">
 									<tr>
-										<td>${basicExercise.student.login}</td>
+										<td>${basicExercise.student.username}</td>
 										<td>${basicExercise.title}<br></td>
 										<td>${basicExercise.description}</td>
 										<td>${basicExercise.added}</td>

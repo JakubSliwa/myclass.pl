@@ -1,31 +1,21 @@
 package pl.js.web.Controller;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import pl.js.dao.ClassroomDao;
-import pl.js.dao.StudentDao;
 import pl.js.entity.exercise.BasicExercise;
 import pl.js.entity.users.Student;
+import pl.js.repository.ClassroomRepository;
+import pl.js.repository.StudentRepository;
+import pl.js.service.ClassroomService;
 import pl.js.service.StudentService;
 import pl.js.service.TutorService;
 
@@ -37,26 +27,24 @@ public class TutorController {
 	@Autowired
 	StudentService studentService;
 	@Autowired
-	StudentDao studentDao;
+	StudentRepository studentRepository;
 	@Autowired
-	ClassroomDao classroomDao;
-
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(false);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-	}
-
-	public TutorController(TutorService tutorService, StudentService studentService) {
-		this.tutorService = tutorService;
-		this.studentService = studentService;
-	}
+	ClassroomRepository classroomRepository;
+	@Autowired
+	ClassroomService classroomService;
 
 	@GetMapping("/dashboard")
-	public String showTutorDashboard(Model model) {
-		model.addAttribute("students", tutorService.getStudentList());
-		model.addAttribute("basicExercises", tutorService.getBasicExerciseList());
+	public String showTutorDashboard(Model model, HttpSession session) {
+		Long id;
+		try {
+			id = classroomService.getClassroomId(session);
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+
+		}
+
+		model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+		model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
 		return "tutorViews/tutorPanel";
 	}
 
@@ -68,7 +56,13 @@ public class TutorController {
 
 	@GetMapping("/invitestudent")
 	public String showViewToAddNewStudent(HttpSession session, Model model) {
+		Long id;
+		try {
+			id = classroomService.getClassroomId(session);
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
 
+		}
 		model.addAttribute("students", new Student());
 		return "tutorViews/addNewUser";
 	}
@@ -80,16 +74,22 @@ public class TutorController {
 	}
 
 	@GetMapping("/createexercise")
-	public String showViewToAddNewExercise(Model model) {
+	public String showViewToAddNewExercise(Model model, HttpSession session) {
+		Long id;
+		try {
+			id = classroomService.getClassroomId(session);
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+
+		}
 		model.addAttribute("basicExercises", new BasicExercise());
-		model.addAttribute("students", tutorService.getStudentList());
+		model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 		return "tutorViews/addNewBasicExercise";
 	}
 
 	@PostMapping("/createexercise")
-	public String addNewExercise(@ModelAttribute BasicExercise basicExercise) {
-
-		tutorService.addNewBasicExercise(basicExercise);
+	public String addNewExercise(@ModelAttribute BasicExercise basicExercise, HttpSession session) {
+		tutorService.addNewBasicExercise(basicExercise, session);
 		return "redirect:/dashboard";
 	}
 
