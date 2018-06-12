@@ -1,5 +1,6 @@
 package pl.js.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +18,7 @@ public class Classroom {
 	private Long id;
 	@NotNull
 	@Size(min = 2, max = 30)
+	@Column(unique = true)
 	private String name;
 
 	public Classroom() {

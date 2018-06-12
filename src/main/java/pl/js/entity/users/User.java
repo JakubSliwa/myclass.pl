@@ -24,12 +24,13 @@ public abstract class User {
 	private Long id;
 	@NotNull
 	@Size(min = 2, max = 30)
-	@Column(unique=true)
+	@Column(unique = true)
 	private String username;
 	@Transient
 	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}")
 	private String password;
 	@Email
+	@Column(unique = true)
 	private String email;
 	@ManyToOne
 	Role role;

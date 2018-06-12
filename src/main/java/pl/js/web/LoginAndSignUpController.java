@@ -2,6 +2,7 @@ package pl.js.web;
 
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,7 +48,6 @@ public class LoginAndSignUpController {
 
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		session.getMaxInactiveInterval();
 		return "security/logout";
 	}
 
@@ -134,6 +134,8 @@ public class LoginAndSignUpController {
 				tutorService.save(tutor);
 			} catch (NullPointerException e) {
 				return "errors/getClassroomError";
+			} catch (Exception e) {
+				return "errors/nonUniqueTutorNameOrEmail";
 			}
 			return "redirect:/dashboard";
 		}
@@ -151,9 +153,13 @@ public class LoginAndSignUpController {
 		if (result.hasErrors()) {
 			return "createClassroom";
 		} else {
-			session.setAttribute("class", classroom);
-			model.addAttribute("class", classroom);
-			classroomRepository.save(classroom);
+			try {
+				session.setAttribute("class", classroom);
+				model.addAttribute("class", classroom);
+				classroomRepository.save(classroom);
+			} catch (Exception e) {
+				return "errors/nonUniqueName";
+			}
 			return "redirect:/signup";
 		}
 
