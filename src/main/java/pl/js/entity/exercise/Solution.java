@@ -4,13 +4,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Range;
 
 @MappedSuperclass
 public abstract class Solution {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Size(min = 1, max = 600)
 	private String answer;
+	@Range(min = (long) 1.0, max = (long) 6.0)
 	private double grade;
 
 	public Solution() {

@@ -4,36 +4,45 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Size;
 
 @MappedSuperclass
 public abstract class Exercise {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Size(min = 1, max = 300)
 	private String title;
+	@Size(min = 1, max = 600)
 	private String description;
-	
-	
+
 	public Exercise() {
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -43,6 +52,7 @@ public abstract class Exercise {
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -69,8 +79,5 @@ public abstract class Exercise {
 			return false;
 		return true;
 	}
-	
-	
-	
 
 }

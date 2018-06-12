@@ -1,5 +1,6 @@
 package pl.js.entity.users;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,9 +24,10 @@ public abstract class User {
 	private Long id;
 	@NotNull
 	@Size(min = 2, max = 30)
+	@Column(unique=true)
 	private String username;
 	@Transient
-	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\\\S+$).{8,}")
+	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}")
 	private String password;
 	@Email
 	private String email;

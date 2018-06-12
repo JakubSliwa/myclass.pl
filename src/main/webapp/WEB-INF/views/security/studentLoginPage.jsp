@@ -62,11 +62,7 @@
 						src="resources/login/images/hello.png" alt="AVATAR">
 					</span>
 
-					<div class="wrap-input100 validate-input m-t-85 m-b-35"
-						data-validate="Wprowadź login">
-						<input class="input100" type="text" name="login" /> <span
-							class="focus-input100" data-placeholder="Podaj swój login"></span>
-					</div>
+
 					<div class="wrap-input100 validate-input m-b-50"
 						data-validate="Wprowadź email">
 						<input class="input100" type="text" name="email" /> <span

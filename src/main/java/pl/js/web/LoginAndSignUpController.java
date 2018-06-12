@@ -6,6 +6,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,16 +63,15 @@ public class LoginAndSignUpController {
 		Tutor tutor;
 		try {
 			tutor = tutorRepository.findByEmail(email);
-		} catch (Exception e) {
-			return "errors/nullPointerError";
-		}
-
-		session.setAttribute("tutor", tutor);
-		session.setAttribute("class", tutor.getClassroom());
-		if ((BCrypt.checkpw(password, tutor.getPassword()) && "ROLE_TUTOR".equals(tutor.getRole().getRole()))) {
-			return "redirect:/dashboard";
-		} else {
-			return "errors/loginError";
+			session.setAttribute("tutor", tutor);
+			session.setAttribute("class", tutor.getClassroom());
+			if ((BCrypt.checkpw(password, tutor.getPassword()) && "ROLE_TUTOR".equals(tutor.getRole().getRole()))) {
+				return "redirect:/dashboard";
+			} else {
+				return "errors/loginPasswordError";
+			}
+		} catch (NullPointerException e) {
+			return "errors/loginEmailError";
 		}
 
 	}
@@ -88,17 +89,18 @@ public class LoginAndSignUpController {
 		Student student;
 		try {
 			student = studentRepository.findByEmail(email);
+			session.setAttribute("student", student);
+			session.setAttribute("class", student.getClassroom());
+			if ((BCrypt.checkpw(password, student.getPassword())
+					&& "ROLE_STUDENT".equals(student.getRole().getRole()))) {
+				return "success " + password + " " + student.getPassword();
+			} else {
+				return "errors/loginPasswordError";
+			}
 		} catch (NullPointerException e) {
-			return "errors/nullPointerError";
+			return "errors/loginEmailError";
 		}
 
-		session.setAttribute("student", student);
-		session.setAttribute("class", student.getClassroom());
-		if ((BCrypt.checkpw(password, student.getPassword()) && "ROLE_STUDENT".equals(student.getRole().getRole()))) {
-			return "success " + password + " " + student.getPassword();
-		} else {
-			return "errors/loginError";
-		}
 	}
 
 	@GetMapping("/signup")
@@ -106,41 +108,54 @@ public class LoginAndSignUpController {
 		Long id;
 		try {
 			id = classroomService.getClassroomId(session);
+			Classroom classroom = classroomRepository.findAById(id);
+			model.addAttribute("class", classroom);
+			model.addAttribute("tutor", new Tutor());
+			return "security/signUpPage";
 		} catch (NullPointerException e) {
-			return "errors/nullPointerError";
+			return "errors/getClassroomError";
 
 		}
-		model.addAttribute("class", id);
-		model.addAttribute("tutors", new Tutor());
-		return "security/signUpPage";
+
 	}
 
 	@PostMapping("/signup")
-	public String createTutor(@ModelAttribute Tutor tutor, Model model, HttpSession session) {
-		model.addAttribute("tutor", tutor);
-		session.setAttribute("tutor", tutor);
-		Classroom classroom;
-		try {
-			classroom = (Classroom) session.getAttribute("class");
-		} catch (NullPointerException e) {
-			return "errors/nullPointerError";
+	public String createTutor(@Validated @ModelAttribute Tutor tutor, BindingResult result, Model model,
+			HttpSession session) {
+		if (result.hasErrors()) {
+			return "security/signUpPage";
+		} else {
+			model.addAttribute("tutor", tutor);
+			session.setAttribute("tutor", tutor);
+			Classroom classroom;
+			try {
+				classroom = (Classroom) session.getAttribute("class");
+				tutor.setClassroom(classroom);
+				tutorService.save(tutor);
+			} catch (NullPointerException e) {
+				return "errors/getClassroomError";
+			}
+			return "redirect:/dashboard";
 		}
-		tutor.setClassroom(classroom);
-		tutorService.save(tutor);
-		return "redirect:/dashboard";
 	}
 
 	@GetMapping("/classroom")
 	public String classroom(Model model) {
-		model.addAttribute("classrooms", new Classroom());
+		model.addAttribute("classroom", new Classroom());
 		return "createClassroom";
 	}
 
 	@PostMapping("/classroom")
-	public String createClassroom(@ModelAttribute Classroom classroom, Model model, HttpSession session) {
-		session.setAttribute("class", classroom);
-		model.addAttribute("class", classroom);
-		classroomRepository.save(classroom);
-		return "redirect:/signup";
+	public String createClassroom(@Validated @ModelAttribute Classroom classroom, BindingResult result, Model model,
+			HttpSession session) {
+		if (result.hasErrors()) {
+			return "createClassroom";
+		} else {
+			session.setAttribute("class", classroom);
+			model.addAttribute("class", classroom);
+			classroomRepository.save(classroom);
+			return "redirect:/signup";
+		}
+
 	}
 }
