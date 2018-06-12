@@ -58,10 +58,13 @@ public class LoginAndSignUpController {
 	@PostMapping("/loginTutor")
 	public String loginTutor(@RequestParam String email, @RequestParam String password, HttpSession session,
 			Model model) {
-		Tutor tutor = tutorRepository.findByEmail(email);
-		if (tutor == null) {
+		Tutor tutor;
+		try {
+			tutor = tutorRepository.findByEmail(email);
+		} catch (Exception e) {
 			return "errors/nullPointerError";
 		}
+
 		session.setAttribute("tutor", tutor);
 		session.setAttribute("class", tutor.getClassroom());
 		if ((BCrypt.checkpw(password, tutor.getPassword()) && "ROLE_TUTOR".equals(tutor.getRole().getRole()))) {
@@ -82,10 +85,13 @@ public class LoginAndSignUpController {
 	@ResponseBody
 	public String loginStudent(@RequestParam String email, @RequestParam String password, HttpSession session,
 			Model model) {
-		Student student = studentRepository.findByEmail(email);
-		if (student == null) {
+		Student student;
+		try {
+			student = studentRepository.findByEmail(email);
+		} catch (NullPointerException e) {
 			return "errors/nullPointerError";
 		}
+
 		session.setAttribute("student", student);
 		session.setAttribute("class", student.getClassroom());
 		if ((BCrypt.checkpw(password, student.getPassword()) && "ROLE_STUDENT".equals(student.getRole().getRole()))) {
@@ -113,7 +119,12 @@ public class LoginAndSignUpController {
 	public String createTutor(@ModelAttribute Tutor tutor, Model model, HttpSession session) {
 		model.addAttribute("tutor", tutor);
 		session.setAttribute("tutor", tutor);
-		Classroom classroom = (Classroom) session.getAttribute("class");
+		Classroom classroom;
+		try {
+			classroom = (Classroom) session.getAttribute("class");
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
 		tutor.setClassroom(classroom);
 		tutorService.save(tutor);
 		return "redirect:/dashboard";
