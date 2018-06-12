@@ -51,27 +51,32 @@
 							<i class="fa fa-angle-right"></i> Form Elements
 						</h4>
 						<form:form class="form-horizontal style-form" method="post"
-							modelAttribute="students">
+							modelAttribute="student">
 							<div class="form-group">
 								<label class="col-sm-2 col-sm-2 control-label">Login</label>
 								<div class="col-sm-10">
 									<form:input path="username" class="form-control" type="text"
 										placeholder="Podaj login nowego ucznia" />
+									<form:errors path="username" />
 								</div>
+
 							</div>
-							<div class="form-group">
+							<div class="form-group" data-validate="Wprowadź email">
 								<label class="col-sm-2 col-sm-2 control-label">Email</label>
 								<div class="col-sm-10">
 									<form:input path="email" class="form-control"
 										placeholder="Podaj adres email nowego ucznia" type="email" />
 								</div>
+								<form:errors path="email" />
 							</div>
 							<div class="form-group">
 								<label class="col-sm-2 col-sm-2 control-label">Hasło</label>
 								<div class="col-sm-10">
 									<form:input path="password" class="form-control"
 										placeholder="Podaj hasło dostępu dla studenta" type="password" />
+									<form:errors path="password" />
 								</div>
+
 							</div>
 
 							<input class="btn btn-primary" type="submit"
@@ -317,6 +322,9 @@
 		
 		
 		
+		
+		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -351,6 +359,9 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
 	
 	
 	

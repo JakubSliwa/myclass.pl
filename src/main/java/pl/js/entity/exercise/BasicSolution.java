@@ -1,8 +1,12 @@
 package pl.js.entity.exercise;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import pl.js.entity.Classroom;
 
 @Entity
 @Table(name = "basicSolutions")
@@ -10,11 +14,31 @@ import javax.persistence.Table;
 public class BasicSolution extends Solution {
 
 	@ManyToOne
-	BasicExercise basicExercise;
+	private BasicExercise basicExercise;
+	@ManyToOne
+	private Classroom classroom;
+	
+	private LocalDate added;
 
 	public BasicSolution() {
 		super();
 
+	}
+
+	public LocalDate getAdded() {
+		return added;
+	}
+
+	public void setAdded(LocalDate added) {
+		this.added = LocalDate.now();
+	}
+
+	public Classroom getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(Classroom classroom) {
+		this.classroom = classroom;
 	}
 
 	public BasicExercise getBasicExercise() {
@@ -29,7 +53,9 @@ public class BasicSolution extends Solution {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime * result + ((added == null) ? 0 : added.hashCode());
 		result = prime * result + ((basicExercise == null) ? 0 : basicExercise.hashCode());
+		result = prime * result + ((classroom == null) ? 0 : classroom.hashCode());
 		return result;
 	}
 
@@ -42,10 +68,20 @@ public class BasicSolution extends Solution {
 		if (getClass() != obj.getClass())
 			return false;
 		BasicSolution other = (BasicSolution) obj;
+		if (added == null) {
+			if (other.added != null)
+				return false;
+		} else if (!added.equals(other.added))
+			return false;
 		if (basicExercise == null) {
 			if (other.basicExercise != null)
 				return false;
 		} else if (!basicExercise.equals(other.basicExercise))
+			return false;
+		if (classroom == null) {
+			if (other.classroom != null)
+				return false;
+		} else if (!classroom.equals(other.classroom))
 			return false;
 		return true;
 	}

@@ -10,6 +10,7 @@
 	<c:url value="../sys_school/adduser" var="newUser" />
 	<c:url value="../sys_school/invitestudent" var="newStudent" />
 	<c:url value="../sys_school/createexercise" var="newExercise" />
+	<c:url value="../sys_school/checksolutions" var="checkSolutions" />
 	<div class="row mtbox">
 		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
 			<a href="${newStudent}"><div class="box1">
@@ -26,7 +27,7 @@
 			<p>Dodaj i przydziel nowe zadanie.</p>
 		</div>
 		<div class="col-md-2 col-sm-2 box0">
-			<a href="${newExercise}"><div class="box1">
+			<a href="${checkSolutions}"><div class="box1">
 					<span class="li_pen"></span>
 					<h3>Sprawdź odpowiedzi</h3>
 				</div></a>

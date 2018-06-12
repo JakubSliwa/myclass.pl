@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Tutor - dodaj nowe zadanie</title>
+<title>Tutor - dodaj nowego studenta</title>
 <!-- Bootstrap core CSS -->
 <link href="resources/tutorDashboard/css/bootstrap.css" rel="stylesheet">
 <!--external css-->
@@ -28,6 +28,7 @@
 <link href="resources/tutorDashboard/css/style.css" rel="stylesheet">
 <link href="resources/tutorDashboard/css/style-responsive.css"
 	rel="stylesheet">
+
 <script src="resources/tutorDashboard/js/chart-master/Chart.js"></script>
 </head>
 <body>
@@ -40,56 +41,47 @@
 	<div class="row">
 		<div class="col-lg-9 main-chart">
 			<%@ include file="/WEB-INF/parts/topMenu.jsp"%>
-
-
-			<!-- /row mt -->
-
-
 			<div class="row mt">
-				<div class="col-lg-12">
-					<div class="form-panel">
-						<form:form class="form-horizontal style-form" method="post"
-							modelAttribute="basicExercise">
-							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">Temat
-									zadania</label>
-								<div class="col-sm-10">
-									<form:input path="title" class="form-control" type="text"
-										placeholder="Tytuł zadania" /><form:errors path="title" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">Treść
-									zadania</label>
-								<div class="col-sm-10">
-									<form:input path="description" class="form-control"
-										placeholder="Wpisz treść zadania" type="text" /><form:errors path="description" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">Kto ma
-									wykonać?</label>
-								<div class="col-sm-10">
-									<form:select itemValue="id" path="student.id" itemLabel="username"
-										items="${students}" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">Wpisz ile
-									dni uczeń ma na zrobienie zadania?</label>
-								<div class="col-sm-10" class="form-control">
-									<form:input itemValue="daysToAdd" path="daysToAdd" type="text" />
-								</div><form:errors path="daysToAdd" />
-							</div>
+				<div class="col-md-12">
+					<div class="content-panel">
+						<table class="table table-striped table-advance table-hover">
+							<h4>
+								<i class="fa fa-angle-right"></i> Ostatnio dodane rozwiązania
+							</h4>
+							<hr>
+							<thead>
+								<tr>
+									<th><i class="fa fa-user"></i> Uczeń</th>
+									<th class="hidden-phone"><i class="fa fa-tasks"></i>
+										Zadanie</th>
+									<th><i class="fa fa-archive"></i>Odpowiedź</th>
+									<th><i class=" fa fa-calendar-check-o"></i> Dodano</th>
 
-							<input class="btn btn-primary" type="submit"
-								value="Dodaj zadanie">
-						</form:form>
+									<th><i class="fa fa-flash"></i>Ocena</th>
+									<th><i class="fa fa-flash"></i>Dostępne akcje</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${solutions}" var="solutions">
+									<tr>
+										<td>${solutions.basicExercise.student.username}</td>
+										<td>${solutions.basicExercise.title}</td>
+										<td>${solutions.answer}</td>
+										<td>${solutions.added}</td>
+										<td>${solutions.grade}</td>
+										<td><a id="add-sticky" class="label label-primary"
+											href="">Wystaw ocene</a><a id="add-without-image"
+											class="label label-success" href="">Sprawdź ucznia</a><a
+											id="remove-all" class="label label-danger" href="">Przypomnij</a></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
-
+					<!-- /content-panel -->
 				</div>
+				<!-- /col-md-12 -->
 			</div>
-			<!-- /row -->
 
 
 			<div class="row"></div>
@@ -341,29 +333,6 @@
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -398,29 +367,6 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import pl.js.entity.Classroom;
 import pl.js.entity.users.Student;
@@ -18,7 +20,9 @@ public class BasicExercise extends Exercise {
 
 	private LocalDate added;
 	private LocalDate deadline;
-	private int daysToAdd;
+	@Min(value = 1)
+	@Max(value = 31)
+	private Integer daysToAdd;
 	@ManyToOne
 	Classroom classroom;
 
@@ -26,19 +30,16 @@ public class BasicExercise extends Exercise {
 		super();
 
 	}
-	
 
 	public Classroom getClassroom() {
 		return classroom;
 	}
 
-
 	public void setClassroom(Classroom classroom) {
 		this.classroom = classroom;
 	}
 
-
-	public void setDeadline(int daysToAdd) {
+	public void setDeadline(Integer daysToAdd) {
 		this.deadline = LocalDate.now().plusDays(daysToAdd);
 
 	}
@@ -59,11 +60,11 @@ public class BasicExercise extends Exercise {
 		this.added = added;
 	}
 
-	public int getDaysToAdd() {
+	public Integer getDaysToAdd() {
 		return daysToAdd;
 	}
 
-	public void setDaysToAdd(int daysToAdd) {
+	public void setDaysToAdd(Integer daysToAdd) {
 		this.daysToAdd = daysToAdd;
 	}
 
@@ -77,7 +78,7 @@ public class BasicExercise extends Exercise {
 		int result = super.hashCode();
 		result = prime * result + ((added == null) ? 0 : added.hashCode());
 		result = prime * result + ((classroom == null) ? 0 : classroom.hashCode());
-		result = prime * result + daysToAdd;
+		result = prime * result + ((daysToAdd == null) ? 0 : daysToAdd.hashCode());
 		result = prime * result + ((deadline == null) ? 0 : deadline.hashCode());
 		result = prime * result + ((student == null) ? 0 : student.hashCode());
 		return result;
@@ -102,7 +103,10 @@ public class BasicExercise extends Exercise {
 				return false;
 		} else if (!classroom.equals(other.classroom))
 			return false;
-		if (daysToAdd != other.daysToAdd)
+		if (daysToAdd == null) {
+			if (other.daysToAdd != null)
+				return false;
+		} else if (!daysToAdd.equals(other.daysToAdd))
 			return false;
 		if (deadline == null) {
 			if (other.deadline != null)

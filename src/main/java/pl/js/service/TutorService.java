@@ -25,7 +25,7 @@ public class TutorService {
 	private RoleRepository roleRepository;
 
 	@Autowired
-	TutorRepository tutorRepository;
+	private TutorRepository tutorRepository;
 
 	@Autowired
 	private BasicExerciseRepository basicExerciseRepository;

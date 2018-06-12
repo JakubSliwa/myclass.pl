@@ -5,6 +5,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,7 @@ import pl.js.entity.exercise.BasicExercise;
 import pl.js.entity.users.Student;
 import pl.js.repository.ClassroomRepository;
 import pl.js.repository.StudentRepository;
+import pl.js.service.BasicSolutionService;
 import pl.js.service.ClassroomService;
 import pl.js.service.StudentService;
 import pl.js.service.TutorService;
@@ -32,6 +35,21 @@ public class TutorController {
 	ClassroomRepository classroomRepository;
 	@Autowired
 	ClassroomService classroomService;
+	@Autowired
+	BasicSolutionService basicSolutionService;
+
+	@GetMapping("/checksolutions")
+	public String checkSolutions(Model model, HttpSession session) {
+		Long id;
+		try {
+			id = classroomService.getClassroomId(session);
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		model.addAttribute("solutions", basicSolutionService.getBasicSolutionListByClassroomId(id));
+		model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
+		return "tutorViews/checkSolutionList";
+	}
 
 	@GetMapping("/dashboard")
 	public String showTutorDashboard(Model model, HttpSession session) {
@@ -40,17 +58,9 @@ public class TutorController {
 			id = classroomService.getClassroomId(session);
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";
-
 		}
-
 		model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 		model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
-		return "tutorViews/tutorPanel";
-	}
-
-	@PostMapping("/dashboard")
-	@ResponseBody
-	public String addNewExcercise(HttpSession session, Model model) {
 		return "tutorViews/tutorPanel";
 	}
 
@@ -59,18 +69,27 @@ public class TutorController {
 		Long id;
 		try {
 			id = classroomService.getClassroomId(session);
+			model.addAttribute("student", new Student());
+			return "tutorViews/addNewUser";
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";
-
 		}
-		model.addAttribute("students", new Student());
-		return "tutorViews/addNewUser";
+
 	}
 
 	@PostMapping("/invitestudent")
-	public String addNewStudent(@ModelAttribute Student student, HttpSession session) {
-		tutorService.addNewStudent(student, session);
-		return "redirect:/dashboard";
+	public String addNewStudent(@Validated @ModelAttribute Student student, BindingResult result, HttpSession session) {
+		if (result.hasErrors()) {
+			return "tutorViews/addNewUser";
+		} else {
+			try {
+				tutorService.addNewStudent(student, session);
+			} catch (Exception e) {
+				return "errors/nonUniqueStudentNameOrEmail";
+			}
+			return "redirect:/dashboard";
+		}
+
 	}
 
 	@GetMapping("/createexercise")
@@ -78,19 +97,24 @@ public class TutorController {
 		Long id;
 		try {
 			id = classroomService.getClassroomId(session);
+			model.addAttribute("basicExercise", new BasicExercise());
+			model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+			return "tutorViews/addNewBasicExercise";
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";
-
 		}
-		model.addAttribute("basicExercises", new BasicExercise());
-		model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-		return "tutorViews/addNewBasicExercise";
+
 	}
 
 	@PostMapping("/createexercise")
-	public String addNewExercise(@ModelAttribute BasicExercise basicExercise, HttpSession session) {
-		tutorService.addNewBasicExercise(basicExercise, session);
-		return "redirect:/dashboard";
+	public String addNewExercise(@Validated @ModelAttribute BasicExercise basicExercise, BindingResult result,
+			HttpSession session) {
+		if (result.hasErrors()) {
+			return "tutorViews/addNewBasicExercise";
+		} else {
+			tutorService.addNewBasicExercise(basicExercise, session);
+			return "redirect:/dashboard";
+		}
 	}
 
 }

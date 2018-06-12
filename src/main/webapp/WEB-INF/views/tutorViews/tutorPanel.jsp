@@ -38,9 +38,43 @@
 	<div class="row">
 		<div class="col-lg-9 main-chart">
 			<%@ include file="/WEB-INF/parts/topMenu.jsp"%>
-			<!-- /row mt -->
+			<div class="row mt">
+				<div class="col-md-12">
+					<div class="content-panel">
+						<table class="table table-striped table-advance table-hover">
+							<h4>
+								<i class="fa fa-angle-right"></i> Lista dodanych odpowiedzi
+							</h4>
+							<hr>
+							<thead>
+								<tr>
+									<th><i class="fa fa-user"></i> Uczeń</th>
+									<th class="hidden-phone"><i class="fa fa-tasks"></i>
+										Zadanie</th>
+									<th><i class="fa fa-archive"></i>Odpowiedź</th>
+									<th><i class=" fa fa-calendar-check-o"></i> Kiedy
+										odpowiedziano?</th>
+									<th><i class=" fa fa-calendar"></i> Ocena</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${basicExercises}" var="basicExercise">
+									<tr>
+										<td>${basicExercise.student.username}</td>
+										<td>${basicExercise.title}<br></td>
+										<td>${basicExercise.description}</td>
+										<td>data</td>
+										<td>ocena</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+					<!-- /content-panel -->
+				</div>
+				<!-- /col-md-12 -->
+			</div>
 
-			
 			<div class="row mt">
 				<div class="col-md-12">
 					<div class="content-panel">
@@ -55,9 +89,9 @@
 									<th class="hidden-phone"><i class="fa fa-tasks"></i>
 										Zadanie</th>
 									<th><i class="fa fa-archive"></i>Treść zadania</th>
-									<th><i class=" fa fa-calendar"></i>Dodano</th>
-									<th><i class=" fa fa-calendar"></i>Deadline</th>
-									<th></th>
+									<th><i class="fa fa-calendar"></i>Dodano</th>
+									<th><i class="fa fa-calendar"></i>Deadline</th>
+									<th><i class="fa fa-flash"></i>Dostępne akcje</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -68,6 +102,10 @@
 										<td>${basicExercise.description}</td>
 										<td>${basicExercise.added}</td>
 										<td>${basicExercise.deadline}</td>
+										<td><a id="add-sticky" class="label label-primary"
+											href="">Sprawdź odpowiedź</a><a id="add-without-image"
+											class="label label-success" href="">Edytuj</a><a
+											id="remove-all" class="label label-danger" href="">Usuń</a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -77,44 +115,6 @@
 				</div>
 				<!-- /col-md-12 -->
 			</div>
-			<!-- /row -->
-			<div class="row mt">
-				<div class="col-md-12">
-					<div class="content-panel">
-						<table class="table table-striped table-advance table-hover">
-							<h4>
-								<i class="fa fa-angle-right"></i> Ostatnio dodane rozwiązania
-							</h4>
-							<hr>
-							<thead>
-								<tr>
-									<th><i class="fa fa-user"></i> Uczeń</th>
-									<th class="hidden-phone"><i class="fa fa-tasks"></i>
-										Zadanie</th>
-									<th><i class="fa fa-archive"></i>Odpowiedź</th>
-									<th><i class=" fa fa-calendar-check-o"></i> Dodano</th>
-									<th><i class=" fa fa-calendar"></i> Deadline</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${basicExercises}" var="basicExercise">
-									<tr>
-										<td>${basicExercise.student.username}</td>
-										<td>${basicExercise.title}<br></td>
-										<td>${basicExercise.description}</td>
-										<td>${basicExercise.added}</td>
-										<td>${basicExercise.deadline}</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
-					<!-- /content-panel -->
-				</div>
-				<!-- /col-md-12 -->
-			</div>
-			<!-- /row -->
 
 
 			<div class="row mt">
@@ -319,6 +319,17 @@
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 				
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -351,6 +362,17 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
