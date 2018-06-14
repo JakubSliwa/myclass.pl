@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Tutor - sprawdź rozwiązania</title>
+<title>Tutor - dodaj ocenę</title>
 <!-- Bootstrap core CSS -->
 <link href="resources/tutorDashboard/css/bootstrap.css" rel="stylesheet">
 <!--external css-->
@@ -32,11 +32,7 @@
 <script src="resources/tutorDashboard/js/chart-master/Chart.js"></script>
 </head>
 <body>
-	<c:url value="../sys_school/adduser" var="newUser" />
-	<c:url value="../sys_school/invitestudent" var="newStudent" />
 	<c:url value="../sys_school/addgrade" var="addGrade" />
-	
-
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
 		file="/WEB-INF/parts/sidebar.jsp"%> <section
@@ -44,12 +40,37 @@
 	<div class="row">
 		<div class="col-lg-9 main-chart">
 			<%@ include file="/WEB-INF/parts/topMenu.jsp"%>
+			<!-- /row mt -->
+
+
+			<div class="row mt">
+				<div class="col-lg-12">
+					<div class="form-panel">
+						<h4 class="mb">
+							<i class="fa fa-angle-right"></i> Form Elements
+						</h4>
+						<form:form class="form-horizontal style-form" method="post"
+							modelAttribute="basicSolution">
+							<div class="form-group">
+								<label class="col-sm-2 col-sm-2 control-label">Wystaw
+									ocenę</label>
+								<div class="col-sm-10">
+									<form:input path="grade" class="form-control" type="text"
+										name="grade" placeholder="Wystaw ocenę od 1 do 6" />
+									<form:errors path="grade" />
+								</div>
+							</div>
+							<input class="btn btn-primary" type="submit" value="Oceń">
+						</form:form>
+					</div>
+				</div>
+			</div>
 			<div class="row mt">
 				<div class="col-md-12">
 					<div class="content-panel">
 						<table class="table table-striped table-advance table-hover">
 							<h4>
-								<i class="fa fa-angle-right"></i> Ostatnio dodane rozwiązania
+								<i class="fa fa-angle-right"></i> Oceniane rozwiązanie
 							</h4>
 							<hr>
 							<thead>
@@ -59,26 +80,17 @@
 										Zadanie</th>
 									<th><i class="fa fa-archive"></i>Odpowiedź</th>
 									<th><i class=" fa fa-calendar-check-o"></i> Dodano</th>
-
-									<th><i class="fa fa-flash"></i>Ocena</th>
-									<th><i class="fa fa-flash"></i>Dostępne akcje</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${solutions}" var="solutions">
-									<tr>
-										<td>${solutions.basicExercise.student.username}</td>
-										<td>${solutions.basicExercise.title}</td>
-										<td>${solutions.answer}</td>
-										<td>${solutions.added}</td>
-										<td>${solutions.grade}</td>
-										<td><a id="add-sticky" class="label label-primary"
-											href="${addGrade}/${solutions.id}">Wystaw
-												ocene</a> <a id="add-without-image" class="label label-success"
-											href="">Sprawdź ucznia</a><a id="remove-all"
-											class="label label-danger" href="">Przypomnij</a></td>
-									</tr>
-								</c:forEach>
+
+								<tr>
+									<td>${solution.basicExercise.student.username}</td>
+									<td>${solution.basicExercise.title}</td>
+									<td>${solution.answer}</td>
+									<td>${solution.added}</td>
+								</tr>
+
 							</tbody>
 						</table>
 					</div>
@@ -86,9 +98,6 @@
 				</div>
 				<!-- /col-md-12 -->
 			</div>
-
-
-			<div class="row"></div>
 
 			<div class="row mt">
 				<!--CUSTOM CHART START -->
@@ -339,18 +348,6 @@
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -385,18 +382,6 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

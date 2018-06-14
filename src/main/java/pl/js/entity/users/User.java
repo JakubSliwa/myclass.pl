@@ -35,6 +35,8 @@ public abstract class User {
 	@ManyToOne
 	Role role;
 
+	private String status;
+
 	@ManyToOne
 	Classroom classroom;
 
@@ -47,8 +49,17 @@ public abstract class User {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public Role getRole() {
@@ -135,6 +146,11 @@ public abstract class User {
 			if (other.role != null)
 				return false;
 		} else if (!role.equals(other.role))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
 			return false;
 		if (username == null) {
 			if (other.username != null)

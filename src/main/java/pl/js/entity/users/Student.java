@@ -14,13 +14,16 @@ import pl.js.entity.exercise.BasicSolution;
 @Table(name = "students")
 
 public class Student extends User {
-
+	
+	
 	@OneToMany
 	List<BasicSolution> basicSolution;;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "student")
 	List<BasicExercise> basicExercises;
+	
 
+	
 	public Student() {
 		super();
 

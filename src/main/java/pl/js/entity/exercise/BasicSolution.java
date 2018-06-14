@@ -86,4 +86,10 @@ public class BasicSolution extends Solution {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "BasicSolution [basicExercise=" + basicExercise + ", classroom=" + classroom + ", added=" + added
+				+ ", getId()=" + getId() + ", getGrade()=" + getGrade() + "]";
+	}
+
 }

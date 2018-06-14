@@ -6,9 +6,11 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Range;
 
 @MappedSuperclass
+@DynamicUpdate
 public abstract class Solution {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +18,8 @@ public abstract class Solution {
 	@Size(min = 1, max = 600)
 	private String answer;
 	@Range(min = (long) 1.0, max = (long) 6.0)
-	private double grade;
+
+	private Double grade;
 
 	public Solution() {
 	}
@@ -37,11 +40,11 @@ public abstract class Solution {
 		this.answer = answer;
 	}
 
-	public double getGrade() {
+	public Double getGrade() {
 		return grade;
 	}
 
-	public void setGrade(double grade) {
+	public void setGrade(Double grade) {
 		this.grade = grade;
 	}
 

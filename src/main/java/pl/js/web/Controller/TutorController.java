@@ -9,12 +9,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pl.js.entity.exercise.BasicExercise;
+import pl.js.entity.exercise.BasicSolution;
 import pl.js.entity.users.Student;
+import pl.js.repository.BasicSolutionRepository;
 import pl.js.repository.ClassroomRepository;
 import pl.js.repository.StudentRepository;
 import pl.js.service.BasicSolutionService;
@@ -37,6 +40,8 @@ public class TutorController {
 	ClassroomService classroomService;
 	@Autowired
 	BasicSolutionService basicSolutionService;
+	@Autowired
+	BasicSolutionRepository basicSolutionRepository;
 
 	@GetMapping("/checksolutions")
 	public String checkSolutions(Model model, HttpSession session) {
@@ -49,6 +54,31 @@ public class TutorController {
 		model.addAttribute("solutions", basicSolutionService.getBasicSolutionListByClassroomId(id));
 		model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
 		return "tutorViews/checkSolutionList";
+	}
+
+	@GetMapping("/addgrade/{solutionId}")
+	public String addGrade(Model model, HttpSession session, @PathVariable(value = "solutionId") Long solutionId) {
+		Long id;
+		try {
+			id = classroomService.getClassroomId(session);
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		BasicSolution basicSolution = basicSolutionRepository.findOne(solutionId);
+		model.addAttribute("basicSolution", basicSolution);
+		return "tutorViews/addGradeForSolutions";
+
+	}
+
+	@PostMapping("/addgrade/{solutionId}")
+	public String addNewGrade(@Validated @ModelAttribute BasicSolution basicSolution, BindingResult result,
+			@RequestParam Double grade, @PathVariable(value = "solutionId") Long solutionId) {
+		if (result.hasErrors()) {
+			return "tutorViews/addGradeForSolutions";
+		} else {
+			basicSolutionRepository.setBasicSolutionGradeById(grade, solutionId);
+			return "redirect:/dashboard";
+		}
 	}
 
 	@GetMapping("/dashboard")
