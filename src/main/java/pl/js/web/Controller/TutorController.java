@@ -72,8 +72,10 @@ public class TutorController {
 
 	@PostMapping("/addgrade/{solutionId}")
 	public String addNewGrade(@Validated @ModelAttribute BasicSolution basicSolution, BindingResult result,
-			@RequestParam Double grade, @PathVariable(value = "solutionId") Long solutionId) {
+			@RequestParam Double grade, Model model, @PathVariable(value = "solutionId") Long solutionId) {
 		if (result.hasErrors()) {
+			basicSolution = basicSolutionRepository.findOne(solutionId);
+			model.addAttribute("basicSolution", basicSolution);
 			return "tutorViews/addGradeForSolutions";
 		} else {
 			basicSolutionRepository.setBasicSolutionGradeById(grade, solutionId);

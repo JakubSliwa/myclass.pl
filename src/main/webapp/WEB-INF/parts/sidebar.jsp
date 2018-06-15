@@ -15,7 +15,7 @@
 
 			<p class="centered">
 				<a href="profile.html"><img
-					src="resources/login/images/hello.png" class="img-circle"
+					src="/sys_school/resources/login/images/hello.png" class="img-circle"
 					width="60"></a>
 			</p>
 			<h5 class="centered">${tutor.username}</h5>

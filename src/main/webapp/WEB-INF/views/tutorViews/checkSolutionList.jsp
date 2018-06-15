@@ -35,7 +35,7 @@
 	<c:url value="../sys_school/adduser" var="newUser" />
 	<c:url value="../sys_school/invitestudent" var="newStudent" />
 	<c:url value="../sys_school/addgrade" var="addGrade" />
-	
+
 
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
@@ -73,10 +73,9 @@
 										<td>${solutions.added}</td>
 										<td>${solutions.grade}</td>
 										<td><a id="add-sticky" class="label label-primary"
-											href="${addGrade}/${solutions.id}">Wystaw
-												ocene</a> <a id="add-without-image" class="label label-success"
-											href="">Sprawdź ucznia</a><a id="remove-all"
-											class="label label-danger" href="">Przypomnij</a></td>
+											href="${addGrade}/${solutions.id}" /> Wystaw ocene</a><a
+											id="add-without-image" class="label label-success" href="">Sprawdź
+												ucznia</a><a id="remove-all" class="label label-danger" href="">Przypomnij</a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -351,6 +350,12 @@
 		
 		
 		
+		
+		
+		
+		
+		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -385,6 +390,12 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
+	
+	
 	
 	
 	

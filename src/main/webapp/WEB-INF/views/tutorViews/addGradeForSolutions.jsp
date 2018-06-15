@@ -14,22 +14,27 @@
 
 <title>Tutor - dodaj ocenę</title>
 <!-- Bootstrap core CSS -->
-<link href="resources/tutorDashboard/css/bootstrap.css" rel="stylesheet">
+<link href="/sys_school/resources/tutorDashboard/css/bootstrap.css"
+	rel="stylesheet">
 <!--external css-->
-<link href="resources/tutorDashboard/font-awesome/css/font-awesome.css"
+<link
+	href="/sys_school/resources/tutorDashboard/font-awesome/css/font-awesome.css"
 	rel="stylesheet" />
 <link rel="stylesheet" type="text/css"
-	href="resources/tutorDashboard/css/zabuto_calendar.css">
+	href="/sys_school/resources/tutorDashboard/css/zabuto_calendar.css">
 
 <link rel="stylesheet" type="text/css"
-	href="resources/tutorDashboard/lineicons/style.css">
+	href="/sys_school/resources/tutorDashboard/lineicons/style.css">
 
 <!-- Custom styles for this template -->
-<link href="resources/tutorDashboard/css/style.css" rel="stylesheet">
-<link href="resources/tutorDashboard/css/style-responsive.css"
+<link href="/sys_school/resources/tutorDashboard/css/style.css"
+	rel="stylesheet">
+<link
+	href="/sys_school/resources/tutorDashboard/css/style-responsive.css"
 	rel="stylesheet">
 
-<script src="resources/tutorDashboard/js/chart-master/Chart.js"></script>
+<script
+	src="/sys_school/resources/tutorDashboard/js/chart-master/Chart.js"></script>
 </head>
 <body>
 	<c:url value="../sys_school/addgrade" var="addGrade" />
@@ -47,7 +52,7 @@
 				<div class="col-lg-12">
 					<div class="form-panel">
 						<h4 class="mb">
-							<i class="fa fa-angle-right"></i> Form Elements
+							<i class="fa fa-angle-right"></i> Oceń rozwiązanie w skali od 1 do 6.
 						</h4>
 						<form:form class="form-horizontal style-form" method="post"
 							modelAttribute="basicSolution">
@@ -85,10 +90,10 @@
 							<tbody>
 
 								<tr>
-									<td>${solution.basicExercise.student.username}</td>
-									<td>${solution.basicExercise.title}</td>
-									<td>${solution.answer}</td>
-									<td>${solution.added}</td>
+									<td>${basicSolution.basicExercise.student.username}</td>
+									<td>${basicSolution.basicExercise.title}</td>
+									<td>${basicSolution.answer}</td>
+									<td>${basicSolution.added}</td>
 								</tr>
 
 							</tbody>
@@ -184,7 +189,7 @@
 			<div class="desc">
 				<div class="thumb">
 					<img class="img-circle"
-						src="resources/tutorDashboard/img/ui-divya.jpg" width="35px"
+						src="/sys_school/resources/tutorDashboard/img/ui-divya.jpg" width="35px"
 						height="35px" align="">
 				</div>
 				<div class="details">
@@ -198,7 +203,7 @@
 			<div class="desc">
 				<div class="thumb">
 					<img class="img-circle"
-						src="resources/tutorDashboard/img/ui-sherman.jpg" width="35px"
+						src="/sys_school/resources/tutorDashboard/img/ui-sherman.jpg" width="35px"
 						height="35px" align="">
 				</div>
 				<div class="details">
@@ -212,7 +217,7 @@
 			<div class="desc">
 				<div class="thumb">
 					<img class="img-circle"
-						src="resources/tutorDashboard/img/ui-danro.jpg" width="35px"
+						src="/sys_school/resources/tutorDashboard/img/ui-danro.jpg" width="35px"
 						height="35px" align="">
 				</div>
 				<div class="details">
@@ -226,7 +231,7 @@
 			<div class="desc">
 				<div class="thumb">
 					<img class="img-circle"
-						src="resources/tutorDashboard/img/ui-zac.jpg" width="35px"
+						src="/sys_school/resources/tutorDashboard/img/ui-zac.jpg" width="35px"
 						height="35px" align="">
 				</div>
 				<div class="details">
@@ -240,7 +245,7 @@
 			<div class="desc">
 				<div class="thumb">
 					<img class="img-circle"
-						src="resources/tutorDashboard/img/ui-sam.jpg" width="35px"
+						src="/sys_school/resources/tutorDashboard/img/ui-sam.jpg" width="35px"
 						height="35px" align="">
 				</div>
 				<div class="details">
@@ -280,27 +285,35 @@
 	</footer> <!--footer end--> </section>
 
 	<!-- js placed at the end of the document so the pages load faster -->
-	<script src="resources/tutorDashboards/js/jquery.js"></script>
-	<script src="resources/tutorDashboard/js/jquery-1.8.3.min.js"></script>
-	<script src="resources/tutorDashboard/js/bootstrap.min.js"></script>
+	<script src="/sys_school/resources/tutorDashboards/js/jquery.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery-1.8.3.min.js"></script>
+	<script src="/sys_school/resources/tutorDashboard/js/bootstrap.min.js"></script>
 	<script class="include" type="text/javascript"
-		src="resources/tutorDashboard/js/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="resources/tutorDashboard/js/jquery.scrollTo.min.js"></script>
-	<script src="resources/tutorDashboard/js/jquery.nicescroll.js"
+		src="/sys_school/resources/tutorDashboard/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.scrollTo.min.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.nicescroll.js"
 		type="text/javascript"></script>
-	<script src="resources/tutorDashboard/js/jquery.sparkline.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.sparkline.js"></script>
 
 
 	<!--common script for all pages-->
-	<script src="resources/tutorDashboard/js/common-scripts.js"></script>
+	<script src="/sys_school/resources/tutorDashboard/js/common-scripts.js"></script>
 
 	<!--script for this page-->
-	<script src="resources/tutorDashboard/js/sparkline-chart.js"></script>
-	<script src="resources/tutorDashboard/js/zabuto_calendar.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/sparkline-chart.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/zabuto_calendar.js"></script>
 
 
 
 	<script type="application/javascript">
+		
+		
 		
 		
 		
@@ -382,6 +395,8 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
 	
 	
 	
