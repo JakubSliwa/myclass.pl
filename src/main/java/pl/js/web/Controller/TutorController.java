@@ -51,6 +51,7 @@ public class TutorController {
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";
 		}
+		model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 		model.addAttribute("solutions", basicSolutionService.getBasicSolutionListByClassroomId(id));
 		model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
 		return "tutorViews/checkSolutionList";
@@ -65,9 +66,9 @@ public class TutorController {
 			return "errors/nullPointerError";
 		}
 		BasicSolution basicSolution = basicSolutionRepository.findOne(solutionId);
+		model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 		model.addAttribute("basicSolution", basicSolution);
 		return "tutorViews/addGradeForSolutions";
-
 	}
 
 	@PostMapping("/addgrade/{solutionId}")
@@ -78,9 +79,15 @@ public class TutorController {
 			model.addAttribute("basicSolution", basicSolution);
 			return "tutorViews/addGradeForSolutions";
 		} else {
-			basicSolutionRepository.setBasicSolutionGradeById(grade, solutionId);
-			return "redirect:/dashboard";
+			try {
+				basicSolutionRepository.setBasicSolutionGradeById(grade, solutionId);
+			} catch (Exception e) {
+				return "errors/generalExeption";
+			}
 		}
+
+		return "redirect:/dashboard";
+
 	}
 
 	@GetMapping("/dashboard")
@@ -91,9 +98,48 @@ public class TutorController {
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";
 		}
+		model.addAttribute("student", tutorService.getStudentListByClassroomId(id));
+		model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
+		model.addAttribute("solutions", basicSolutionService.getBasicSolutionListByClassroomId(id));
+		return "tutorViews/tutorPanel";
+	}
+
+	@GetMapping("/students")
+	public String showStudents(Model model, HttpSession session) {
+		Long id;
+		try {
+			id = classroomService.getClassroomId(session);
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+		return "tutorViews/studentsList";
+	}
+
+	@GetMapping("/exercises")
+	public String showExercises(Model model, HttpSession session) {
+		Long id;
+		try {
+			id = classroomService.getClassroomId(session);
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
 		model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 		model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
-		return "tutorViews/tutorPanel";
+		return "tutorViews/exercisesList";
+	}
+
+	@GetMapping("/students/{studentId}")
+	public String showStudent(Model model, HttpSession session, @PathVariable(value = "studentId") Long studentId) {
+		Long id;
+		try {
+			id = classroomService.getClassroomId(session);
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		model.addAttribute("student", studentRepository.findOne(studentId));
+		model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+		return "tutorViews/showStudent";
 	}
 
 	@GetMapping("/invitestudent")
@@ -102,6 +148,7 @@ public class TutorController {
 		try {
 			id = classroomService.getClassroomId(session);
 			model.addAttribute("student", new Student());
+			model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 			return "tutorViews/addNewUser";
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";

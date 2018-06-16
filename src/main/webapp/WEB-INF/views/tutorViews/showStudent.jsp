@@ -12,27 +12,31 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Tutor - dodaj nowe zadanie</title>
+<title>Tutor - dodaj ocenę</title>
 <!-- Bootstrap core CSS -->
-<link href="resources/tutorDashboard/css/bootstrap.css" rel="stylesheet">
+<link href="/sys_school/resources/tutorDashboard/css/bootstrap.css"
+	rel="stylesheet">
 <!--external css-->
-<link href="resources/tutorDashboard/font-awesome/css/font-awesome.css"
+<link
+	href="/sys_school/resources/tutorDashboard/font-awesome/css/font-awesome.css"
 	rel="stylesheet" />
 <link rel="stylesheet" type="text/css"
-	href="resources/tutorDashboard/css/zabuto_calendar.css">
+	href="/sys_school/resources/tutorDashboard/css/zabuto_calendar.css">
 
 <link rel="stylesheet" type="text/css"
-	href="resources/tutorDashboard/lineicons/style.css">
+	href="/sys_school/resources/tutorDashboard/lineicons/style.css">
 
 <!-- Custom styles for this template -->
-<link href="resources/tutorDashboard/css/style.css" rel="stylesheet">
-<link href="resources/tutorDashboard/css/style-responsive.css"
+<link href="/sys_school/resources/tutorDashboard/css/style.css"
 	rel="stylesheet">
-<script src="resources/tutorDashboard/js/chart-master/Chart.js"></script>
+<link
+	href="/sys_school/resources/tutorDashboard/css/style-responsive.css"
+	rel="stylesheet">
+
+<script
+	src="/sys_school/resources/tutorDashboard/js/chart-master/Chart.js"></script>
 </head>
 <body>
-	<c:url value="../sys_school/adduser" var="newUser" />
-	<c:url value="../sys_school/invitestudent" var="newStudent" />
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
 		file="/WEB-INF/parts/sidebar.jsp"%> <section
@@ -40,59 +44,38 @@
 	<div class="row">
 		<div class="col-lg-9 main-chart">
 			<%@ include file="/WEB-INF/parts/topMenu.jsp"%>
-
-
 			<!-- /row mt -->
-
-
 			<div class="row mt">
-				<div class="col-lg-12">
-					<div class="form-panel">
-						<form:form class="form-horizontal style-form" method="post"
-							modelAttribute="basicExercise">
-							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">Temat
-									zadania</label>
-								<div class="col-sm-10">
-									<form:input path="title" class="form-control" type="text"
-										placeholder="Tytuł zadania" /><form:errors path="title" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">Treść
-									zadania</label>
-								<div class="col-sm-10">
-									<form:input path="description" class="form-control"
-										placeholder="Wpisz treść zadania" type="text" /><form:errors path="description" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">Kto ma
-									wykonać?</label>
-								<div class="col-sm-10">
-									<form:select itemValue="id" path="student.id" itemLabel="username"
-										items="${students}" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">Wpisz ile
-									dni uczeń ma na zrobienie zadania?</label>
-								<div class="col-sm-10" class="form-control">
-									<form:input itemValue="daysToAdd" path="daysToAdd" type="text" />
-								</div><form:errors path="daysToAdd" />
-							</div>
+				<div class="col-md-12">
+					<div class="content-panel">
+						<table class="table table-striped table-advance table-hover">
+							<h4>
+								<i class="fa fa-angle-right"></i> Uczeń ${student.username}
+							</h4>
+							<hr>
+							<thead>
+								<tr>
+									<th><i class="fa fa-user"></i> Login</th>
+									<th class="hidden-phone"><i class="fa fa-tasks"></i>
+										Zadanie</th>
+									<th><i class="fa fa-archive"></i>Email</th>
+									<th><i class=" fa fa-calendar-check-o"></i> Status</th>
 
-							<input class="btn btn-primary" type="submit"
-								value="Dodaj zadanie">
-						</form:form>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>${student.username}</td>
+									<td>${student.email}</td>
+									<td>${student.status}</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
-
+					<!-- /content-panel -->
 				</div>
+				<!-- /col-md-12 -->
 			</div>
-			<!-- /row -->
-
-
-			<div class="row"></div>
 
 			<div class="row mt">
 				<!--CUSTOM CHART START -->
@@ -195,7 +178,7 @@
 		</div>
 		<!-- /col-lg-3 -->
 	</div>
-	<! --/row --> </section> </section> <!--main content end--> <!--footer start--> <footer
+	<! --/row --></section> </section> <!--main content end--> <!--footer start--> <footer
 		class="site-footer">
 	<div class="text-center">
 		Potrzebujesz pomocy?<a href="index.html#" class="go-top"> <i
@@ -205,40 +188,33 @@
 	</footer> <!--footer end--> </section>
 
 	<!-- js placed at the end of the document so the pages load faster -->
-	<script src="resources/tutorDashboards/js/jquery.js"></script>
-	<script src="resources/tutorDashboard/js/jquery-1.8.3.min.js"></script>
-	<script src="resources/tutorDashboard/js/bootstrap.min.js"></script>
+	<script src="/sys_school/resources/tutorDashboards/js/jquery.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery-1.8.3.min.js"></script>
+	<script src="/sys_school/resources/tutorDashboard/js/bootstrap.min.js"></script>
 	<script class="include" type="text/javascript"
-		src="resources/tutorDashboard/js/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="resources/tutorDashboard/js/jquery.scrollTo.min.js"></script>
-	<script src="resources/tutorDashboard/js/jquery.nicescroll.js"
+		src="/sys_school/resources/tutorDashboard/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.scrollTo.min.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.nicescroll.js"
 		type="text/javascript"></script>
-	<script src="resources/tutorDashboard/js/jquery.sparkline.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.sparkline.js"></script>
 
 
 	<!--common script for all pages-->
-	<script src="resources/tutorDashboard/js/common-scripts.js"></script>
+	<script src="/sys_school/resources/tutorDashboard/js/common-scripts.js"></script>
 
 	<!--script for this page-->
-	<script src="resources/tutorDashboard/js/sparkline-chart.js"></script>
-	<script src="resources/tutorDashboard/js/zabuto_calendar.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/sparkline-chart.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/zabuto_calendar.js"></script>
 
 
 
 	<script type="application/javascript">
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		
@@ -328,19 +304,6 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

@@ -12,11 +12,11 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Myclass.pl - błąd</title>
+<title>Myclass.pl - błąd podczas oceniania</title>
 
 <!--===============================================================================================-->
 <link rel="icon" type="image/png"
-	href="/sys_school/resources/login/images/icons/favicon.ico" />
+	href="resources/login/images/icons/favicon.ico" />
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
 	href="/sys_school/resources/login/vendor/bootstrap/css/bootstrap.min.css">
@@ -51,8 +51,8 @@
 
 <body>
 
-	<c:url value="../sys_school/loginStudent" var="loginStudent" />
-	<c:url value="../sys_school/loginTutor" var="loginTutor" />
+
+	<c:url value="../sys_school/addgrade" var="addGrade" />
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-t-85 p-b-20">
@@ -60,19 +60,20 @@
 				<span class="login100-form-title p-b-70"> <br>
 					<h3>Myclass.pl</h3>
 				</span> <span class="login100-form-avatar"> <img
-					src="/sys_school/resources/login/images/hello.png" alt="AVATAR">
+					src="resources/login/images/hello.png" alt="AVATAR">
 				</span> <span class="login100-form-title p-b-70"> <br>
-					<h3>Wystąpił błąd. Zaloguj się ponownie na koncie:</h3>
+					<h3>Wystąpił błąd podczas oceniania.</h3>
+					<h4>Wybrałeś zły format oceny. Użyj '.' zamiast ','.</h4> </br>
+					<h3>Oceń jeszcze raz.</h3>
 				</span> </span>
 
 
 
+
+
 				<div class="container-login100-form-btn">
-					<a class="login100-form-btn" href="${loginStudent}">Ucznia</a>
-				</div>
-				<br>
-				<div class="container-login100-form-btn">
-					<a class="login100-form-btn" href="${loginTutor}">Nauczyciela</a>
+					<a class="login100-form-btn" href="${addGrade}/${basicSolution.id}">Wróć
+						do oceniania</a>
 				</div>
 				<ul class="login-more p-t-190">
 					<li class="m-b-8"><span class="txt1"> Potrzebujesz

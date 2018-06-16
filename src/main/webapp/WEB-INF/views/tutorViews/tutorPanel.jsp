@@ -31,6 +31,8 @@
 <script src="resources/tutorDashboard/js/chart-master/Chart.js"></script>
 </head>
 <body>
+	<c:url value="../sys_school/addgrade" var="addGrade" />
+	<c:url value="../sys_school/students" var="studentsList" />
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
 		file="/WEB-INF/parts/sidebar.jsp"%> <section
@@ -43,7 +45,7 @@
 					<div class="content-panel">
 						<table class="table table-striped table-advance table-hover">
 							<h4>
-								<i class="fa fa-angle-right"></i> Lista dodanych odpowiedzi
+								<i class="fa fa-angle-right"></i> Ostatnio dodane odpowiedzi
 							</h4>
 							<hr>
 							<thead>
@@ -52,19 +54,25 @@
 									<th class="hidden-phone"><i class="fa fa-tasks"></i>
 										Zadanie</th>
 									<th><i class="fa fa-archive"></i>Odpowiedź</th>
-									<th><i class=" fa fa-calendar-check-o"></i> Kiedy
-										odpowiedziano?</th>
-									<th><i class=" fa fa-calendar"></i> Ocena</th>
+									<th><i class=" fa fa-calendar-check-o"></i> Dodano</th>
+
+									<th><i class="fa fa-flash"></i>Ocena</th>
+									<th><i class="fa fa-flash"></i>Dostępne akcje</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${basicExercises}" var="basicExercise">
+								<c:forEach items="${solutions}" var="solutions">
 									<tr>
-										<td>${basicExercise.student.username}</td>
-										<td>${basicExercise.title}<br></td>
-										<td>${basicExercise.description}</td>
-										<td>data</td>
-										<td>ocena</td>
+										<td>${solutions.basicExercise.student.username}</td>
+										<td>${solutions.basicExercise.title}</td>
+										<td>${solutions.answer}</td>
+										<td>${solutions.added}</td>
+										<td>${solutions.grade}</td>
+										<td><a id="add-sticky" class="label label-primary"
+											href="${addGrade}/${solutions.id}" />Wystaw ocene</a><a
+											id="add-without-image" class="label label-success"
+											href="${students}/${solutions.basicExercise.student.id}">Sprawdź
+												ucznia</a><a id="remove-all" class="label label-danger" href="">Przypomnij</a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -102,10 +110,9 @@
 										<td>${basicExercise.description}</td>
 										<td>${basicExercise.added}</td>
 										<td>${basicExercise.deadline}</td>
-										<td><a id="add-sticky" class="label label-primary"
-											href="">Sprawdź odpowiedź</a><a id="add-without-image"
-											class="label label-success" href="">Edytuj</a><a
-											id="remove-all" class="label label-danger" href="">Usuń</a></td>
+										<td><a id="add-without-image" class="label label-success"
+											href="">Edytuj</a><a id="remove-all"
+											class="label label-danger" href="">Usuń</a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -197,77 +204,12 @@
 			</div>
 
 			<!-- USERS ONLINE SECTION -->
-			<h3>UCZNIOWIE</h3>
+
 			<!-- First Member -->
-			<div class="desc">
-				<div class="thumb">
-					<img class="img-circle"
-						src="resources/tutorDashboard/img/ui-divya.jpg" width="35px"
-						height="35px" align="">
-				</div>
-				<div class="details">
-					<p>
-						<a href="#">DIVYA MANIAN</a><br />
-						<muted>Available</muted>
-					</p>
-				</div>
-			</div>
-			<!-- Second Member -->
-			<div class="desc">
-				<div class="thumb">
-					<img class="img-circle"
-						src="resources/tutorDashboard/img/ui-sherman.jpg" width="35px"
-						height="35px" align="">
-				</div>
-				<div class="details">
-					<p>
-						<a href="#">DJ SHERMAN</a><br />
-						<muted>I am Busy</muted>
-					</p>
-				</div>
-			</div>
-			<!-- Third Member -->
-			<div class="desc">
-				<div class="thumb">
-					<img class="img-circle"
-						src="resources/tutorDashboard/img/ui-danro.jpg" width="35px"
-						height="35px" align="">
-				</div>
-				<div class="details">
-					<p>
-						<a href="#">DAN ROGERS</a><br />
-						<muted>Available</muted>
-					</p>
-				</div>
-			</div>
-			<!-- Fourth Member -->
-			<div class="desc">
-				<div class="thumb">
-					<img class="img-circle"
-						src="resources/tutorDashboard/img/ui-zac.jpg" width="35px"
-						height="35px" align="">
-				</div>
-				<div class="details">
-					<p>
-						<a href="#">Zac Sniders</a><br />
-						<muted>Available</muted>
-					</p>
-				</div>
-			</div>
-			<!-- Fifth Member -->
-			<div class="desc">
-				<div class="thumb">
-					<img class="img-circle"
-						src="resources/tutorDashboard/img/ui-sam.jpg" width="35px"
-						height="35px" align="">
-				</div>
-				<div class="details">
-					<p>
-						<a href="#">Marcel Newman</a><br />
-						<muted>Available</muted>
-					</p>
-				</div>
-			</div>
+			<%@ include file="/WEB-INF/parts/usersOnlineSection.jsp"%>
+
+
+
 
 			<!-- CALENDAR-->
 			<div id="calendar" class="mb">
@@ -330,6 +272,21 @@
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 				
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -362,6 +319,21 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

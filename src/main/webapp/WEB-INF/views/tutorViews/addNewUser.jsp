@@ -170,77 +170,8 @@
 			</div>
 
 			<!-- USERS ONLINE SECTION -->
-			<h3>UCZNIOWIE</h3>
-			<!-- First Member -->
-			<div class="desc">
-				<div class="thumb">
-					<img class="img-circle"
-						src="resources/tutorDashboard/img/ui-divya.jpg" width="35px"
-						height="35px" align="">
-				</div>
-				<div class="details">
-					<p>
-						<a href="#">DIVYA MANIAN</a><br />
-						<muted>Available</muted>
-					</p>
-				</div>
-			</div>
-			<!-- Second Member -->
-			<div class="desc">
-				<div class="thumb">
-					<img class="img-circle"
-						src="resources/tutorDashboard/img/ui-sherman.jpg" width="35px"
-						height="35px" align="">
-				</div>
-				<div class="details">
-					<p>
-						<a href="#">DJ SHERMAN</a><br />
-						<muted>I am Busy</muted>
-					</p>
-				</div>
-			</div>
-			<!-- Third Member -->
-			<div class="desc">
-				<div class="thumb">
-					<img class="img-circle"
-						src="resources/tutorDashboard/img/ui-danro.jpg" width="35px"
-						height="35px" align="">
-				</div>
-				<div class="details">
-					<p>
-						<a href="#">DAN ROGERS</a><br />
-						<muted>Available</muted>
-					</p>
-				</div>
-			</div>
-			<!-- Fourth Member -->
-			<div class="desc">
-				<div class="thumb">
-					<img class="img-circle"
-						src="resources/tutorDashboard/img/ui-zac.jpg" width="35px"
-						height="35px" align="">
-				</div>
-				<div class="details">
-					<p>
-						<a href="#">Zac Sniders</a><br />
-						<muted>Available</muted>
-					</p>
-				</div>
-			</div>
-			<!-- Fifth Member -->
-			<div class="desc">
-				<div class="thumb">
-					<img class="img-circle"
-						src="resources/tutorDashboard/img/ui-sam.jpg" width="35px"
-						height="35px" align="">
-				</div>
-				<div class="details">
-					<p>
-						<a href="#">Marcel Newman</a><br />
-						<muted>Available</muted>
-					</p>
-				</div>
-			</div>
+
+			<%@ include file="/WEB-INF/parts/usersOnlineSection.jsp"%>
 
 			<!-- CALENDAR-->
 			<div id="calendar" class="mb">

@@ -50,9 +50,7 @@
 </head>
 
 <body>
-
-	<c:url value="../sys_school/loginStudent" var="loginStudent" />
-	<c:url value="../sys_school/loginTutor" var="loginTutor" />
+	<c:url value="/../sys_school/dashboard" var="dashboard" />
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-t-85 p-b-20">
@@ -62,18 +60,16 @@
 				</span> <span class="login100-form-avatar"> <img
 					src="/sys_school/resources/login/images/hello.png" alt="AVATAR">
 				</span> <span class="login100-form-title p-b-70"> <br>
-					<h3>Wystąpił błąd. Zaloguj się ponownie na koncie:</h3>
+					<h3>Wystąpił błąd. Wróć do menu głównego.</h3>
 				</span> </span>
 
 
 
 				<div class="container-login100-form-btn">
-					<a class="login100-form-btn" href="${loginStudent}">Ucznia</a>
+					<a class="login100-form-btn" href="${dashboard}">Powrót</a>
 				</div>
 				<br>
-				<div class="container-login100-form-btn">
-					<a class="login100-form-btn" href="${loginTutor}">Nauczyciela</a>
-				</div>
+
 				<ul class="login-more p-t-190">
 					<li class="m-b-8"><span class="txt1"> Potrzebujesz
 							pomocy?</span> <a href="#" class="txt2"> Kliknij tutaj</a></li>

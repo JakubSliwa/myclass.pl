@@ -7,7 +7,9 @@
 <head>
 </head>
 <body>
-	<c:url value="../sys_school/dashboard" var="dashboard" />
+	<c:url value="/../sys_school/dashboard" var="dashboard" />
+	<c:url value="../sys_school/students" var="studentsList" />
+	<c:url value="../sys_school/exercises" var="exercisesList" />
 	<aside>
 	<div id="sidebar" class="nav-collapse ">
 		<!-- sidebar menu start-->
@@ -15,8 +17,8 @@
 
 			<p class="centered">
 				<a href="profile.html"><img
-					src="/sys_school/resources/login/images/hello.png" class="img-circle"
-					width="60"></a>
+					src="/sys_school/resources/login/images/hello.png"
+					class="img-circle" width="60"></a>
 			</p>
 			<h5 class="centered">${tutor.username}</h5>
 
@@ -28,10 +30,10 @@
 					<span>Wiadomości</span>
 			</a></li>
 
-			<li class="sub-menu"><a href=""> <i class="fa fa-users"></i>
-					<span>Uczniowie</span>
+			<li class="sub-menu"><a href="${studentsList}"> <i
+					class="fa fa-users"></i> <span>Uczniowie</span>
 			</a></li>
-			<li class="sub-menu"><a href=""> <i class="fa fa-tasks"></i>
+			<li class="sub-menu"><a href="${exercisesList}"> <i class="fa fa-tasks"></i>
 					<span>Zadania</span>
 			</a></li>
 			<li class="sub-menu"><a href=""> <i class="fa fa-archive"></i>
