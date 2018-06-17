@@ -10,6 +10,7 @@
 	<c:url value="/../sys_school/dashboard" var="dashboard" />
 	<c:url value="/../sys_school/students" var="studentsList" />
 	<c:url value="/../sys_school/exercises" var="exercisesList" />
+	<c:url value="/../sys_school/checksolutions" var="solutionsList" />
 	<aside>
 	<div id="sidebar" class="nav-collapse ">
 		<!-- sidebar menu start-->
@@ -33,11 +34,11 @@
 			<li class="sub-menu"><a href="${studentsList}"> <i
 					class="fa fa-users"></i> <span>Uczniowie</span>
 			</a></li>
-			<li class="sub-menu"><a href="${exercisesList}"> <i class="fa fa-tasks"></i>
-					<span>Zadania</span>
+			<li class="sub-menu"><a href="${exercisesList}"> <i
+					class="fa fa-tasks"></i> <span>Zadania</span>
 			</a></li>
-			<li class="sub-menu"><a href=""> <i class="fa fa-archive"></i>
-					<span>Odpowiedzi do zadań</span>
+			<li class="sub-menu"><a href="${solutionsList}"> <i
+					class="fa fa-archive"></i> <span>Odpowiedzi do zadań</span>
 			</a></li>
 			<li class="sub-menu"><a href=""> <i
 					class="fa fa-bar-chart-o"></i> <span>Raporty</span>

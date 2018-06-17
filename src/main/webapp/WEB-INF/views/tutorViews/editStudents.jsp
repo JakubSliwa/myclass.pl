@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Tutor - dodaj nowego studenta</title>
+<title>Tutor - edytuj konto studenta</title>
 <!-- Bootstrap core CSS -->
 <link href="/sys_school/resources/tutorDashboard/css/bootstrap.css"
 	rel="stylesheet">
@@ -224,6 +224,7 @@
 	<script type="application/javascript">
 		
 		
+		
 	
 			
         $(document).ready(function () {
@@ -259,6 +260,7 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
 	
 	
 	</script>

@@ -1,7 +1,5 @@
 package pl.js.web.Controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +23,7 @@ import pl.js.repository.BasicExerciseRepository;
 import pl.js.repository.BasicSolutionRepository;
 import pl.js.repository.ClassroomRepository;
 import pl.js.repository.StudentRepository;
+import pl.js.service.BasicExerciseService;
 import pl.js.service.BasicSolutionService;
 import pl.js.service.ClassroomService;
 import pl.js.service.StudentService;
@@ -49,6 +48,8 @@ public class TutorController {
 	BasicSolutionRepository basicSolutionRepository;
 	@Autowired
 	BasicExerciseRepository basicExerciseRepository;
+	@Autowired
+	BasicExerciseService basicExerciseService;
 
 	@GetMapping("/dashboard")
 	public String showTutorDashboard(Model model, HttpSession session) {
@@ -144,8 +145,8 @@ public class TutorController {
 			tutor = (Tutor) session.getAttribute("tutor");
 			student = studentRepository.findOne(studentId);
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				studentRepository.delete(studentId);
-				return "redirect:/dashboard";
+				basicExerciseService.basicExerciseSetNullForStudentId(studentId);
+				return "redirect:/students";
 			}
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";
@@ -337,4 +338,52 @@ public class TutorController {
 			return "redirect:/dashboard";
 		}
 	}
+
+	@GetMapping("/editexercises/{exerciseId}")
+	public String editExercise(Model model, HttpSession session, @PathVariable(value = "exerciseId") Long exerciseId) {
+		Long id;
+		Tutor tutor;
+		BasicExercise basicExercise;
+		try {
+			id = classroomService.getClassroomId(session);
+			tutor = (Tutor) session.getAttribute("tutor");
+			basicExercise = basicExerciseRepository.findOne(exerciseId);
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("basicExercise", basicExercise);
+				return "tutorViews/editExercise";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notATutor";
+	}
+
+	@PostMapping("/editexercises/{exerciseId}")
+	public String editExercise(@Validated @ModelAttribute BasicExercise basicExercise, BindingResult result,
+			@RequestParam String title, @RequestParam String description, @RequestParam Integer daysToAdd, Model model,
+			@PathVariable(value = "exerciseId") Long exerciseId, HttpSession session) {
+		Long id;
+		Student student = (Student) basicExercise.getStudent();
+		if (result.hasErrors()) {
+			try {
+				id = classroomService.getClassroomId(session);
+				basicExercise = basicExerciseRepository.findOne(exerciseId);
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("basicExercise", basicExercise);
+				return "tutorViews/editExercise";
+			} catch (Exception e) {
+				return "errors/generalExeption";
+			}
+		} else {
+			try {
+				basicExerciseService.basicExcerciseUpdate(basicExercise, title, description, daysToAdd, exerciseId,
+						student);
+			} catch (Exception e) {
+				return "errors/generalExeption";
+			}
+		}
+		return "redirect:/exercises";
+	}
+
 }

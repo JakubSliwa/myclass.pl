@@ -37,6 +37,7 @@
 	src="/sys_school/resources/tutorDashboard/js/chart-master/Chart.js"></script>
 </head>
 <body>
+	<c:url value="/../sys_school/editstudents" var="editStudent" />
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
 		file="/WEB-INF/parts/sidebar.jsp"%> <section
@@ -217,63 +218,6 @@
 	<script type="application/javascript">
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -298,8 +242,7 @@
                 ]
             });
         });
-        
-        
+    
         function myNavFunction(id) {
             $("#date-popover").hide();
             var nav = $("#" + id).data("navigation");
@@ -307,62 +250,6 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	</script>

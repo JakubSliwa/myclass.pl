@@ -7,8 +7,8 @@
 <head>
 </head>
 <body>
-	<c:url value="../sys_school/dashboard" var="dashboard" />
-	<c:url value="../sys_school/logout" var="logout" />
+	<c:url value="/../sys_school/dashboard" var="dashboard" />
+	<c:url value="/../sys_school/logout" var="logout" />
 	<header class="header black-bg">
 	<div class="sidebar-toggle-box">
 		<div class="fa fa-bars tooltips" data-placement="right"
