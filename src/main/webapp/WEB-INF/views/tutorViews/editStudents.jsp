@@ -12,32 +12,31 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Tutor - sprawdź rozwiązania</title>
+<title>Tutor - dodaj nowego studenta</title>
 <!-- Bootstrap core CSS -->
-<link href="resources/tutorDashboard/css/bootstrap.css" rel="stylesheet">
+<link href="/sys_school/resources/tutorDashboard/css/bootstrap.css"
+	rel="stylesheet">
 <!--external css-->
-<link href="resources/tutorDashboard/font-awesome/css/font-awesome.css"
+<link
+	href="/sys_school/resources/tutorDashboard/font-awesome/css/font-awesome.css"
 	rel="stylesheet" />
 <link rel="stylesheet" type="text/css"
-	href="resources/tutorDashboard/css/zabuto_calendar.css">
+	href="/sys_school/resources/tutorDashboard/css/zabuto_calendar.css">
 
 <link rel="stylesheet" type="text/css"
-	href="resources/tutorDashboard/lineicons/style.css">
+	href="/sys_school/resources/tutorDashboard/lineicons/style.css">
 
 <!-- Custom styles for this template -->
-<link href="resources/tutorDashboard/css/style.css" rel="stylesheet">
-<link href="resources/tutorDashboard/css/style-responsive.css"
+<link href="/sys_school/resources/tutorDashboard/css/style.css"
+	rel="stylesheet">
+<link
+	href="/sys_school/resources/tutorDashboard/css/style-responsive.css"
 	rel="stylesheet">
 
-<script src="resources/tutorDashboard/js/chart-master/Chart.js"></script>
+<script
+	src="/sys_school/resources/tutorDashboard/js/chart-master/Chart.js"></script>
 </head>
 <body>
-	<c:url value="../sys_school/adduser" var="newUser" />
-	<c:url value="../sys_school/invitestudent" var="newStudent" />
-	<c:url value="../sys_school/addgrade" var="addGrade" />
-	<c:url value="../sys_school/students" var="studentsList" />
-
-
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
 		file="/WEB-INF/parts/sidebar.jsp"%> <section
@@ -45,48 +44,41 @@
 	<div class="row">
 		<div class="col-lg-9 main-chart">
 			<%@ include file="/WEB-INF/parts/topMenu.jsp"%>
-			<div class="row mt">
-				<div class="col-md-12">
-					<div class="content-panel">
-						<table class="table table-striped table-advance table-hover">
-							<h4>
-								<i class="fa fa-angle-right"></i> Ostatnio dodane rozwiązania
-							</h4>
-							<hr>
-							<thead>
-								<tr>
-									<th><i class="fa fa-user"></i> Uczeń</th>
-									<th class="hidden-phone"><i class="fa fa-tasks"></i>
-										Zadanie</th>
-									<th><i class="fa fa-archive"></i>Odpowiedź</th>
-									<th><i class=" fa fa-calendar-check-o"></i> Dodano</th>
+			<!-- /row mt -->
 
-									<th><i class="fa fa-flash"></i>Ocena</th>
-									<th><i class="fa fa-flash"></i>Dostępne akcje</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${solutions}" var="solutions">
-									<tr>
-										<td>${solutions.basicExercise.student.username}</td>
-										<td>${solutions.basicExercise.title}</td>
-										<td>${solutions.answer}</td>
-										<td>${solutions.added}</td>
-										<td>${solutions.grade}</td>
-										<td><a id="add-sticky" class="label label-primary"
-											href="${addGrade}/${solutions.id}" /> Wystaw ocene</a><a
-											id="add-without-image" class="label label-success"
-											href="${studentsList}/${solutions.basicExercise.student.id}">Sprawdź
-												ucznia</a><a id="remove-all" class="label label-danger" href="">Przypomnij</a></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+
+			<div class="row mt">
+				<div class="col-lg-12">
+					<div class="form-panel">
+						<h4 class="mb">
+							<i class="fa fa-angle-right"></i> Zmień dane studenta
+						</h4>
+						<form:form class="form-horizontal style-form" method="post"
+							modelAttribute="student">
+							<div class="form-group">
+								<label class="col-sm-2 col-sm-2 control-label">Login</label>
+								<div class="col-sm-10">
+									<form:input path="username" class="form-control" type="text"
+										placeholder="Podaj nowy login ucznia" />
+									<form:errors path="username" />
+								</div>
+
+							</div>
+							<div class="form-group" data-validate="Wprowadź email">
+								<label class="col-sm-2 col-sm-2 control-label">Email</label>
+								<div class="col-sm-10">
+									<form:input path="email" class="form-control"
+										placeholder="Podaj nowy adres email ucznia" type="email" />
+								</div>
+								<form:errors path="email" />
+							</div>
+							<input class="btn btn-primary" type="submit"
+								value="Zmień dane studenta">
+						</form:form>
 					</div>
-					<!-- /content-panel -->
 				</div>
-				<!-- /col-md-12 -->
 			</div>
+			<!-- /row -->
 
 
 			<div class="row"></div>
@@ -171,6 +163,7 @@
 			</div>
 
 			<!-- USERS ONLINE SECTION -->
+
 			<%@ include file="/WEB-INF/parts/usersOnlineSection.jsp"%>
 
 			<!-- CALENDAR-->
@@ -202,30 +195,36 @@
 	</footer> <!--footer end--> </section>
 
 	<!-- js placed at the end of the document so the pages load faster -->
-	<script src="resources/tutorDashboards/js/jquery.js"></script>
-	<script src="resources/tutorDashboard/js/jquery-1.8.3.min.js"></script>
-	<script src="resources/tutorDashboard/js/bootstrap.min.js"></script>
+	<script src="/sys_school/resources/tutorDashboards/js/jquery.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery-1.8.3.min.js"></script>
+	<script src="/sys_school/resources/tutorDashboard/js/bootstrap.min.js"></script>
 	<script class="include" type="text/javascript"
-		src="resources/tutorDashboard/js/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="resources/tutorDashboard/js/jquery.scrollTo.min.js"></script>
-	<script src="resources/tutorDashboard/js/jquery.nicescroll.js"
+		src="/sys_school/resources/tutorDashboard/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.scrollTo.min.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.nicescroll.js"
 		type="text/javascript"></script>
-	<script src="resources/tutorDashboard/js/jquery.sparkline.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.sparkline.js"></script>
 
 
 	<!--common script for all pages-->
-	<script src="resources/tutorDashboard/js/common-scripts.js"></script>
+	<script src="/sys_school/resources/tutorDashboard/js/common-scripts.js"></script>
 
 	<!--script for this page-->
-	<script src="resources/tutorDashboard/js/sparkline-chart.js"></script>
-	<script src="resources/tutorDashboard/js/zabuto_calendar.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/sparkline-chart.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/zabuto_calendar.js"></script>
 
 
 
 	<script type="application/javascript">
 		
 		
-			
+	
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -251,16 +250,18 @@
                 ]
             });
         });
-          
+        
+        
         function myNavFunction(id) {
             $("#date-popover").hide();
             var nav = $("#" + id).data("navigation");
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
-        }	
-	
+        }
+
 	
 	
 	</script>
+
 
 </body>

@@ -71,7 +71,7 @@
 										<td><a id="add-sticky" class="label label-primary"
 											href="${addGrade}/${solutions.id}" />Wystaw ocene</a><a
 											id="add-without-image" class="label label-success"
-											href="${students}/${solutions.basicExercise.student.id}">Sprawdź
+											href="${studentsList}/${solutions.basicExercise.student.id}">Sprawdź
 												ucznia</a><a id="remove-all" class="label label-danger" href="">Przypomnij</a></td>
 									</tr>
 								</c:forEach>

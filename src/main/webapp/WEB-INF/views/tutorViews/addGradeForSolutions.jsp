@@ -52,7 +52,7 @@
 				<div class="col-lg-12">
 					<div class="form-panel">
 						<h4 class="mb">
-							<i class="fa fa-angle-right"></i> Oceń rozwiązanie w skali od 1 do 6.
+							<i class="fa fa-angle-right"></i> Oceń rozwiązanie w skali od 1 do 6. Użyj '.', zamiast ','.
 						</h4>
 						<form:form class="form-horizontal style-form" method="post"
 							modelAttribute="basicSolution">

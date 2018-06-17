@@ -33,8 +33,8 @@
 </head>
 <body>
 	<c:url value="../sys_school/students" var="studentsList" />
-
-
+	<c:url value="../sys_school/editstudents" var="editStudent" />
+	<c:url value="../sys_school/deletestudents" var="deleteStudent" />
 
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
@@ -68,8 +68,11 @@
 
 										<td><a id="add-sticky" class="label label-primary"
 											href="${studentsList}/${student.id}" />Sprawdź ucznia</a> <a
-											id="remove-all" class="label label-danger"
-											href="${students}/${student.id}" />Edytuj ucznia
+												id="add-without-image" class="label label-success"
+												href="${editStudent}/${student.id}" />Edytuj
+												ucznia</a> <a id="remove-all"
+													class="label label-danger"
+													href="${deleteStudent}/${student.id}" />Usuń ucznia</a></td>
 									</tr>
 									</a>
 								</c:forEach>
@@ -297,6 +300,12 @@
 		
 		
 		
+		
+		
+		
+		
+		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -331,6 +340,12 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
+	
+	
 	
 	
 	

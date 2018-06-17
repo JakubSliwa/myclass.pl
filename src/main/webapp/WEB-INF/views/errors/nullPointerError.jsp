@@ -51,8 +51,8 @@
 
 <body>
 
-	<c:url value="../sys_school/loginStudent" var="loginStudent" />
-	<c:url value="../sys_school/loginTutor" var="loginTutor" />
+	<c:url value="/../sys_school/loginStudent" var="loginStudent" />
+	<c:url value="/../sys_school/loginTutor" var="loginTutor" />
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-t-85 p-b-20">

@@ -62,7 +62,7 @@
 				</span> <span class="login100-form-avatar"> <img
 					src="resources/login/images/hello.png" alt="AVATAR">
 				</span> <span class="login100-form-title p-b-70"> <br>
-					<h3>Wystąpił błąd podczas rejestracji.</h3>
+					<h3>Wystąpił błąd podczas dodawania studenta.</h3>
 					<h4>Wybrana przez Ciebie nazwa lub email jest zajęta.</h4> </br>
 					<h3>Wybierz jeszcze raz.</h3>
 				</span> </span>

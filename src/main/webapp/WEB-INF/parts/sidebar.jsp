@@ -8,8 +8,8 @@
 </head>
 <body>
 	<c:url value="/../sys_school/dashboard" var="dashboard" />
-	<c:url value="../sys_school/students" var="studentsList" />
-	<c:url value="../sys_school/exercises" var="exercisesList" />
+	<c:url value="/../sys_school/students" var="studentsList" />
+	<c:url value="/../sys_school/exercises" var="exercisesList" />
 	<aside>
 	<div id="sidebar" class="nav-collapse ">
 		<!-- sidebar menu start-->

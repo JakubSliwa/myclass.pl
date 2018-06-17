@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Tutor - dodaj ocenę</title>
+<title>Tutor - pokaż studenta</title>
 <!-- Bootstrap core CSS -->
 <link href="/sys_school/resources/tutorDashboard/css/bootstrap.css"
 	rel="stylesheet">
@@ -56,11 +56,9 @@
 							<thead>
 								<tr>
 									<th><i class="fa fa-user"></i> Login</th>
-									<th class="hidden-phone"><i class="fa fa-tasks"></i>
-										Zadanie</th>
-									<th><i class="fa fa-archive"></i>Email</th>
-									<th><i class=" fa fa-calendar-check-o"></i> Status</th>
-
+									<th class="hidden-phone"><i class="fa fa-tasks"></i> Email</th>
+									<th><i class="fa fa-archive"></i>Status</th>
+									<th><i class=" fa fa-calendar-check-o"></i> Dostępne akcje</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -68,6 +66,8 @@
 									<td>${student.username}</td>
 									<td>${student.email}</td>
 									<td>${student.status}</td>
+									<td><a id="add-without-image" class="label label-success"
+										href="${editStudent}/${student.id}" />Edytuj ucznia</td>
 								</tr>
 							</tbody>
 						</table>
@@ -270,6 +270,9 @@
 		
 		
 		
+		
+		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -304,6 +307,9 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
 	
 	
 	

@@ -14,10 +14,14 @@ import pl.js.entity.exercise.BasicSolution;
 @Repository
 public interface BasicSolutionRepository extends JpaRepository<BasicSolution, Long> {
 
-	List<BasicSolution> findAllByClassroomId(Long id);
+	List<BasicSolution> findAllByClassroomIdOrderByAddedDesc(Long id);
+
+	List<BasicSolution> findFirst10ByClassroomIdOrderByAddedDesc(Long id);
 
 	@Modifying
 	@Transactional
 	@Query("update BasicSolution b set b.grade = ?1 where b.id = ?2")
 	void setBasicSolutionGradeById(Double grade, Long solutionId);
+
+	List<BasicSolution> findAllByBasicExerciseId(Long id);
 }
