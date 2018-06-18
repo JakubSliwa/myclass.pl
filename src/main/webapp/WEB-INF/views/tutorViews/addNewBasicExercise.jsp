@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	response.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8");
+%>
 <%@	taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@	taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -55,7 +59,8 @@
 									zadania</label>
 								<div class="col-sm-10">
 									<form:input path="title" class="form-control" type="text"
-										placeholder="Tytuł zadania" /><form:errors path="title" />
+										placeholder="Tytuł zadania" />
+									<form:errors path="title" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -63,15 +68,16 @@
 									zadania</label>
 								<div class="col-sm-10">
 									<form:input path="description" class="form-control"
-										placeholder="Wpisz treść zadania" type="text" /><form:errors path="description" />
+										placeholder="Wpisz treść zadania" type="text" />
+									<form:errors path="description" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-2 col-sm-2 control-label">Kto ma
 									wykonać?</label>
 								<div class="col-sm-10">
-									<form:select itemValue="id" path="student.id" itemLabel="username"
-										items="${students}" />
+									<form:select itemValue="id" path="student.id"
+										itemLabel="username" items="${students}" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -79,7 +85,8 @@
 									dni uczeń ma na zrobienie zadania?</label>
 								<div class="col-sm-10" class="form-control">
 									<form:input itemValue="daysToAdd" path="daysToAdd" type="text" />
-								</div><form:errors path="daysToAdd" />
+								</div>
+								<form:errors path="daysToAdd" />
 							</div>
 
 							<input class="btn btn-primary" type="submit"
@@ -294,6 +301,7 @@
 		
 		
 		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -328,6 +336,7 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
 	
 	
 	

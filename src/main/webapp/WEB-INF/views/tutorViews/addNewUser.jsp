@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	response.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8");
+%>
 <%@	taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@	taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -48,7 +52,7 @@
 				<div class="col-lg-12">
 					<div class="form-panel">
 						<h4 class="mb">
-							<i class="fa fa-angle-right"></i> Form Elements
+							<i class="fa fa-angle-right"></i> Zaproś nowego ucznia
 						</h4>
 						<form:form class="form-horizontal style-form" method="post"
 							modelAttribute="student">
@@ -256,6 +260,7 @@
 		
 		
 		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -290,6 +295,7 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
 	
 	
 	
