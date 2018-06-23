@@ -11,4 +11,10 @@ public class Tutor extends User {
 		super();
 	}
 
+	@Override
+	public String toString() {
+		return "Tutor [getId()=" + getId() + ", getUsername()=" + getUsername() + ", getEmail()=" + getEmail()
+				+ ", getClassroom()=" + getClassroom() + "]";
+	}
+
 }

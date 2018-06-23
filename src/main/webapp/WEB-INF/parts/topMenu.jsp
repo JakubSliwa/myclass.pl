@@ -11,6 +11,7 @@
 	<c:url value="/../sys_school/invitestudent" var="newStudent" />
 	<c:url value="/../sys_school/createexercise" var="newExercise" />
 	<c:url value="/../sys_school/checksolutions" var="checkSolutions" />
+	<c:url value="/../sys_school/tutorsettings" var="tutorSettings" />
 	<div class="row mtbox">
 		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
 			<a href="${newStudent}"><div class="box1">
@@ -41,7 +42,7 @@
 			<p>Wyślij propozycję terminu następnej lekcji.</p>
 		</div>
 		<div class="col-md-2 col-sm-2 box0">
-			<a href="${newExercise}"><div class="box1">
+			<a href="${tutorSettings}"><div class="box1">
 					<span class="li_settings"></span>
 					<h3>Sprawdź ustawienia</h3>
 				</div></a>

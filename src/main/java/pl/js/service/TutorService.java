@@ -68,7 +68,7 @@ public class TutorService {
 	}
 
 	public void save(Tutor tutor) {
-		tutor.setPassword(bCryptPasswordEncoder.encode(tutor.getPassword()));
+		/* tutor.setPassword(bCryptPasswordEncoder.encode(tutor.getPassword())); */
 		tutor.setRole(roleRepository.findByRole("ROLE_TUTOR"));
 		tutorRepository.save(tutor);
 	}
@@ -79,6 +79,18 @@ public class TutorService {
 
 	public Tutor findByUserName(String username) {
 		return tutorRepository.findByUsername(username);
+	}
+
+	public Tutor findTutorById(Long id) {
+		return tutorRepository.findOne(id);
+	}
+
+	public void updateTutor(Tutor tutor, String username, String email, String password, HttpSession session) {
+		tutor.setPassword(password);
+		Long id = tutor.getId();
+		tutorRepository.setTutorLoginAndEmailById(username, email, id);
+		Tutor tutorAfter = tutorRepository.findOne(id);
+		session.setAttribute("tutor", tutorAfter);
 	}
 
 }

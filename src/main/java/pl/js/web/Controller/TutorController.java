@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pl.js.entity.exercise.BasicExercise;
@@ -22,6 +23,7 @@ import pl.js.repository.BasicExerciseRepository;
 import pl.js.repository.BasicSolutionRepository;
 import pl.js.repository.ClassroomRepository;
 import pl.js.repository.StudentRepository;
+import pl.js.repository.TutorRepository;
 import pl.js.service.BasicExerciseService;
 import pl.js.service.BasicSolutionService;
 import pl.js.service.ClassroomService;
@@ -33,6 +35,8 @@ import pl.js.service.TutorService;
 public class TutorController {
 	@Autowired
 	TutorService tutorService;
+	@Autowired
+	TutorRepository tutorRepository;
 	@Autowired
 	StudentService studentService;
 	@Autowired
@@ -69,6 +73,51 @@ public class TutorController {
 		}
 		return "errors/notATutor";
 
+	}
+
+	@GetMapping("/tutorsettings")
+	public String tutorSettings(Model model, HttpSession session) {
+		Long id;
+		Tutor tutor;
+		try {
+			id = classroomService.getClassroomId(session);
+			tutor = (Tutor) session.getAttribute("tutor");
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+				model.addAttribute("student", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("tutor", tutorService.findTutorById(tutor.getId()));
+				return "tutorViews/tutorSettings";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+
+		return "errors/notATutor";
+
+	}
+
+	@PostMapping("/tutorsettings")
+	public String tutorSettings(@Validated @ModelAttribute Tutor tutor, BindingResult result,
+			@RequestParam String username, @RequestParam String email, @RequestParam String password, Model model,
+			HttpSession session) {
+		Long id;
+		if (result.hasErrors()) {
+			try {
+				id = classroomService.getClassroomId(session);
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				return "tutorViews/tutorSettings";
+			} catch (Exception e) {
+				return "errors/generalExeption";
+			}
+		} else {
+			try {
+				tutor = (Tutor) session.getAttribute("tutor");
+				tutorService.updateTutor(tutor, username, email, password, session);
+			} catch (Exception e) {
+				return "errors/generalExeption";
+			}
+			return "redirect:/tutorsettings";
+		}
 	}
 
 	@GetMapping("/checksolutions")

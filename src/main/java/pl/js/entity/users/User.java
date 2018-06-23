@@ -11,6 +11,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.data.annotation.Transient;
 
 import pl.js.entity.Classroom;
@@ -93,8 +94,8 @@ public abstract class User {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public String setPassword(String password) {
+		return this.password = BCrypt.hashpw(password, BCrypt.gensalt());
 	}
 
 	public String getEmail() {
