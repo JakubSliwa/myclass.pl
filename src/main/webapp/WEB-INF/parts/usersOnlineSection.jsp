@@ -17,7 +17,7 @@
 			</div>
 			<div class="details">
 				<p>
-					<a href="#">${students.username }</a><br />
+					<a href="#">${students.username }</a><br	/>
 					<muted>${students.status }</muted>
 				</p>
 			</div>

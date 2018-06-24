@@ -24,4 +24,9 @@ public interface TutorRepository extends JpaRepository<Tutor, Long> {
 	void setTutorLoginAndEmailById(@Param("username") String username, @Param("email") String email,
 			@Param("id") Long id);
 
+	@Modifying
+	@Transactional
+	@Query("UPDATE Tutor t SET t.status = :status  WHERE t.id = :id")
+	void setTutorStatusById(@Param("status") String status, @Param("id") Long id);
+
 }

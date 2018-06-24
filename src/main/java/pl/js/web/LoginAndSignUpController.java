@@ -2,9 +2,9 @@ package pl.js.web;
 
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,7 +26,7 @@ import pl.js.service.ClassroomService;
 import pl.js.service.TutorService;
 
 @Controller
-@SessionAttributes({ "class", "	tutor" })
+@SessionAttributes({ "class", "tutor", "student" })
 public class LoginAndSignUpController {
 	@Autowired
 	ClassroomRepository classroomRepository;
@@ -48,7 +48,17 @@ public class LoginAndSignUpController {
 
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		return "security/logout";
+		if (session.getAttribute("tutor") != null) {
+			Tutor tutorSess = (Tutor) session.getAttribute("tutor");
+			Tutor tutor = tutorRepository.findByEmail(tutorSess.getEmail());
+			tutorRepository.setTutorStatusById("offline", tutor.getId());
+			return "security/logout";
+		} else {
+			Student studentSess = (Student) session.getAttribute("student");
+			Student student = studentRepository.findByEmail(studentSess.getEmail());
+			studentRepository.setStudentStatusById("offline", student.getId());
+			return "security/logout";
+		}
 	}
 
 	@GetMapping("/loginTutor")
@@ -66,6 +76,7 @@ public class LoginAndSignUpController {
 			session.setAttribute("tutor", tutor);
 			session.setAttribute("class", tutor.getClassroom());
 			if ((BCrypt.checkpw(password, tutor.getPassword()) && "ROLE_TUTOR".equals(tutor.getRole().getRole()))) {
+				tutorRepository.setTutorStatusById("online", tutor.getId());
 				return "redirect:/dashboard";
 			} else {
 				return "errors/loginPasswordError";
@@ -93,9 +104,12 @@ public class LoginAndSignUpController {
 			session.setAttribute("class", student.getClassroom());
 			if ((BCrypt.checkpw(password, student.getPassword())
 					&& "ROLE_STUDENT".equals(student.getRole().getRole()))) {
+				studentRepository.setStudentStatusById("online", student.getId());
 				return "success " + password + " " + student.getPassword();
 			} else {
-				return "errors/loginPasswordError";
+				BCrypt.checkpw(password, student.getPassword());
+				return student.getPassword() + password + 	BCrypt.checkpw(password, student.getPassword());
+				/*return "errors/loginPasswordError";*/
 			}
 		} catch (NullPointerException e) {
 			return "errors/loginEmailError";

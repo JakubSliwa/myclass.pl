@@ -25,7 +25,7 @@ public class StudentService {
 	}
 
 	public void save(Student student) {
-		student.setPassword(bCryptPasswordEncoder.encode(student.getPassword()));
+		/*student.setPassword(bCryptPasswordEncoder.encode(student.getPassword()));*/
 		student.setRole(roleRepository.findByRole("ROLE_STUDENT"));
 		studentRepository.save(student);
 	}
