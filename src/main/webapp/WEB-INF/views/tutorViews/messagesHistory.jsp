@@ -12,24 +12,29 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Tutor - lista zadań</title>
+<title>Tutor - historia rozmowy</title>
 <!-- Bootstrap core CSS -->
-<link href="resources/tutorDashboard/css/bootstrap.css" rel="stylesheet">
+<link href="/sys_school/resources/tutorDashboard/css/bootstrap.css"
+	rel="stylesheet">
 <!--external css-->
-<link href="resources/tutorDashboard/font-awesome/css/font-awesome.css"
+<link
+	href="/sys_school/resources/tutorDashboard/font-awesome/css/font-awesome.css"
 	rel="stylesheet" />
 <link rel="stylesheet" type="text/css"
-	href="resources/tutorDashboard/css/zabuto_calendar.css">
+	href="/sys_school/resources/tutorDashboard/css/zabuto_calendar.css">
 
 <link rel="stylesheet" type="text/css"
-	href="resources/tutorDashboard/lineicons/style.css">
+	href="/sys_school/resources/tutorDashboard/lineicons/style.css">
 
 <!-- Custom styles for this template -->
-<link href="resources/tutorDashboard/css/style.css" rel="stylesheet">
-<link href="resources/tutorDashboard/css/style-responsive.css"
+<link href="/sys_school/resources/tutorDashboard/css/style.css"
+	rel="stylesheet">
+<link
+	href="/sys_school/resources/tutorDashboard/css/style-responsive.css"
 	rel="stylesheet">
 
-<script src="resources/tutorDashboard/js/chart-master/Chart.js"></script>
+<script
+	src="/sys_school/resources/tutorDashboard/js/chart-master/Chart.js"></script>
 </head>
 <body>
 	<c:url value="../sys_school/students" var="studentsList" />
@@ -37,7 +42,7 @@
 	<c:url value="../sys_school/editexercises" var="editExercises" />
 	<c:url value="/../sys_school/students" var="student" />
 	<c:url value="/../sys_school/message" var="sendToStudent" />
-	<c:url value="/../sys_school/messages" var="messagesHistory" />
+
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
 		file="/WEB-INF/parts/sidebar.jsp"%> <section
@@ -59,20 +64,18 @@
 									<th class="hidden-phone"><i class="fa fa-tasks"></i>
 										Wiadomość</th>
 									<th><i class="fa fa-archive"></i>Wysłane</th>
-									<th><i class="fa fa-flash"></i>Dostępne akcje</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${message}" var="message">
 									<tr>
-										<td>${message.sendByStudent.username}</td>
+										<td><c:choose>
+												<c:when test="${empty message.sendByStudent}"> ${tutor.username}</c:when>
+												<c:otherwise> ${message.sendByStudent.username}</c:otherwise>
+											</c:choose></td>
 										<td>${message.text}</td>
 										<td>${message.sent.format(dateTimeFormatter)}</td>
-										<td><a id="add-without-image" class="label label-success"
-											href="${messagesHistory}/${message.sendByStudent.id}">Wejdź do
-												rozmowy</a><a id="add-without-image" class="label label-primary"
-											href="${sendToStudent}/${message.sendByStudent.id}" />Wyślij
-											wiadomość</a></td>
+
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -197,27 +200,37 @@
 	</footer> <!--footer end--> </section>
 
 	<!-- js placed at the end of the document so the pages load faster -->
-	<script src="resources/tutorDashboards/js/jquery.js"></script>
-	<script src="resources/tutorDashboard/js/jquery-1.8.3.min.js"></script>
-	<script src="resources/tutorDashboard/js/bootstrap.min.js"></script>
+	<script src="/sys_school/resources/tutorDashboards/js/jquery.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery-1.8.3.min.js"></script>
+	<script src="/sys_school/resources/tutorDashboard/js/bootstrap.min.js"></script>
 	<script class="include" type="text/javascript"
-		src="resources/tutorDashboard/js/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="resources/tutorDashboard/js/jquery.scrollTo.min.js"></script>
-	<script src="resources/tutorDashboard/js/jquery.nicescroll.js"
+		src="/sys_school/resources/tutorDashboard/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.scrollTo.min.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.nicescroll.js"
 		type="text/javascript"></script>
-	<script src="resources/tutorDashboard/js/jquery.sparkline.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.sparkline.js"></script>
 
 
 	<!--common script for all pages-->
-	<script src="resources/tutorDashboard/js/common-scripts.js"></script>
+	<script src="/sys_school/resources/tutorDashboard/js/common-scripts.js"></script>
 
 	<!--script for this page-->
-	<script src="resources/tutorDashboard/js/sparkline-chart.js"></script>
-	<script src="resources/tutorDashboard/js/zabuto_calendar.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/sparkline-chart.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/zabuto_calendar.js"></script>
 
 
 
-	<script type="application/javascript">
+	<script type="/sys_school/application/javascript">
+		
+		
+		
+		
 		
 		
 		
@@ -346,6 +359,10 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
 	
 	
 	

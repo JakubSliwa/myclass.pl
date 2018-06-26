@@ -1,5 +1,7 @@
 package pl.js.web.Controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pl.js.entity.Message;
@@ -48,6 +51,30 @@ public class MessageController {
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("message", messageRepository.findAllBySendToTutor(tutor));
 				return "tutorViews/messages";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notATutor";
+	}
+
+	@GetMapping("/messages/{studentId}")
+	public String AllMessagesFromStudent(Model model, HttpSession session,
+			@PathVariable(value = "studentId") Long studentId) {
+		Long id;
+		Tutor tutor;
+		Student student;
+		try {
+			id = classroomService.getClassroomId(session);
+			tutor = (Tutor) session.getAttribute("tutor");
+			student = studentRepository.findOne(studentId);
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("message",
+						messageRepository
+								.findAllBySendToTutorAndSendByStudentOrSendByTutorAndSendToStudentOrderBySentDesc(
+										student, tutor));
+				return "tutorViews/messagesHistory";
 			}
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";
