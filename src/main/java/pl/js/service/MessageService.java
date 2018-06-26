@@ -1,6 +1,8 @@
 package pl.js.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,4 +27,23 @@ public class MessageService {
 		messageRepository.save(message);
 	}
 
+	public long countUnreaded(List<Message> unreadedMessages, List<Message> messages) {
+		for (Message m : messages) {
+			if ("NotReaded".equals(m.getReaded())) {
+				unreadedMessages.add(m);
+			}
+		}
+		return unreadedMessages.size();
+	}
+
+	public long countCurrentUnreaded(Tutor tutor) {
+		List<Message> unreadedMessages = new ArrayList<>();
+		List<Message> messages = messageRepository.findAllBySendToTutor(tutor);
+		for (Message m : messages) {
+			if ("NotReaded".equals(m.getReaded())) {
+				unreadedMessages.add(m);
+			}
+		}
+		return unreadedMessages.size();
+	}
 }

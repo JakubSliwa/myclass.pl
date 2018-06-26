@@ -24,12 +24,12 @@
 			<!-- inbox dropdown start-->
 			<li id="header_inbox_bar" class="dropdown"><a
 				data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-					<i class="fa fa-envelope-o"></i> <span class="badge bg-theme"></span>
+					<i class="fa fa-envelope-o"></i> <span class="badge bg-theme">${unreaded}</span>
 			</a>
 				<ul class="dropdown-menu extended inbox">
 					<div class="notify-arrow notify-arrow-green"></div>
 					<li>
-						<p class="green">You have 6 new messages</p>
+						<p class="green">You have ${unreaded} new messages</p>
 					</li>
 					<c:url value="/../sys_school/students" var="student" />
 					<c:forEach items="${messages}" var="message">
@@ -37,7 +37,7 @@
 								class="photo"><img alt="avatar"
 									src="/sys_school/resources/tutorDashboard/img/ui-sam.jpg"></span>
 								<span class="subject"> <span class="from">${message.sendByStudent.username}</span>
-									<span class="time">${message.sent}</span>
+									<span class="time"> ${message.sent.format(dateTimeFormatter)} </span>
 							</span> <span class="message">${message.text}</span>
 						</a></li>
 

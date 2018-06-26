@@ -11,8 +11,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import pl.js.entity.users.Student;
 import pl.js.entity.users.Tutor;
 
@@ -55,7 +53,6 @@ public class Message {
 	public void setText(String text) {
 		this.text = text;
 	}
-
 
 	public String getReaded() {
 		return readed;

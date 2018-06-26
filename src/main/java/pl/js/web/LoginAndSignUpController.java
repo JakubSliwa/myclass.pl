@@ -1,5 +1,9 @@
 package pl.js.web;
 
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pl.js.entity.Classroom;
+import pl.js.entity.Message;
 import pl.js.entity.users.Student;
 import pl.js.entity.users.Tutor;
 import pl.js.repository.ClassroomRepository;
@@ -23,6 +28,7 @@ import pl.js.repository.MessageRepository;
 import pl.js.repository.StudentRepository;
 import pl.js.repository.TutorRepository;
 import pl.js.service.ClassroomService;
+import pl.js.service.MessageService;
 import pl.js.service.TutorService;
 
 @Controller
@@ -40,6 +46,8 @@ public class LoginAndSignUpController {
 	StudentRepository studentRepository;
 	@Autowired
 	TutorService tutorService;
+	@Autowired
+	MessageService messageService;
 
 	@GetMapping("/login")
 	public String login() {
@@ -72,13 +80,17 @@ public class LoginAndSignUpController {
 	public String loginTutor(@RequestParam String email, @RequestParam String password, HttpSession session,
 			Model model) {
 		Tutor tutor;
+		List<Message> unreadedMessages = new ArrayList<>();
+		List<Message> messages = new ArrayList<>();
 		try {
 			tutor = tutorRepository.findByEmail(email);
+			messages.addAll(messageRepository.findAllBySendToTutor(tutor));
 			session.setAttribute("tutor", tutor);
 			session.setAttribute("class", tutor.getClassroom());
 			session.setAttribute("messages", messageRepository.findAllBySendToTutor(tutor));
-			session.setAttribute("messages", messageRepository.findAllBySendToTutor(tutor));
-			session.setAttribute("unreaded", messageRepository.countMessages("NotReaded", tutor));
+			session.setAttribute("messages", messages);
+			session.setAttribute("dateTimeFormatter", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+			session.setAttribute("unreaded", messageService.countUnreaded(unreadedMessages, messages));
 			if ((BCrypt.checkpw(password, tutor.getPassword()) && "ROLE_TUTOR".equals(tutor.getRole().getRole()))) {
 				tutorRepository.setTutorStatusById("online", tutor.getId());
 				return "redirect:/dashboard";
@@ -102,8 +114,11 @@ public class LoginAndSignUpController {
 	public String loginStudent(@RequestParam String email, @RequestParam String password, HttpSession session,
 			Model model) {
 		Student student;
+		List<Message> unreadedMessages = new ArrayList<>();
+		List<Message> messages = new ArrayList<>();
 		try {
 			student = studentRepository.findByEmail(email);
+			// doddac wiadomosci
 			session.setAttribute("student", student);
 			session.setAttribute("class", student.getClassroom());
 			if ((BCrypt.checkpw(password, student.getPassword())

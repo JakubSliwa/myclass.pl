@@ -23,7 +23,7 @@ import pl.js.service.MessageService;
 import pl.js.service.TutorService;
 
 @Controller
-@SessionAttributes({ "class", "tutor" })
+@SessionAttributes({ "class", "	tutor", "messages" })
 public class MessageController {
 	@Autowired
 	ClassroomService classroomService;
