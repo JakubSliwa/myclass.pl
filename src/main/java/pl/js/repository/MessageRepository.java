@@ -10,7 +10,5 @@ import pl.js.entity.users.Tutor;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
-
 	List<Message> findAllBySendToTutor(Tutor tutor);;
-
 }

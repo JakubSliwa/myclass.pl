@@ -12,6 +12,7 @@
 	<c:url value="/../sys_school/exercises" var="exercisesList" />
 	<c:url value="/../sys_school/checksolutions" var="solutionsList" />
 	<c:url value="/../sys_school/tutorsettings" var="tutorSettings" />
+	<c:url value="/../sys_school/messages" var="messages" />
 	<aside>
 	<div id="sidebar" class="nav-collapse ">
 		<!-- sidebar menu start-->
@@ -28,8 +29,8 @@
 					class="fa fa-dashboard"></i> <span>Panel główny</span>
 			</a></li>
 
-			<li class="sub-menu"><a href=""> <i class="fa fa-comments"></i>
-					<span>Wiadomości</span>
+			<li class="sub-menu"><a href="${messages}"> <i
+					class="fa fa-comments"></i> <span>Wiadomości</span>
 			</a></li>
 
 			<li class="sub-menu"><a href="${studentsList}"> <i

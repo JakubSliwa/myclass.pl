@@ -52,7 +52,8 @@
 					<div class="content-panel">
 						<table class="table table-striped table-advance table-hover">
 							<h4>
-								<i class="fa fa-angle-right"></i> Uczeń ${student.username}
+								<i class="fa fa-angle-right"></i> Uczeń
+								${studentForView.username}
 							</h4>
 							<hr>
 							<thead>
@@ -65,13 +66,14 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>${student.username}</td>
-									<td>${student.email}</td>
-									<td>${student.status}</td>
+									<td>${studentForView.username}</td>
+									<td>${studentForView.email}</td>
+									<td>${studentForView.status}</td>
 									<td><a id="add-without-image" class="label label-success"
-										href="${editStudent}/${student.id}" />Edytuj ucznia<a
+										href="${editStudent}/${studentForView.id}" />Edytuj ucznia<a
 										id="add-without-image" class="label label-primary"
-										href="${sendToStudent}/${student.id}" />Wyślij wiadomość</td>
+										href="${sendToStudent}/${studentForView.id}" />Wyślij
+										wiadomość</td>
 								</tr>
 							</tbody>
 						</table>
@@ -222,6 +224,9 @@
 		
 		
 		
+		
+		
+		
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -254,6 +259,9 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
 	
 	
 	

@@ -9,7 +9,8 @@
 <body>
 	<c:url value="/../sys_school/dashboard" var="dashboard" />
 	<c:url value="/../sys_school/logout" var="logout" />
-	<c:url value="/../sys_school/students" var="student" />
+	<c:url value="/../sys_school/students" var="toStudent" />
+	<c:url value="/../sys_school/messages" var="messagesList" />
 	<header class="header black-bg">
 	<div class="sidebar-toggle-box">
 		<div class="fa fa-bars tooltips" data-placement="right"
@@ -33,16 +34,17 @@
 					</li>
 					<c:url value="/../sys_school/students" var="student" />
 					<c:forEach items="${messages}" var="message">
-						<li><a href="${student}/${message.sendByStudent.id}"> <span
+						<li><a href="${toStudent}/${message.sendByStudent.id}"> <span
 								class="photo"><img alt="avatar"
 									src="/sys_school/resources/tutorDashboard/img/ui-sam.jpg"></span>
 								<span class="subject"> <span class="from">${message.sendByStudent.username}</span>
-									<span class="time"> ${message.sent.format(dateTimeFormatter)} </span>
+									<span class="time">
+										${message.sent.format(dateTimeFormatter)} </span>
 							</span> <span class="message">${message.text}</span>
 						</a></li>
 
 					</c:forEach>
-					<li><a href="index.html#">See all messages</a></li>
+					<li><a href="${messagesList}">See all messages</a></li>
 				</ul></li>
 			<!-- inbox dropdown end -->
 		</ul>

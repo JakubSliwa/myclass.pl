@@ -1,8 +1,5 @@
 package pl.js.web.Controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import pl.js.entity.Message;
 import pl.js.entity.exercise.BasicExercise;
 import pl.js.entity.exercise.BasicSolution;
 import pl.js.entity.users.Student;
@@ -36,7 +32,7 @@ import pl.js.service.StudentService;
 import pl.js.service.TutorService;
 
 @Controller
-@SessionAttributes({ "class", "	tutor", "messages" })
+@SessionAttributes({ "class", "	tutor", "messages", "dateTimeFormatter", "unreaded" })
 public class TutorController {
 	@Autowired
 	TutorService tutorService;
@@ -322,12 +318,14 @@ public class TutorController {
 	public String showStudent(Model model, HttpSession session, @PathVariable(value = "studentId") Long studentId) {
 		Long id;
 		Tutor tutor;
+		Student student;
 		try {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
+			student = studentRepository.findOne(studentId);
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
-				model.addAttribute("student", studentRepository.findOne(studentId));
+				model.addAttribute("studentForView", student);
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				return "tutorViews/showStudent";
 			}

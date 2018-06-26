@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import pl.js.entity.Message;
 import pl.js.entity.users.Student;
 import pl.js.entity.users.Tutor;
+import pl.js.repository.MessageRepository;
 import pl.js.repository.StudentRepository;
 import pl.js.service.ClassroomService;
 import pl.js.service.MessageService;
@@ -33,6 +34,26 @@ public class MessageController {
 	TutorService tutorService;
 	@Autowired
 	MessageService messageService;
+	@Autowired
+	MessageRepository messageRepository;
+
+	@GetMapping("/messages")
+	public String messages(Model model, HttpSession session) {
+		Long id;
+		Tutor tutor;
+		try {
+			id = classroomService.getClassroomId(session);
+			tutor = (Tutor) session.getAttribute("tutor");
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("message", messageRepository.findAllBySendToTutor(tutor));
+				return "tutorViews/messages";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notATutor";
+	}
 
 	@GetMapping("/message/{studentId}")
 	public String messageToStudent(Model model, HttpSession session,
@@ -44,7 +65,7 @@ public class MessageController {
 			tutor = (Tutor) session.getAttribute("tutor");
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-				model.addAttribute("student", studentRepository.findOne(studentId));
+				model.addAttribute("studentForView", studentRepository.findOne(studentId));
 				model.addAttribute("message", new Message());
 				return "tutorViews/sendMessageToStudent";
 			}
@@ -65,7 +86,7 @@ public class MessageController {
 			try {
 				id = classroomService.getClassroomId(session);
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-				model.addAttribute("student", studentRepository.findOne(studentId));
+				model.addAttribute("studentForView", studentRepository.findOne(studentId));
 				return "tutorViews/sendMessageToStudent";
 			} catch (Exception e) {
 				return "errors/generalExeption";
