@@ -8,6 +8,7 @@
 </head>
 <body>
 	<h3>UCZNIOWIE</h3>
+	<c:url value="/../sys_school/students" var="student" />
 	<c:forEach items="${students}" var="students">
 		<div class="desc">
 			<div class="thumb">
@@ -17,7 +18,7 @@
 			</div>
 			<div class="details">
 				<p>
-					<a href="#">${students.username }</a><br	/>
+					<a href="${student}/${students.id}">${students.username }</a><br />
 					<muted>${students.status }</muted>
 				</p>
 			</div>

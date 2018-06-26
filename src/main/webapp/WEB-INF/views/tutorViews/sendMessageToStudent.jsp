@@ -48,45 +48,40 @@
 			<%@ include file="/WEB-INF/parts/topMenu.jsp"%>
 			<!-- /row mt -->
 			<div class="row mt">
-				<div class="col-md-12">
-					<div class="content-panel">
-						<table class="table table-striped table-advance table-hover">
-							<h4>
-								<i class="fa fa-angle-right"></i> Uczeń ${student.username}
-							</h4>
-							<hr>
-							<thead>
-								<tr>
-									<th><i class="fa fa-user"></i> Login</th>
-									<th class="hidden-phone"><i class="fa fa-tasks"></i> Email</th>
-									<th><i class="fa fa-archive"></i>Status</th>
-									<th><i class=" fa fa-calendar-check-o"></i> Dostępne akcje</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>${student.username}</td>
-									<td>${student.email}</td>
-									<td>${student.status}</td>
-									<td><a id="add-without-image" class="label label-success"
-										href="${editStudent}/${student.id}" />Edytuj ucznia<a
-										id="add-without-image" class="label label-primary"
-										href="${sendToStudent}/${student.id}" />Wyślij wiadomość</td>
-								</tr>
-							</tbody>
-						</table>
+				<div class="col-lg-12">
+					<div class="form-panel">
+						<h4 class="mb">
+							<i class="fa fa-angle-right"></i> Wyślij nową wiadomość do
+							${student.username}
+						</h4>
+						<form:form class="form-horizontal style-form" method="post"
+							modelAttribute="message">
+							<div class="form-group">
+								<label class="col-sm-2 col-sm-2 control-label">Treść
+									zadania</label>
+								<div class="col-sm-10">
+									<form:input path="text" class="form-control"
+										placeholder="Wpisz treść wiadomości" type="text" />
+									<form:errors path="text" />
+								</div>
+							</div>
+							<input class="btn btn-primary" type="submit"
+								value="Wyślij wiadomość">
+						</form:form>
 					</div>
-					<!-- /content-panel -->
 				</div>
-				<!-- /col-md-12 -->
 			</div>
+			<!-- /col-md-12 -->
 
 			<div class="row mt">
 				<!--CUSTOM CHART START -->
 				<!--custom chart end-->
 			</div>
+			<div class="row mt">
+				<!--CUSTOM CHART START -->
+				<!--custom chart end-->
+			</div>
 			<!-- /row -->
-
 		</div>
 		<!-- /col-lg-9 END SECTION MIDDLE -->
 		<!-- **********************************************************************************************************************************************************
@@ -222,6 +217,22 @@
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -254,6 +265,22 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

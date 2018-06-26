@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -34,12 +33,10 @@ public class TutorService {
 	@Autowired
 	private StudentRepository studentRepository;
 
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-
 	public void addNewStudent(@ModelAttribute Student student, HttpSession session) {
 		Classroom classroom = (Classroom) session.getAttribute("class");
 		student.setClassroom(classroom);
+		student.setStatus("offline");
 		studentService.save(student);
 	}
 

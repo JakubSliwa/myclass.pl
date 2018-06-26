@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +19,7 @@ import pl.js.entity.Classroom;
 import pl.js.entity.users.Student;
 import pl.js.entity.users.Tutor;
 import pl.js.repository.ClassroomRepository;
+import pl.js.repository.MessageRepository;
 import pl.js.repository.StudentRepository;
 import pl.js.repository.TutorRepository;
 import pl.js.service.ClassroomService;
@@ -34,7 +34,8 @@ public class LoginAndSignUpController {
 	ClassroomService classroomService;
 	@Autowired
 	TutorRepository tutorRepository;
-
+	@Autowired
+	MessageRepository messageRepository;
 	@Autowired
 	StudentRepository studentRepository;
 	@Autowired
@@ -75,6 +76,9 @@ public class LoginAndSignUpController {
 			tutor = tutorRepository.findByEmail(email);
 			session.setAttribute("tutor", tutor);
 			session.setAttribute("class", tutor.getClassroom());
+			session.setAttribute("messages", messageRepository.findAllBySendToTutor(tutor));
+			session.setAttribute("messages", messageRepository.findAllBySendToTutor(tutor));
+			session.setAttribute("unreaded", messageRepository.countMessages("NotReaded", tutor));
 			if ((BCrypt.checkpw(password, tutor.getPassword()) && "ROLE_TUTOR".equals(tutor.getRole().getRole()))) {
 				tutorRepository.setTutorStatusById("online", tutor.getId());
 				return "redirect:/dashboard";
@@ -108,8 +112,8 @@ public class LoginAndSignUpController {
 				return "success " + password + " " + student.getPassword();
 			} else {
 				BCrypt.checkpw(password, student.getPassword());
-				return student.getPassword() + password + 	BCrypt.checkpw(password, student.getPassword());
-				/*return "errors/loginPasswordError";*/
+				return student.getPassword() + password + BCrypt.checkpw(password, student.getPassword());
+				/* return "errors/loginPasswordError"; */
 			}
 		} catch (NullPointerException e) {
 			return "errors/loginEmailError";

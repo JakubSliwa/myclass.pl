@@ -11,6 +11,7 @@
 	<c:url value="/../sys_school/students" var="studentsList" />
 	<c:url value="/../sys_school/exercises" var="exercisesList" />
 	<c:url value="/../sys_school/checksolutions" var="solutionsList" />
+	<c:url value="/../sys_school/tutorsettings" var="tutorSettings" />
 	<aside>
 	<div id="sidebar" class="nav-collapse ">
 		<!-- sidebar menu start-->
@@ -46,8 +47,8 @@
 			<li class="sub-menu"><a href=""> <i class=" fa fa-money"></i>
 					<span>Finanse</span>
 			</a></li>
-			<li class="sub-menu"><a href=""> <i class=" fa fa-cog"></i>
-					<span>Ustawienia</span>
+			<li class="sub-menu"><a href="${tutorSettings}"> <i
+					class=" fa fa-cog"></i> <span>Ustawienia</span>
 			</a></li>
 
 		</ul>
