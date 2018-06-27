@@ -93,6 +93,7 @@ public class TutorController {
 				model.addAttribute("student", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("tutor", tutorService.findTutorById(tutor.getId()));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/tutorSettings";
 			}
 		} catch (NullPointerException e) {
@@ -159,6 +160,7 @@ public class TutorController {
 				BasicSolution basicSolution = basicSolutionRepository.findOne(solutionId);
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("basicSolution", basicSolution);
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/addGradeForSolutions";
 			}
 		} catch (NullPointerException e) {
@@ -204,6 +206,7 @@ public class TutorController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
 				basicExerciseService.basicExerciseSetNullForStudentId(studentId);
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "redirect:/students";
 			}
 		} catch (NullPointerException e) {
@@ -225,6 +228,7 @@ public class TutorController {
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("student", student);
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/editStudents";
 			}
 		} catch (NullPointerException e) {
@@ -268,6 +272,7 @@ public class TutorController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/studentsList";
 			}
 		} catch (NullPointerException e) {
@@ -287,6 +292,7 @@ public class TutorController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
 				basicSolutionService.basicSolutionSetNullForExerciseId(exerciseId);
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "redirect:/exercises";
 			}
 		} catch (NullPointerException e) {
@@ -306,6 +312,7 @@ public class TutorController {
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/exercisesList";
 			}
 		} catch (NullPointerException e) {
@@ -327,6 +334,7 @@ public class TutorController {
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
 				model.addAttribute("studentForView", student);
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/showStudent";
 			}
 		} catch (NullPointerException e) {
@@ -346,6 +354,7 @@ public class TutorController {
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
 				model.addAttribute("student", new Student());
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/addNewUser";
 			}
 		} catch (NullPointerException e) {
@@ -383,6 +392,7 @@ public class TutorController {
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
 				model.addAttribute("basicExercise", new BasicExercise());
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/addNewBasicExercise";
 			}
 
@@ -419,6 +429,7 @@ public class TutorController {
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("basicExercise", basicExercise);
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/editExercise";
 			}
 		} catch (NullPointerException e) {

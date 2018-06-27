@@ -9,21 +9,24 @@
 <body>
 	<h3>POWIADOMIENIA</h3>
 	<c:url value="/../sys_school/students" var="student" />
-	<%-- <c:forEach items="${students}" var="students"> --%>
+	<c:set var="count" value="1" />
+	<c:forEach items="${solutions}" var="solutions">
+		<c:if test="${count <= 5 }">
 			<div class="desc">
 				<div class="thumb">
 					<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
 				</div>
 				<div class="details">
 					<p>
-						<muted>2 Minutes Ago</muted>
-						<br /> <a href="#">James Brown</a> subscribed to your newsletter.<br />
+						<muted>${solutions.added}</muted>
+						<br /> <a href="#">${solutions.basicExercise.student.username}</a>
+						dodał rozwiązanie do zadania: ${solutions.basicExercise.title}<br />
 					</p>
 				</div>
 			</div>
-		
-<%-- 	</c:forEach>
- --%>
+			<c:set var="count" value="${count + 1}" />
+		</c:if>
+	</c:forEach>
 
 </body>
 </html>
