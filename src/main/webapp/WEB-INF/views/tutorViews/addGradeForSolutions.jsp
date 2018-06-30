@@ -50,8 +50,6 @@
 		<div class="col-lg-9 main-chart">
 			<%@ include file="/WEB-INF/parts/topMenu.jsp"%>
 			<!-- /row mt -->
-
-
 			<div class="row mt">
 				<div class="col-lg-12">
 					<div class="form-panel">
@@ -65,8 +63,8 @@
 								<label class="col-sm-2 col-sm-2 control-label">Wystaw
 									ocenę</label>
 								<div class="col-sm-10">
-									<form:input path="grade" class="form-control" type="text"
-										name="grade" placeholder="Wystaw ocenę od 1 do 6" />
+									<form:input path="grade" class="form-control" id="txt"
+										type="text" name="grade" placeholder="Wystaw ocenę od 1 do 6" />
 									<form:errors path="grade" />
 								</div>
 							</div>
@@ -180,8 +178,17 @@
 
 
 
-	<script type="application/javascript">
+	<script type="text/javascript">
+		$("#txt").bind("change keyup input", function() {
+			text = this.value.replace(",", ".");
+			$("#txt").val(text);
+		});
+	</script>
 
+	<script type="application/javascript">
+		
+		
+				
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -214,53 +221,10 @@
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
+        
+        
+	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

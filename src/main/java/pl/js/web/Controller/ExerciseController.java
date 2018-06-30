@@ -16,25 +16,36 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pl.js.entity.exercise.BasicExercise;
 import pl.js.entity.exercise.BasicSolution;
+import pl.js.entity.users.Student;
 import pl.js.entity.users.Tutor;
 import pl.js.repository.BasicExerciseRepository;
 import pl.js.repository.BasicSolutionRepository;
+import pl.js.repository.ClassroomRepository;
 import pl.js.repository.MessageRepository;
 import pl.js.repository.StudentRepository;
+import pl.js.repository.TutorRepository;
+import pl.js.service.BasicExerciseService;
 import pl.js.service.BasicSolutionService;
 import pl.js.service.ClassroomService;
 import pl.js.service.MessageService;
+import pl.js.service.StudentService;
 import pl.js.service.TutorService;
 
 @Controller
-@SessionAttributes({ "class", "tutor", "messages" })
-public class SolutionController {
+@SessionAttributes({ "class", "tutor", "messages", "dateTimeFormatter" })
+public class ExerciseController {
 	@Autowired
-	ClassroomService classroomService;
+	TutorService tutorService;
+	@Autowired
+	TutorRepository tutorRepository;
+	@Autowired
+	StudentService studentService;
 	@Autowired
 	StudentRepository studentRepository;
 	@Autowired
-	TutorService tutorService;
+	ClassroomRepository classroomRepository;
+	@Autowired
+	ClassroomService classroomService;
 	@Autowired
 	MessageService messageService;
 	@Autowired
@@ -42,25 +53,28 @@ public class SolutionController {
 	@Autowired
 	BasicSolutionService basicSolutionService;
 	@Autowired
+	BasicSolutionRepository basicSolutionRepository;
+	@Autowired
 	BasicExerciseRepository basicExerciseRepository;
 	@Autowired
-	BasicSolutionRepository basicSolutionRepository;
+	BasicExerciseService basicExerciseService;
 
-	@GetMapping("/solutions/setexercise/{solutionId}")
-	public String setExercise(Model model, HttpSession session, @PathVariable(value = "solutionId") Long solutionId) {
+	@GetMapping("/editexercises/{exerciseId}")
+	public String editExercise(Model model, HttpSession session, @PathVariable(value = "exerciseId") Long exerciseId) {
 		Long id;
 		Tutor tutor;
+		BasicExercise basicExercise;
 		try {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
+			basicExercise = basicExerciseRepository.findOne(exerciseId);
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("basicExercise", basicExercise);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
-				model.addAttribute("basicSolution", basicSolutionRepository.findOne(solutionId));
-				model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
-				return "tutorViews/setExercise";
+				return "tutorViews/editExercise";
 			}
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";
@@ -68,82 +82,92 @@ public class SolutionController {
 		return "errors/notATutor";
 	}
 
-	@PostMapping("/solutions/setexercise/{solutionId}")
-	public String setExercise(@Validated @ModelAttribute BasicSolution basicSolution, BindingResult result, Model model,
-			@PathVariable(value = "solutionId") Long solutionId, HttpSession session) {
+	@PostMapping("/editexercises/{exerciseId}")
+	public String editExercise(@Validated @ModelAttribute BasicExercise basicExercise, BindingResult result,
+			@RequestParam String title, @RequestParam String description, @RequestParam Integer daysToAdd, Model model,
+			@PathVariable(value = "exerciseId") Long exerciseId, HttpSession session) {
 		Long id;
+		Student student = (Student) basicExercise.getStudent();
 		if (result.hasErrors()) {
 			try {
 				id = classroomService.getClassroomId(session);
-				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
-				return "tutorViews/setExercise";
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				return "tutorViews/editExercise";
 			} catch (Exception e) {
 				return "errors/generalExeption";
 			}
 		} else {
 			try {
-				basicSolutionRepository.save(basicSolution);
+				basicExerciseService.basicExcerciseUpdate(basicExercise, title, description, daysToAdd, exerciseId,
+						student);
 			} catch (Exception e) {
 				return "errors/generalExeption";
 			}
 		}
-		return "redirect:/dashboard";
+		return "redirect:/exercises";
 	}
 
-	@GetMapping("/addgrade/{solutionId}")
-	public String addGrade(Model model, HttpSession session, @PathVariable(value = "solutionId") Long solutionId) {
+	@GetMapping("/createexercise")
+	public String showViewToAddNewExercise(Model model, HttpSession session) {
 		Long id;
 		Tutor tutor;
-		BasicSolution basicSolution;
 		try {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
-			basicSolution = basicSolutionRepository.findOne(solutionId);
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				model.addAttribute("basicExercise", new BasicExercise());
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-				model.addAttribute("basicSolution", basicSolution);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
-				return "tutorViews/addGradeForSolutions";
+				return "tutorViews/addNewBasicExercise";
 			}
+
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";
 		}
 		return "errors/notATutor";
 	}
 
-	@PostMapping("/addgrade/{solutionId}")
-	public String addNewGrade(@Validated @ModelAttribute BasicSolution basicSolution, BindingResult result,
-			@RequestParam String grade, Model model, @PathVariable(value = "solutionId") Long solutionId,
-			HttpSession session) {
+	@PostMapping("/createexercise")
+	public String addNewExercise(@Validated @ModelAttribute BasicExercise basicExercise, BindingResult result,
+			HttpSession session, Model model) {
 		Long id;
 		if (result.hasErrors()) {
-			try {
-				id = classroomService.getClassroomId(session);
-				basicSolution = basicSolutionRepository.findOne(solutionId);
-				model.addAttribute("basicSolution", basicSolution);
-				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
-				return "tutorViews/addGradeForSolutions";
-			} catch (NumberFormatException e) {
-				return "errors/generalExeption";
-			} catch (Exception e) {
-				return "errors/generalExeption";
-			}
+			id = classroomService.getClassroomId(session);
+			model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+			model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+			return "tutorViews/addNewBasicExercise";
 		} else {
-			try {
-				basicSolutionService.addGrade(grade, solutionId);
-			} catch (Exception e) {
-				return "errors/generalExeption";
-			}
+			tutorService.addNewBasicExercise(basicExercise, session);
+			return "redirect:/dashboard";
 		}
-		return "redirect:/dashboard";
 	}
 
-	@GetMapping("/checksolutions")
-	public String checkSolutions(Model model, HttpSession session) {
+	@GetMapping("/deleteexercises/{exerciseId}")
+	public String deleteExercises(Model model, HttpSession session,
+			@PathVariable(value = "exerciseId") Long exerciseId) {
+		Long id;
+		Tutor tutor;
+		try {
+			id = classroomService.getClassroomId(session);
+			tutor = (Tutor) session.getAttribute("tutor");
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				basicSolutionService.basicSolutionSetNullForExerciseId(exerciseId);
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				return "redirect:/exercises";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notATutor";
+	}
+
+	@GetMapping("/exercises")
+	public String showExercises(Model model, HttpSession session) {
 		Long id;
 		Tutor tutor;
 		try {
@@ -153,13 +177,14 @@ public class SolutionController {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-				model.addAttribute("solutions", basicSolutionService.getBasicSolutionListByClassroomId(id));
 				model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
-				return "tutorViews/checkSolutionList";
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				return "tutorViews/exercisesList";
 			}
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";
 		}
 		return "errors/notATutor";
 	}
+
 }
