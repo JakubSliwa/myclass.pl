@@ -40,6 +40,7 @@
 	<c:url value="../sys_school/deleteexercises" var="deleteExercises" />
 	<c:url value="../sys_school/editexercises" var="editExercises" />
 	<c:url value="../sys_school/exercises/reminder" var="reminder" />
+	<c:url value="../sys_school/solutions/setexercise" var="setExercise" />
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
 		file="/WEB-INF/parts/sidebar.jsp"%> <section
@@ -79,7 +80,11 @@
 											href="${addGrade}/${solutions.id}">Wystaw ocene</a><a
 											id="add-without-image" class="label label-success"
 											href="${studentsList}/${solutions.basicExercise.student.id}">Sprawdź
-												ucznia</a></td>
+												ucznia</a> <c:if
+												test="${solutions.basicExercise.student.id == null}">
+												<a id="add-without-image" class="label label-info"
+													href="${setExercise}/${solutions.id}">Przypisz zadanie</a>
+											</c:if></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -226,6 +231,12 @@
 		
 		
 		
+		
+		
+		
+		
+		
+		
 				
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -258,6 +269,12 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
+	
+	
 	
 	
 	
