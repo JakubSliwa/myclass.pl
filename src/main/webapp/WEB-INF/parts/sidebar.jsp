@@ -19,7 +19,7 @@
 		<ul class="sidebar-menu" id="nav-accordion">
 
 			<p class="centered">
-				<a href="profile.html"><img
+				<a href="${tutorSettings}"><img
 					src="/sys_school/resources/login/images/hello.png"
 					class="img-circle" width="60"></a>
 			</p>

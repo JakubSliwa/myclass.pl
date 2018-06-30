@@ -9,6 +9,7 @@
 <body>
 	<h3>POWIADOMIENIA</h3>
 	<c:url value="/../sys_school/students" var="student" />
+	<c:url value="/../sys_school/addgrade" var="addGrade" />
 	<c:set var="count" value="1" />
 	<c:forEach items="${solutions}" var="solutions">
 		<c:if test="${count <= 5 }">
@@ -19,7 +20,7 @@
 				<div class="details">
 					<p>
 						<muted>${solutions.added}</muted>
-						<br /> <a href="#">${solutions.basicExercise.student.username}</a>
+						<br /> <a href="${addGrade}/${solutions.id}">${solutions.basicExercise.student.username}</a>
 						dodał rozwiązanie do zadania: ${solutions.basicExercise.title}<br />
 					</p>
 				</div>

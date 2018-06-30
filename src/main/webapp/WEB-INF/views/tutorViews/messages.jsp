@@ -38,6 +38,7 @@
 	<c:url value="/../sys_school/students" var="student" />
 	<c:url value="/../sys_school/message" var="sendToStudent" />
 	<c:url value="/../sys_school/messages" var="messagesHistory" />
+	<c:url value="/../sys_school/deletemessages" var="deleteMessages" />
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
 		file="/WEB-INF/parts/sidebar.jsp"%> <section
@@ -69,10 +70,16 @@
 										<td>${message.text}</td>
 										<td>${message.sent.format(dateTimeFormatter)}</td>
 										<td><a id="add-without-image" class="label label-success"
-											href="${messagesHistory}/${message.sendByStudent.id}">Wejdź do
-												rozmowy</a><a id="add-without-image" class="label label-primary"
-											href="${sendToStudent}/${message.sendByStudent.id}" />Wyślij
-											wiadomość</a></td>
+											href="${messagesHistory}/${message.sendByStudent.id}">Wejdź
+												do rozmowy</a>
+												
+												<a id="add-without-image"
+											class="label label-primary"
+											href="${sendToStudent}/${message.sendByStudent.id}">Wyślij
+											wiadomość</a>
+											
+											<a id="remove-all" class="label label-danger"
+											href="${deleteMessages}/${message.id}">Usuń</a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -246,6 +253,9 @@
 		
 		
 		
+		
+		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -280,6 +290,9 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
 	
 	
 	

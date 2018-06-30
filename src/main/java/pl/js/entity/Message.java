@@ -21,7 +21,7 @@ public class Message {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Size(min = 1, max = 500)
+	@Size(min = 1, max = 200)
 	private String text;
 	private LocalDateTime sent;
 	private String readed;

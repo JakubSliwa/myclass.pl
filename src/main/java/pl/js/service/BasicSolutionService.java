@@ -43,4 +43,10 @@ public class BasicSolutionService {
 		}
 		basicExerciseRepository.delete(exerciseId);
 	}
+
+	public void addGrade(String grade, Long solutionId) {
+		Double gradeD = Double.parseDouble(grade.replace(",", "."));
+		basicSolutionRepository.setBasicSolutionGradeById(gradeD, solutionId);
+
+	}
 }

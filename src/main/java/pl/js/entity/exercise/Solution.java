@@ -48,6 +48,10 @@ public abstract class Solution {
 		this.grade = grade;
 	}
 
+	public void setGrade(String grade) {
+		this.grade = Double.parseDouble(grade.replace(",", "."));
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

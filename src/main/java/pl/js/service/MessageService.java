@@ -1,6 +1,8 @@
 package pl.js.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import pl.js.entity.Message;
+import pl.js.entity.exercise.BasicExercise;
 import pl.js.entity.users.Student;
 import pl.js.entity.users.Tutor;
 import pl.js.repository.MessageRepository;
@@ -23,6 +26,19 @@ public class MessageService {
 		message.setReaded("NotReaded");
 		message.setSendByTutor(tutor);
 		message.setSendToStudent(student);
+		message.setSent(LocalDateTime.now());
+		messageRepository.save(message);
+	}
+
+	public void sendReminderFromTutorToStudent(Student student, Tutor tutor, BasicExercise basicExercise) {
+		Message message = new Message();
+		LocalDate deadline = basicExercise.getDeadline();
+		Long daysToDeadline = ChronoUnit.DAYS.between(LocalDate.now(), deadline);
+		String text = "Zostało Ci " + daysToDeadline + " dnis na wykonanie tego zadania. Nie zapomnij o nim;)";
+		message.setReaded("NotReaded");
+		message.setSendByTutor(tutor);
+		message.setSendToStudent(student);
+		message.setText(text);
 		message.setSent(LocalDateTime.now());
 		messageRepository.save(message);
 	}

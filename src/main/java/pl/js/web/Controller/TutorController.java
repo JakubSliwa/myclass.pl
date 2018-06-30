@@ -113,6 +113,7 @@ public class TutorController {
 			try {
 				id = classroomService.getClassroomId(session);
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/tutorSettings";
 			} catch (Exception e) {
 				return "errors/generalExeption";
@@ -171,22 +172,23 @@ public class TutorController {
 
 	@PostMapping("/addgrade/{solutionId}")
 	public String addNewGrade(@Validated @ModelAttribute BasicSolution basicSolution, BindingResult result,
-			@RequestParam Double grade, Model model, @PathVariable(value = "solutionId") Long solutionId,
+			@RequestParam String grade, Model model, @PathVariable(value = "solutionId") Long solutionId,
 			HttpSession session) {
 		Long id;
 		if (result.hasErrors()) {
 			try {
 				id = classroomService.getClassroomId(session);
-				basicSolution = basicSolutionRepository.findOne(solutionId);
-				model.addAttribute("basicSolution", basicSolution);
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/addGradeForSolutions";
+			} catch (NumberFormatException e) {
+				return "errors/generalExeption";
 			} catch (Exception e) {
 				return "errors/generalExeption";
 			}
 		} else {
 			try {
-				basicSolutionRepository.setBasicSolutionGradeById(grade, solutionId);
+				basicSolutionService.addGrade(grade, solutionId);
 			} catch (Exception e) {
 				return "errors/generalExeption";
 			}
@@ -245,9 +247,8 @@ public class TutorController {
 		if (result.hasErrors()) {
 			try {
 				id = classroomService.getClassroomId(session);
-				student = studentRepository.findOne(studentId);
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-				model.addAttribute("student", student);
 				return "tutorViews/editStudents";
 			} catch (Exception e) {
 				return "errors/generalExeption";
@@ -369,6 +370,7 @@ public class TutorController {
 		Long id;
 		if (result.hasErrors()) {
 			id = classroomService.getClassroomId(session);
+			model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 			model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 			return "tutorViews/addNewUser";
 		} else {
@@ -408,6 +410,7 @@ public class TutorController {
 		Long id;
 		if (result.hasErrors()) {
 			id = classroomService.getClassroomId(session);
+			model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 			model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 			return "tutorViews/addNewBasicExercise";
 		} else {
@@ -447,9 +450,8 @@ public class TutorController {
 		if (result.hasErrors()) {
 			try {
 				id = classroomService.getClassroomId(session);
-				basicExercise = basicExerciseRepository.findOne(exerciseId);
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-				model.addAttribute("basicExercise", basicExercise);
 				return "tutorViews/editExercise";
 			} catch (Exception e) {
 				return "errors/generalExeption";
