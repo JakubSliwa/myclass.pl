@@ -27,7 +27,7 @@ import pl.js.service.MessageService;
 import pl.js.service.TutorService;
 
 @Controller
-@SessionAttributes({ "class", "	tutor", "messages" })
+@SessionAttributes({ "class", "tutor", "messages" })
 public class MessageController {
 	@Autowired
 	ClassroomService classroomService;
@@ -52,7 +52,8 @@ public class MessageController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("message", messageRepository.findAllBySendToTutor(tutor));
@@ -65,7 +66,7 @@ public class MessageController {
 	}
 
 	@GetMapping("/messages/{studentId}")
-	public String AllMessagesFromStudent(Model model, HttpSession session,
+	public String allMessagesFromStudent(Model model, HttpSession session,
 			@PathVariable(value = "studentId") Long studentId) {
 		Long id;
 		Tutor tutor;
@@ -75,12 +76,40 @@ public class MessageController {
 			tutor = (Tutor) session.getAttribute("tutor");
 			student = studentRepository.findOne(studentId);
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("message",
 						messageRepository
 								.findAllBySendToTutorAndSendByStudentOrSendByTutorAndSendToStudentOrderBySentDesc(
 										student, tutor));
 				return "tutorViews/messagesHistory";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notATutor";
+	}
+
+	@GetMapping("/showmessage/{messageId}")
+	public String showSingleMessageFromStudent(Model model, HttpSession session,
+			@PathVariable(value = "messageId") Long messageId) {
+		Long id;
+		Tutor tutor;
+		Message message;
+		try {
+			id = classroomService.getClassroomId(session);
+			tutor = (Tutor) session.getAttribute("tutor");
+			message = messageRepository.findOne(messageId);
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+				messageService.setToReaded(message);
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("message", message);
+				return "tutorViews/singleMessage";
 			}
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";
@@ -98,7 +127,8 @@ public class MessageController {
 			tutor = (Tutor) session.getAttribute("tutor");
 			message = messageRepository.findOne(messageId);
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				messageRepository.delete(message);
 				return "redirect:/messages";
@@ -118,7 +148,8 @@ public class MessageController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("studentForView", studentRepository.findOne(studentId));
 				model.addAttribute("message", new Message());
@@ -172,13 +203,14 @@ public class MessageController {
 			basicExercise = basicExerciseRepository.findOne(exerciseId);
 			student = basicExercise.getStudent();
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("basicExercise", basicExercise);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				messageService.sendReminderFromTutorToStudent(student, tutor, basicExercise);
 
-				return "redirect:/exercises";
+				return "redirect:/messages/" + student.getId();
 			}
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";

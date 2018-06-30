@@ -76,7 +76,7 @@
 										<td>${solutions.added}</td>
 										<td>${solutions.grade}</td>
 										<td><a id="add-sticky" class="label label-primary"
-											href="${addGrade}/${solutions.id}" />Wystaw ocene</a><a
+											href="${addGrade}/${solutions.id}">Wystaw ocene</a><a
 											id="add-without-image" class="label label-success"
 											href="${studentsList}/${solutions.basicExercise.student.id}">Sprawdź
 												ucznia</a></td>
@@ -225,6 +225,7 @@
 		
 		
 		
+		
 				
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -257,6 +258,7 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
 	
 	
 	

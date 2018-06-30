@@ -12,9 +12,14 @@ import pl.js.entity.users.Tutor;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
-	List<Message> findAllBySendToTutor(Tutor tutor);
+	List<Message> findAllBySendToTutorAndReaded(Tutor tutor, String readed);
+
+	@Query(value = "select * from messages where (readed =?1 and sendByTutor_id =?2) order by sent desc", nativeQuery = true)
+	List<Message> findAllBySendToTutorAndNotReaded(String readed, Tutor tutor);
 
 	@Query(value = "select * from messages where (sendByStudent_id =?1 and sendToTutor_id =?2) or (sendToStudent_id =?1 and sendByTutor_id =?2) order by sent desc", nativeQuery = true)
 	List<Message> findAllBySendToTutorAndSendByStudentOrSendByTutorAndSendToStudentOrderBySentDesc(Student student,
 			Tutor tutor);
+
+	List<Message> findAllBySendToTutor(Tutor tutor);
 }

@@ -9,7 +9,7 @@
 <body>
 	<c:url value="/../sys_school/dashboard" var="dashboard" />
 	<c:url value="/../sys_school/logout" var="logout" />
-	<c:url value="/../sys_school/messages" var="messagesHistory" />
+	<c:url value="/../sys_school/showmessage" var="showMessage" />
 	<c:url value="/../sys_school/messages" var="messagesList" />
 	<header class="header black-bg">
 	<div class="sidebar-toggle-box">
@@ -33,16 +33,15 @@
 						<p class="green">You have ${unreaded} new messages</p>
 					</li>
 					<c:url value="/../sys_school/students" var="student" />
-					<c:forEach items="${messages}" var="message">
-						<li><a href="${messagesHistory}/${message.sendByStudent.id}"> <span
-								class="photo"><img alt="avatar"
+					<c:forEach items="${messages}" var="m">
+						<li><a href="${showMessage}/${m.id}"> <span class="photo"><img
+									alt="avatar"
 									src="/sys_school/resources/tutorDashboard/img/ui-sam.jpg"></span>
-								<span class="subject"> <span class="from">${message.sendByStudent.username}</span>
-									<span class="time">
-										${message.sent.format(dateTimeFormatter)} </span>
-							</span> <span class="message">${message.text}</span>
+								<span class="subject"> <span class="from">${m.sendByStudent.username}</span>
+									<span class="time"> ${m.sent.format(dateTimeFormatter)}
+								</span>
+							</span> <span class="message">${m.text}</span>
 						</a></li>
-
 					</c:forEach>
 					<li><a href="${messagesList}">See all messages</a></li>
 				</ul></li>

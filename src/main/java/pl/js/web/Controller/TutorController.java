@@ -32,7 +32,7 @@ import pl.js.service.StudentService;
 import pl.js.service.TutorService;
 
 @Controller
-@SessionAttributes({ "class", "	tutor", "messages", "dateTimeFormatter", "unreaded" })
+@SessionAttributes({ "class", "tutor", "messages", "dateTimeFormatter" })
 public class TutorController {
 	@Autowired
 	TutorService tutorService;
@@ -67,7 +67,8 @@ public class TutorController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("student", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
@@ -89,7 +90,9 @@ public class TutorController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("student", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("tutor", tutorService.findTutorById(tutor.getId()));
@@ -137,7 +140,8 @@ public class TutorController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getBasicSolutionListByClassroomId(id));
 				model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
@@ -153,12 +157,14 @@ public class TutorController {
 	public String addGrade(Model model, HttpSession session, @PathVariable(value = "solutionId") Long solutionId) {
 		Long id;
 		Tutor tutor;
+		BasicSolution basicSolution;
 		try {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
+			basicSolution = basicSolutionRepository.findOne(solutionId);
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
-				BasicSolution basicSolution = basicSolutionRepository.findOne(solutionId);
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("basicSolution", basicSolution);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
@@ -206,7 +212,8 @@ public class TutorController {
 			tutor = (Tutor) session.getAttribute("tutor");
 			student = studentRepository.findOne(studentId);
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				basicExerciseService.basicExerciseSetNullForStudentId(studentId);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "redirect:/students";
@@ -227,7 +234,8 @@ public class TutorController {
 			tutor = (Tutor) session.getAttribute("tutor");
 			student = studentRepository.findOne(studentId);
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("student", student);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
@@ -271,7 +279,8 @@ public class TutorController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/studentsList";
@@ -291,7 +300,8 @@ public class TutorController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				basicSolutionService.basicSolutionSetNullForExerciseId(exerciseId);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "redirect:/exercises";
@@ -310,7 +320,8 @@ public class TutorController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
@@ -332,7 +343,8 @@ public class TutorController {
 			tutor = (Tutor) session.getAttribute("tutor");
 			student = studentRepository.findOne(studentId);
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("studentForView", student);
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
@@ -352,7 +364,8 @@ public class TutorController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("student", new Student());
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
@@ -391,7 +404,8 @@ public class TutorController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("basicExercise", new BasicExercise());
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
@@ -429,7 +443,8 @@ public class TutorController {
 			tutor = (Tutor) session.getAttribute("tutor");
 			basicExercise = basicExerciseRepository.findOne(exerciseId);
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("basicExercise", basicExercise);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));

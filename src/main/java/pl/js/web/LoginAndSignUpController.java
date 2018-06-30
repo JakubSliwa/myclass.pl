@@ -84,11 +84,10 @@ public class LoginAndSignUpController {
 		List<Message> messages = new ArrayList<>();
 		try {
 			tutor = tutorRepository.findByEmail(email);
-			messages.addAll(messageRepository.findAllBySendToTutor(tutor));
+			messages.addAll(messageRepository.findAllBySendToTutorAndReaded(tutor, "NotReaded"));
+			session.setAttribute("messages", messages);
 			session.setAttribute("tutor", tutor);
 			session.setAttribute("class", tutor.getClassroom());
-			session.setAttribute("messages", messageRepository.findAllBySendToTutor(tutor));
-			session.setAttribute("messages", messages);
 			session.setAttribute("dateTimeFormatter", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
 			session.setAttribute("unreaded", messageService.countUnreaded(unreadedMessages, messages));
 			if ((BCrypt.checkpw(password, tutor.getPassword()) && "ROLE_TUTOR".equals(tutor.getRole().getRole()))) {
