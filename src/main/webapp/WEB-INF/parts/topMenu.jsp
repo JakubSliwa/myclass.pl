@@ -12,6 +12,7 @@
 	<c:url value="/../sys_school/createexercise" var="newExercise" />
 	<c:url value="/../sys_school/checksolutions" var="checkSolutions" />
 	<c:url value="/../sys_school/tutorsettings" var="tutorSettings" />
+	<c:url value="/../sys_school/sendmessage" var="sendMessage" />
 	<div class="row mtbox">
 		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
 			<a href="${newStudent}"><div class="box1">
@@ -35,20 +36,19 @@
 			<p>Zweryfikuj postępy swoich uczniów.</p>
 		</div>
 		<div class="col-md-2 col-sm-2 box0">
+			<a href="${sendMessage}"><div class="box1">
+					<span class="li_mail"></span>
+					<h3>Wyślij wiadomość</h3>
+				</div></a>
+			<p>WYślij nową wiadomość do ucznia.</p>
+		</div>
+		<div class="col-md-2 col-sm-2 box0">
 			<a href="${newExercise}"><div class="box1">
 					<span class="li_calendar"></span>
 					<h3>Ustal datę nowej lekcji</h3>
 				</div></a>
 			<p>Wyślij propozycję terminu następnej lekcji.</p>
 		</div>
-		<div class="col-md-2 col-sm-2 box0">
-			<a href="${tutorSettings}"><div class="box1">
-					<span class="li_settings"></span>
-					<h3>Sprawdź ustawienia</h3>
-				</div></a>
-			<p>Przejdź do ustawień swojego konta.</p>
-		</div>
-
 	</div>
 
 

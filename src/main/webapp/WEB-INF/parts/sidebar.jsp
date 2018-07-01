@@ -13,6 +13,7 @@
 	<c:url value="/../sys_school/checksolutions" var="solutionsList" />
 	<c:url value="/../sys_school/tutorsettings" var="tutorSettings" />
 	<c:url value="/../sys_school/messages" var="messages" />
+	<c:url value="../sys_school/raports" var="raports" />
 	<aside>
 	<div id="sidebar" class="nav-collapse ">
 		<!-- sidebar menu start-->
@@ -42,7 +43,7 @@
 			<li class="sub-menu"><a href="${solutionsList}"> <i
 					class="fa fa-archive"></i> <span>Odpowiedzi do zadań</span>
 			</a></li>
-			<li class="sub-menu"><a href=""> <i
+			<li class="sub-menu"><a href="${raports}"> <i
 					class="fa fa-bar-chart-o"></i> <span>Raporty</span>
 			</a></li>
 			<li class="sub-menu"><a href=""> <i class=" fa fa-money"></i>

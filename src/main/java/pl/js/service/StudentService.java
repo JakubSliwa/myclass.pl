@@ -1,10 +1,13 @@
 package pl.js.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import pl.js.entity.Message;
 import pl.js.entity.users.Student;
+import pl.js.repository.BasicSolutionRepository;
 import pl.js.repository.RoleRepository;
 import pl.js.repository.StudentRepository;
 
@@ -12,20 +15,18 @@ import pl.js.repository.StudentRepository;
 public class StudentService {
 
 	@Autowired
+	private BasicSolutionRepository basicSolutionRepository;
+	@Autowired
 	private StudentRepository studentRepository;
 
 	@Autowired
 	private RoleRepository roleRepository;
-
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public Student findStudentByEmail(String email) {
 		return studentRepository.findByEmail(email);
 	}
 
 	public void save(Student student) {
-		/*student.setPassword(bCryptPasswordEncoder.encode(student.getPassword()));*/
 		student.setRole(roleRepository.findByRole("ROLE_STUDENT"));
 		studentRepository.save(student);
 	}
@@ -34,4 +35,12 @@ public class StudentService {
 		return studentRepository.findByUserName(username);
 	}
 
+	public void updateAvgG(List<Student> students) {
+		Double avgG;
+		for (Student s : students) {
+			avgG = basicSolutionRepository.getAvgGradeByStudentId(s);
+			s.setAvgGrade(avgG);
+			studentRepository.save(s);
+		}
+	}
 }

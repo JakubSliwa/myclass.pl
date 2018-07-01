@@ -6,10 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import pl.js.entity.Classroom;
+import pl.js.entity.users.Student;
 
 @Entity
 @Table(name = "basicSolutions")
@@ -23,9 +21,20 @@ public class BasicSolution extends Solution {
 
 	private LocalDate added;
 
+	@ManyToOne
+	private Student student;
+
 	public BasicSolution() {
 		super();
 
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 	public LocalDate getAdded() {
@@ -59,6 +68,7 @@ public class BasicSolution extends Solution {
 		result = prime * result + ((added == null) ? 0 : added.hashCode());
 		result = prime * result + ((basicExercise == null) ? 0 : basicExercise.hashCode());
 		result = prime * result + ((classroom == null) ? 0 : classroom.hashCode());
+		result = prime * result + ((student == null) ? 0 : student.hashCode());
 		return result;
 	}
 
@@ -85,6 +95,11 @@ public class BasicSolution extends Solution {
 			if (other.classroom != null)
 				return false;
 		} else if (!classroom.equals(other.classroom))
+			return false;
+		if (student == null) {
+			if (other.student != null)
+				return false;
+		} else if (!student.equals(other.student))
 			return false;
 		return true;
 	}

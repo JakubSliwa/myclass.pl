@@ -12,32 +12,33 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Tutor - lista zadań</title>
+<title>Tutor - pokaż studenta</title>
 <!-- Bootstrap core CSS -->
-<link href="resources/tutorDashboard/css/bootstrap.css" rel="stylesheet">
+<link href="/sys_school/resources/tutorDashboard/css/bootstrap.css"
+	rel="stylesheet">
 <!--external css-->
-<link href="resources/tutorDashboard/font-awesome/css/font-awesome.css"
+<link
+	href="/sys_school/resources/tutorDashboard/font-awesome/css/font-awesome.css"
 	rel="stylesheet" />
 <link rel="stylesheet" type="text/css"
-	href="resources/tutorDashboard/css/zabuto_calendar.css">
+	href="/sys_school/resources/tutorDashboard/css/zabuto_calendar.css">
 
 <link rel="stylesheet" type="text/css"
-	href="resources/tutorDashboard/lineicons/style.css">
+	href="/sys_school/resources/tutorDashboard/lineicons/style.css">
 
 <!-- Custom styles for this template -->
-<link href="resources/tutorDashboard/css/style.css" rel="stylesheet">
-<link href="resources/tutorDashboard/css/style-responsive.css"
+<link href="/sys_school/resources/tutorDashboard/css/style.css"
+	rel="stylesheet">
+<link
+	href="/sys_school/resources/tutorDashboard/css/style-responsive.css"
 	rel="stylesheet">
 
-<script src="resources/tutorDashboard/js/chart-master/Chart.js"></script>
+<script
+	src="/sys_school/resources/tutorDashboard/js/chart-master/Chart.js"></script>
 </head>
 <body>
-	<c:url value="/../sys_school/students" var="student" />
+	<c:url value="/../sys_school/editstudents" var="editStudent" />
 	<c:url value="/../sys_school/message" var="sendToStudent" />
-	<c:url value="/../sys_school/messages" var="messagesHistory" />
-	<c:url value="/../sys_school/deletemessages" var="deleteMessages" />
-
-
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
 		file="/WEB-INF/parts/sidebar.jsp"%> <section
@@ -45,55 +46,51 @@
 	<div class="row">
 		<div class="col-lg-9 main-chart">
 			<%@ include file="/WEB-INF/parts/topMenu.jsp"%>
+			<!-- /row mt -->
 			<div class="row mt">
-				<div class="col-md-12">
-					<div class="content-panel">
-						<table class="table table-striped table-advance table-hover">
-							<h4>
-								<i class="fa fa-angle-right"></i> Wiadomości
-							</h4>
-							<hr>
-							<thead>
-								<tr>
-									<th><i class="fa fa-user"></i> Od kogo</th>
-									<th class="hidden-phone"><i class="fa fa-tasks"></i>
-										Wiadomość</th>
-									<th><i class="fa fa-archive"></i>Wysłane</th>
-									<th><i class="fa fa-flash"></i>Dostępne akcje</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${message}" var="message">
-									<tr>
-										<td>${message.sendByStudent.username}</td>
-										<td>${message.text}</td>
-										<td>${message.sent.format(dateTimeFormatter)}</td>
-										<td><a id="add-without-image" class="label label-success"
-											href="${messagesHistory}/${message.sendByStudent.id}">Wejdź
-												do rozmowy</a> <a id="add-without-image"
-											class="label label-primary"
-											href="${sendToStudent}/${message.sendByStudent.id}">Wyślij
-												wiadomość</a> <a id="remove-all" class="label label-danger"
-											href="${deleteMessages}/${message.id}">Usuń</a></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+				<div class="col-lg-12">
+					<div class="form-panel">
+						<h4 class="mb">
+							<i class="fa fa-angle-right"></i> Wyślij nową wiadomość do
+							${studentForView.username}
+						</h4>
+						<form:form class="form-horizontal style-form" method="post"
+							modelAttribute="message">
+							<div class="form-group">
+								<label class="col-sm-2 col-sm-2 control-label">Do kogo
+									chcesz wysłać wiadomość?</label>
+								<div class="col-sm-10">
+									<form:select itemValue="id" path="sendToStudent.id"
+										itemLabel="username" items="${students}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 col-sm-2 control-label">Treść
+									wiadomości</label>
+								<div class="col-sm-10">
+									<form:input path="text" class="form-control"
+										placeholder="Wpisz treść wiadomości" type="text" />
+									<form:errors path="text" />
+								</div>
+							</div>
+							<input type="hidden" name="sendByTutor.id" value="${tutor.id}">
+							<input class="btn btn-primary" type="submit"
+								value="Wyślij wiadomość">
+						</form:form>
 					</div>
-					<!-- /content-panel -->
 				</div>
-				<!-- /col-md-12 -->
 			</div>
-
-
-			<div class="row"></div>
+			<!-- /col-md-12 -->
 
 			<div class="row mt">
 				<!--CUSTOM CHART START -->
 				<!--custom chart end-->
 			</div>
+			<div class="row mt">
+				<!--CUSTOM CHART START -->
+				<!--custom chart end-->
+			</div>
 			<!-- /row -->
-
 		</div>
 		<!-- /col-lg-9 END SECTION MIDDLE -->
 		<!-- **********************************************************************************************************************************************************
@@ -123,7 +120,7 @@
 		</div>
 		<!-- /col-lg-3 -->
 	</div>
-	<! --/row --> </section> </section> <!--main content end--> <!--footer start--> <footer
+	<! --/row --></section> </section> <!--main content end--> <!--footer start--> <footer
 		class="site-footer">
 	<div class="text-center">
 		Potrzebujesz pomocy?<a href="index.html#" class="go-top"> <i
@@ -133,23 +130,29 @@
 	</footer> <!--footer end--> </section>
 
 	<!-- js placed at the end of the document so the pages load faster -->
-	<script src="resources/tutorDashboards/js/jquery.js"></script>
-	<script src="resources/tutorDashboard/js/jquery-1.8.3.min.js"></script>
-	<script src="resources/tutorDashboard/js/bootstrap.min.js"></script>
+	<script src="/sys_school/resources/tutorDashboards/js/jquery.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery-1.8.3.min.js"></script>
+	<script src="/sys_school/resources/tutorDashboard/js/bootstrap.min.js"></script>
 	<script class="include" type="text/javascript"
-		src="resources/tutorDashboard/js/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="resources/tutorDashboard/js/jquery.scrollTo.min.js"></script>
-	<script src="resources/tutorDashboard/js/jquery.nicescroll.js"
+		src="/sys_school/resources/tutorDashboard/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.scrollTo.min.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.nicescroll.js"
 		type="text/javascript"></script>
-	<script src="resources/tutorDashboard/js/jquery.sparkline.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.sparkline.js"></script>
 
 
 	<!--common script for all pages-->
-	<script src="resources/tutorDashboard/js/common-scripts.js"></script>
+	<script src="/sys_school/resources/tutorDashboard/js/common-scripts.js"></script>
 
 	<!--script for this page-->
-	<script src="resources/tutorDashboard/js/sparkline-chart.js"></script>
-	<script src="resources/tutorDashboard/js/zabuto_calendar.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/sparkline-chart.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/zabuto_calendar.js"></script>
 
 
 
@@ -181,87 +184,6 @@
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -286,8 +208,7 @@
                 ]
             });
         });
-        
-        
+    
         function myNavFunction(id) {
             $("#date-popover").hide();
             var nav = $("#" + id).data("navigation");
@@ -295,86 +216,6 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

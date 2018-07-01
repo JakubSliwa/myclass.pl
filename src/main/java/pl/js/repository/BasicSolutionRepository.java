@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import pl.js.entity.exercise.BasicSolution;
+import pl.js.entity.users.Student;
 
 @Repository
 public interface BasicSolutionRepository extends JpaRepository<BasicSolution, Long> {
@@ -24,4 +25,7 @@ public interface BasicSolutionRepository extends JpaRepository<BasicSolution, Lo
 	void setBasicSolutionGradeById(Double grade, Long solutionId);
 
 	List<BasicSolution> findAllByBasicExerciseId(Long id);
+
+	@Query(value = "SELECT AVG(grade) FROM basicSolutions WHERE student_id = ?1", nativeQuery = true)
+	Double getAvgGradeByStudentId(Student student);
 }

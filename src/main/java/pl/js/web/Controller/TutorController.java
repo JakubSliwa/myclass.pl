@@ -91,7 +91,6 @@ public class TutorController {
 			tutor = (Tutor) session.getAttribute("tutor");
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
-				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("student", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
@@ -130,6 +129,29 @@ public class TutorController {
 			}
 			return "redirect:/tutorsettings";
 		}
+	}
+
+	@GetMapping("/raports")
+	public String raports(Model model, HttpSession session) {
+		Long id;
+		Tutor tutor;
+
+		try {
+			id = classroomService.getClassroomId(session);
+			tutor = (Tutor) session.getAttribute("tutor");
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+				studentService.updateAvgG(tutorService.getStudentListByClassroomId(id));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				model.addAttribute("avgeragegrades", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				return "tutorViews/raports";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notATutor";
 	}
 
 }

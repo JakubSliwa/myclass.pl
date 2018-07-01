@@ -20,7 +20,9 @@ public abstract class Solution {
 	@Range(min = (long) 1.0, max = (long) 6.0)
 
 	private Double grade;
-
+	
+	
+	
 	public Solution() {
 	}
 

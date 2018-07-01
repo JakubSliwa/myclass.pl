@@ -1,21 +1,25 @@
 package pl.js.web.Controller;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pl.js.entity.Message;
-import pl.js.entity.exercise.BasicExercise;
 import pl.js.entity.users.Student;
 import pl.js.entity.users.Tutor;
 import pl.js.repository.BasicExerciseRepository;
@@ -173,6 +177,7 @@ public class MessageController {
 			try {
 				id = classroomService.getClassroomId(session);
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("studentForView", studentRepository.findOne(studentId));
 				return "tutorViews/sendMessageToStudent";
 			} catch (Exception e) {
@@ -190,31 +195,54 @@ public class MessageController {
 		return "redirect:/students";
 	}
 
-	@GetMapping("/exercises/reminder/{exerciseId}")
-	public String remiderExercise(Model model, HttpSession session,
-			@PathVariable(value = "exerciseId") Long exerciseId) {
+	@GetMapping("/sendmessage")
+	public String sendMessage(Model model, HttpSession session) {
 		Long id;
 		Tutor tutor;
-		BasicExercise basicExercise;
-		Student student;
 		try {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
-			basicExercise = basicExerciseRepository.findOne(exerciseId);
-			student = basicExercise.getStudent();
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-				model.addAttribute("basicExercise", basicExercise);
+				model.addAttribute("message", new Message());
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
-				messageService.sendReminderFromTutorToStudent(student, tutor, basicExercise);
-
-				return "redirect:/messages/" + student.getId();
+				return "tutorViews/sendMessage";
 			}
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";
 		}
 		return "errors/notATutor";
 	}
+
+	@PostMapping("/sendmessage")
+	public String sendMessage(@Validated @ModelAttribute Message message, BindingResult result, Model model,
+			HttpSession session) {
+		Long id;
+		Tutor tutor;
+		if (result.hasErrors()) {
+			try {
+				tutor = (Tutor) session.getAttribute("tutor");
+				id = classroomService.getClassroomId(session);
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				return "tutorViews/sendMessage";
+			} catch (Exception e) {
+				return "errors/generalExeption";
+			}
+		} else {
+			try {
+				message.setSent(LocalDateTime.now());
+				message.setReaded("NotReaded");
+				messageRepository.save(message);
+			} catch (Exception e) {
+				return "errors/generalExeption";
+			}
+		}
+		return "redirect:/messages";
+	}
+
 }

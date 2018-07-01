@@ -186,5 +186,33 @@ public class ExerciseController {
 		}
 		return "errors/notATutor";
 	}
+	
+	@GetMapping("/exercises/reminder/{exerciseId}")
+	public String remiderExercise(Model model, HttpSession session,
+			@PathVariable(value = "exerciseId") Long exerciseId) {
+		Long id;
+		Tutor tutor;
+		BasicExercise basicExercise;
+		Student student;
+		try {
+			id = classroomService.getClassroomId(session);
+			tutor = (Tutor) session.getAttribute("tutor");
+			basicExercise = basicExerciseRepository.findOne(exerciseId);
+			student = basicExercise.getStudent();
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("basicExercise", basicExercise);
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				messageService.sendReminderFromTutorToStudent(student, tutor, basicExercise);
+
+				return "redirect:/messages/" + student.getId();
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notATutor";
+	}
 
 }

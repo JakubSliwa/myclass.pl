@@ -66,6 +66,14 @@
 										itemLabel="title" items="${basicExercises}" />
 								</div>
 							</div>
+							<div class="form-group">
+								<label class="col-sm-2 col-sm-2 control-label">Który
+									student napisał to rozwiązanie?</label>
+								<div class="col-sm-10">
+									<form:select itemValue="id" path="student.id" itemLabel="username"
+										items="${students}" />
+								</div>
+							</div>
 							<input type="hidden" name="id" value="${basicSolution.id}">
 							<input type="hidden" name="answer"
 								value="${basicSolution.answer}">
@@ -234,6 +242,8 @@
 		
 		
 		
+		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -268,6 +278,8 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
 	
 	
 	
