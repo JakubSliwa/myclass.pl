@@ -55,21 +55,6 @@ public class LoginAndSignUpController {
 		return "security/preLoginPage";
 	}
 
-	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-		if (session.getAttribute("tutor") != null) {
-			Tutor tutorSess = (Tutor) session.getAttribute("tutor");
-			Tutor tutor = tutorRepository.findByEmail(tutorSess.getEmail());
-			tutorRepository.setTutorStatusById("offline", tutor.getId());
-			return "security/logout";
-		} else {
-			Student studentSess = (Student) session.getAttribute("student");
-			Student student = studentRepository.findByEmail(studentSess.getEmail());
-			studentRepository.setStudentStatusById("offline", student.getId());
-			return "security/logout";
-		}
-	}
-
 	@GetMapping("/loginTutor")
 	public String loginTutor() {
 

@@ -13,6 +13,7 @@
 	<c:url value="/../sys_school/checksolutions" var="checkSolutions" />
 	<c:url value="/../sys_school/tutorsettings" var="tutorSettings" />
 	<c:url value="/../sys_school/sendmessage" var="sendMessage" />
+	<c:url value="/../sys_school/lesson" var="lesson" />
 	<div class="row mtbox">
 		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
 			<a href="${newStudent}"><div class="box1">
@@ -43,7 +44,7 @@
 			<p>WYślij nową wiadomość do ucznia.</p>
 		</div>
 		<div class="col-md-2 col-sm-2 box0">
-			<a href="${newExercise}"><div class="box1">
+			<a href="${lesson}"><div class="box1">
 					<span class="li_calendar"></span>
 					<h3>Ustal datę nowej lekcji</h3>
 				</div></a>

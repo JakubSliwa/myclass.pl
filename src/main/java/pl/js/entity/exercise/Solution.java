@@ -18,7 +18,6 @@ public abstract class Solution {
 	@Size(min = 1, max = 600)
 	private String answer;
 	@Range(min = (long) 1.0, max = (long) 6.0)
-
 	private Double grade;
 	
 	

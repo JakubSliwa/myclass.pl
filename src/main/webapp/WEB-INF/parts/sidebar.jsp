@@ -14,6 +14,8 @@
 	<c:url value="/../sys_school/tutorsettings" var="tutorSettings" />
 	<c:url value="/../sys_school/messages" var="messages" />
 	<c:url value="../sys_school/raports" var="raports" />
+	<c:url value="../sys_school/finances" var="finances" />
+	<c:url value="../sys_school/calendar" var="calendar" />
 	<aside>
 	<div id="sidebar" class="nav-collapse ">
 		<!-- sidebar menu start-->
@@ -46,8 +48,11 @@
 			<li class="sub-menu"><a href="${raports}"> <i
 					class="fa fa-bar-chart-o"></i> <span>Raporty</span>
 			</a></li>
-			<li class="sub-menu"><a href=""> <i class=" fa fa-money"></i>
-					<span>Finanse</span>
+			<li class="sub-menu"><a href="${calendar}"> <i
+					class="fa fa-calendar"></i> <span>Kalendarz</span>
+			</a></li>
+			<li class="sub-menu"><a href="${finances}"> <i
+					class=" fa fa-money"></i> <span>Finanse</span>
 			</a></li>
 			<li class="sub-menu"><a href="${tutorSettings}"> <i
 					class=" fa fa-cog"></i> <span>Ustawienia</span>

@@ -122,8 +122,6 @@ public class SolutionController {
 		if (result.hasErrors()) {
 			try {
 				id = classroomService.getClassroomId(session);
-				basicSolution = basicSolutionRepository.findOne(solutionId);
-				model.addAttribute("basicSolution", basicSolution);
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/addGradeForSolutions";

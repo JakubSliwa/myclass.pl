@@ -69,6 +69,7 @@ public class StudentController {
 			tutor = (Tutor) session.getAttribute("tutor");
 			student = studentRepository.findOne(studentId);
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+				studentService.updateAvgG(tutorService.getStudentListByClassroomId(id));
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("studentForView", student);

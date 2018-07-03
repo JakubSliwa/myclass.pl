@@ -52,7 +52,7 @@
 		<li class="sidebar-nav-item"><a class="js-scroll-trigger"
 			href="#services">Cennik</a></li>
 		<li class="sidebar-nav-item"><a class="js-scroll-trigger"
-			href="#callout">Kontakt</a></li>
+			href="#footer">Kontakt</a></li>
 	</ul>
 	</nav>
 
@@ -66,7 +66,7 @@
 			<em>Twój system zarządzania lekcjami.</em>
 		</h3>
 
-		 <a class="btn btn-primary btn-xl js-scroll-trigger" href="${login}">Zaloguj
+		<a class="btn btn-primary btn-xl js-scroll-trigger" href="${login}">Zaloguj
 			się</a> &nbsp; &nbsp; &nbsp;<a
 			class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Poznaj
 			szczegóły</a>
@@ -359,23 +359,22 @@
 	</div>
 	</section>
 
-	<footer class="footer text-center">
+
+
+	<footer class="footer text-center" id="footer">
 	<div class="container">
 		<ul class="list-inline mb-5">
 			<li class="list-inline-item"><a
-				class="social-link rounded-circle text-white mr-3" href="#"> <i
-					class="icon-social-facebook"></i>
+				class="social-link rounded-circle text-white mr-3"
+				href="https://linkedin.com/in/jakubsliwa"> <i
+					class="icon-social-linkedin"></i>
 			</a></li>
 			<li class="list-inline-item"><a
-				class="social-link rounded-circle text-white mr-3" href="#"> <i
-					class="icon-social-twitter"></i>
-			</a></li>
-			<li class="list-inline-item"><a
-				class="social-link rounded-circle text-white" href="#"> <i
-					class="icon-social-github"></i>
-			</a></li>
+				class="social-link rounded-circle text-white"
+				href="https://github.com/JakubSliwa"><i
+					class="icon-social-github"></i></a></li>
 		</ul>
-
+		Zapraszam do kontaktu!
 	</div>
 	</footer>
 

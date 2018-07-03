@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Tutor - lista zadań</title>
+<title>Tutor - wiadomości</title>
 <!-- Bootstrap core CSS -->
 <link href="resources/tutorDashboard/css/bootstrap.css" rel="stylesheet">
 <!--external css-->
@@ -126,7 +126,7 @@
 	<! --/row --> </section> </section> <!--main content end--> <!--footer start--> <footer
 		class="site-footer">
 	<div class="text-center">
-		Potrzebujesz pomocy?<a href="index.html#" class="go-top"> <i
+		myclass.pl<a href="#container" class="go-top"> <i
 			class="fa fa-angle-up"></i>
 		</a>
 	</div>
@@ -154,6 +154,7 @@
 
 
 	<script type="application/javascript">
+		
 		
 		
 		
@@ -295,6 +296,7 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
 	
 	
 	

@@ -61,6 +61,7 @@
 									<th><i class="fa fa-user"></i> Login</th>
 									<th class="hidden-phone"><i class="fa fa-tasks"></i> Email</th>
 									<th><i class="fa fa-archive"></i>Status</th>
+									<th><i class="fa fa-graduation-cap"></i>Średnia ocena</th>
 									<th><i class=" fa fa-calendar-check-o"></i> Dostępne akcje</th>
 								</tr>
 							</thead>
@@ -69,6 +70,7 @@
 									<td>${studentForView.username}</td>
 									<td>${studentForView.email}</td>
 									<td>${studentForView.status}</td>
+									<td>${studentForView.avgGrade}</td>
 									<td><a id="add-without-image" class="label label-success"
 										href="${editStudent}/${studentForView.id}" />Edytuj ucznia<a
 										id="add-without-image" class="label label-primary"
@@ -121,7 +123,7 @@
 	<! --/row --></section> </section> <!--main content end--> <!--footer start--> <footer
 		class="site-footer">
 	<div class="text-center">
-		Potrzebujesz pomocy?<a href="index.html#" class="go-top"> <i
+		myclass.pl<a href="#container" class="go-top"> <i
 			class="fa fa-angle-up"></i>
 		</a>
 	</div>

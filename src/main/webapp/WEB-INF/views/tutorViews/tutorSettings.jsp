@@ -129,7 +129,7 @@
 	</section> </section> <!--main content end--> <!--footer start--> <footer
 		class="site-footer">
 	<div class="text-center">
-		Potrzebujesz pomocy?<a href="index.html#" class="go-top"> <i
+		myclass.pl<a href="#container" class="go-top"> <i
 			class="fa fa-angle-up"></i>
 		</a>
 	</div>
@@ -163,6 +163,7 @@
 
 
 	<script type="application/javascript">
+		
 		
 		
 		
@@ -214,6 +215,7 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
 	
 	
 	
