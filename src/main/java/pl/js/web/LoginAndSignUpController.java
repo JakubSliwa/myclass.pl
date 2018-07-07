@@ -71,6 +71,8 @@ public class LoginAndSignUpController {
 			tutor = tutorRepository.findByEmail(email);
 			messages.addAll(messageRepository.findAllBySendToTutorAndReaded(tutor, "NotReaded"));
 			session.setAttribute("messages", messages);
+			session.setAttribute("messagesLimited",
+					messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 			session.setAttribute("tutor", tutor);
 			session.setAttribute("class", tutor.getClassroom());
 			session.setAttribute("dateTimeFormatter", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));

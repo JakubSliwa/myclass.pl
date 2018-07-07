@@ -33,7 +33,7 @@
 			</a></li>
 
 			<li class="sub-menu"><a href="${messages}"> <i
-					class="fa fa-comments"></i> <span>Wiadomości</span>
+					class="fa fa-comments"></i> <span>Otrzymane wiadomości</span>
 			</a></li>
 
 			<li class="sub-menu"><a href="${studentsList}"> <i

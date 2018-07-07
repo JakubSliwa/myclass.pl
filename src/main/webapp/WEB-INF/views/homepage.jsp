@@ -359,23 +359,34 @@
 	</div>
 	</section>
 
-
-
 	<footer class="footer text-center" id="footer">
 	<div class="container">
 		<ul class="list-inline mb-5">
 			<li class="list-inline-item"><a
-				class="social-link rounded-circle text-white mr-3"
-				href="https://linkedin.com/in/jakubsliwa"> <i
-					class="icon-social-linkedin"></i>
-			</a></li>
+				href="https://linkedin.com/in/jakubsliwa"><img
+					src="resources/homepage/social/linkedin.png"></img></a></li>
 			<li class="list-inline-item"><a
-				class="social-link rounded-circle text-white"
-				href="https://github.com/JakubSliwa"><i
-					class="icon-social-github"></i></a></li>
+				href="https://github.com/JakubSliwa"><img
+					src="resources/homepage/social/github-logo.png"></img></a></li>
+
+
 		</ul>
 		Zapraszam do kontaktu!
 	</div>
+	<br>
+	<p class="text-muted small mb-0">
+		Icons made by <a href="https://www.flaticon.com/authors/dave-gandy"
+			title="Dave Gandy">Dave Gandy</a> from <a
+			href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+		is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
+			title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+	</p>
+	<p class="text-muted small mb-0">
+		Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a>
+		from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+		is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
+			title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+	</p>
 	</footer>
 
 	<div id="gritter-notice-wrapper">
@@ -435,7 +446,7 @@
 
 										title : 'Welcome to Dashgum!',
 
-										text : 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo. Free version for <a href="http://blacktie.co" target="_blank" style="color:#ffd777">BlackTie.co</a>.',
+										text : ' target="_blank" style="color:#ffd777">BlackTie.co</a>.',
 
 										image : 'resources/tutorDashboard/img/ui-sam.jpg',
 

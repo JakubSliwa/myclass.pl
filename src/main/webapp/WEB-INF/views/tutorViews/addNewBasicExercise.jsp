@@ -52,6 +52,9 @@
 			<div class="row mt">
 				<div class="col-lg-12">
 					<div class="form-panel">
+						<h4 class="mb">
+							<i class="fa fa-angle-right"></i> Stwórz nowe zadanie
+						</h4>
 						<form:form class="form-horizontal style-form" method="post"
 							modelAttribute="basicExercise">
 							<div class="form-group">
@@ -236,6 +239,7 @@
 		
 		
 		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -270,6 +274,7 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
 	
 	
 	

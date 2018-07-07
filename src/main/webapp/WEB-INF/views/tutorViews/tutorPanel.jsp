@@ -70,22 +70,20 @@
 							</thead>
 							<tbody>
 								<c:forEach items="${solutions}" var="solutions">
-									<tr>
-										<td>${solutions.basicExercise.student.username}</td>
-										<td>${solutions.basicExercise.title}</td>
-										<td>${solutions.answer}</td>
-										<td>${solutions.added}</td>
-										<td>${solutions.grade}</td>
-										<td><a id="add-sticky" class="label label-primary"
-											href="${addGrade}/${solutions.id}">Wystaw ocene</a><a
-											id="add-without-image" class="label label-success"
-											href="${studentsList}/${solutions.basicExercise.student.id}">Sprawdź
-												ucznia</a> <c:if
-												test="${solutions.basicExercise.student.id == null}">
-												<a id="add-without-image" class="label label-info"
-													href="${setExercise}/${solutions.id}">Przypisz zadanie</a>
-											</c:if></td>
-									</tr>
+									<c:if test="${solutions.basicExercise.student.id != null}">
+										<tr>
+											<td>${solutions.basicExercise.student.username}</td>
+											<td>${solutions.basicExercise.title}</td>
+											<td>${solutions.answer}</td>
+											<td>${solutions.added}</td>
+											<td>${solutions.grade}</td>
+											<td><a id="add-sticky" class="label label-primary"
+												href="${addGrade}/${solutions.id}">Wystaw ocene</a> <a
+												id="add-without-image" class="label label-success"
+												href="${studentsList}/${solutions.basicExercise.student.id}">Sprawdź
+													ucznia</a></td>
+										</tr>
+									</c:if>
 								</c:forEach>
 							</tbody>
 						</table>
@@ -123,9 +121,9 @@
 										<td>${basicExercise.added}</td>
 										<td>${basicExercise.deadline}</td>
 										<td><a id="add-without-image" class="label label-success"
-											href="${editExercises}/${basicExercise.id}">Edytuj</a><a
+											href="${editExercises}/${basicExercise.id}">Edytuj</a> <a
 											id="remove-all" class="label label-warning"
-											href="${reminder}/${basicExercise.id}">Przypomnij</a><a
+											href="${reminder}/${basicExercise.id}">Przypomnij</a> <a
 											id="remove-all" class="label label-danger"
 											href="${deleteExercises}/${basicExercise.id}">Usuń</a></td>
 									</tr>
@@ -199,6 +197,10 @@
 		
 		
 		
+		
+		
+		
+		
 				
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -231,6 +233,10 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
 	
 	</script>
 

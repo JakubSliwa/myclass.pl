@@ -50,7 +50,7 @@
 					<div class="content-panel">
 						<table class="table table-striped table-advance table-hover">
 							<h4>
-								<i class="fa fa-angle-right"></i> Wiadomości
+								<i class="fa fa-angle-right"></i> Otrzymane wiadomości
 							</h4>
 							<hr>
 							<thead>
@@ -69,8 +69,8 @@
 										<td>${message.text}</td>
 										<td>${message.sent.format(dateTimeFormatter)}</td>
 										<td><a id="add-without-image" class="label label-success"
-											href="${messagesHistory}/${message.sendByStudent.id}">Wejdź
-												do rozmowy</a> <a id="add-without-image"
+											href="${messagesHistory}/${message.sendByStudent.id}">Sprawdź
+												historię wiadomości</a> <a id="add-without-image"
 											class="label label-primary"
 											href="${sendToStudent}/${message.sendByStudent.id}">Wyślij
 												wiadomość</a> <a id="remove-all" class="label label-danger"
@@ -262,6 +262,8 @@
 		
 		
 		
+		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -296,6 +298,8 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
 	
 	
 	

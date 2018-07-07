@@ -160,4 +160,25 @@ public class SolutionController {
 		}
 		return "errors/notATutor";
 	}
+
+	@GetMapping("/deletesolutions/{solutionId}")
+	public String deleteExercises(Model model, HttpSession session,
+			@PathVariable(value = "solutionId") Long solutionId) {
+		Long id;
+		Tutor tutor;
+		try {
+			id = classroomService.getClassroomId(session);
+			tutor = (Tutor) session.getAttribute("tutor");
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				basicSolutionRepository.delete(solutionId);
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				return "redirect:/checksolutions";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notATutor";
+	}
 }

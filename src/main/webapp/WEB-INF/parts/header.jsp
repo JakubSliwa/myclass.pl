@@ -33,14 +33,14 @@
 						<p class="green">You have ${unreaded} new messages</p>
 					</li>
 					<c:url value="/../sys_school/students" var="student" />
-					<c:forEach items="${messages}" var="m">
+					<c:forEach items="${messagesLimited}" var="m">
 						<li><a href="${showMessage}/${m.id}"> <span class="photo"><img
 									alt="avatar"
 									src="/sys_school/resources/tutorDashboard/img/ui-sam.jpg"></span>
 								<span class="subject"> <span class="from">${m.sendByStudent.username}</span>
 									<span class="time"> ${m.sent.format(dateTimeFormatter)}
 								</span>
-							</span> <span class="message">${m.text}</span>
+							</span> <span class="message">${m.text}...</span>
 						</a></li>
 					</c:forEach>
 					<li><a href="${messagesList}">See all messages</a></li>
@@ -51,7 +51,7 @@
 	</div>
 	<div class="top-menu">
 		<ul class="nav pull-right top-menu">
-			<li><a class="logout" href="logout">Logout</a></li>
+			<li><a class="logout" href="${logout}">Logout</a></li>
 		</ul>
 	</div>
 	</header>

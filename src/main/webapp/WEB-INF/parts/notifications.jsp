@@ -12,20 +12,22 @@
 	<c:url value="/../sys_school/addgrade" var="addGrade" />
 	<c:set var="count" value="1" />
 	<c:forEach items="${solutions}" var="solutions">
-		<c:if test="${count <= 5 }">
-			<div class="desc">
-				<div class="thumb">
-					<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+		<c:if test="${solutions.basicExercise.student.username != null}">
+			<c:if test="${count <= 5 }">
+				<div class="desc">
+					<div class="thumb">
+						<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+					</div>
+					<div class="details">
+						<p>
+							<muted>${solutions.added}</muted>
+							<br /> <a href="${addGrade}/${solutions.id}">${solutions.basicExercise.student.username}</a>
+							dodał rozwiązanie do zadania: ${solutions.basicExercise.title}<br />
+						</p>
+					</div>
 				</div>
-				<div class="details">
-					<p>
-						<muted>${solutions.added}</muted>
-						<br /> <a href="${addGrade}/${solutions.id}">${solutions.basicExercise.student.username}</a>
-						dodał rozwiązanie do zadania: ${solutions.basicExercise.title}<br />
-					</p>
-				</div>
-			</div>
-			<c:set var="count" value="${count + 1}" />
+				<c:set var="count" value="${count + 1}" />
+			</c:if>
 		</c:if>
 	</c:forEach>
 

@@ -37,6 +37,7 @@
 	<c:url value="../sys_school/addgrade" var="addGrade" />
 	<c:url value="../sys_school/students" var="studentsList" />
 	<c:url value="../sys_school/solutions/setexercise" var="setExercise" />
+	<c:url value="../sys_school/deletesolutions" var="deleteSolution" />
 
 
 	<section id="container"> <%@ include
@@ -75,13 +76,15 @@
 										<td>${solutions.added}</td>
 										<td>${solutions.grade}</td>
 										<td><a id="add-sticky" class="label label-primary"
-											href="${addGrade}/${solutions.id}">Wystaw ocene</a><a
+											href="${addGrade}/${solutions.id}">Wystaw ocene</a> <a
 											id="add-without-image" class="label label-success"
 											href="${studentsList}/${solutions.basicExercise.student.id}">Sprawdź
-												ucznia</a> <c:if
+												ucznia</a> <a id="remove-all" class="label label-danger"
+											href="${deleteSolution}/${solutions.id}">Usuń</a> <c:if
 												test="${solutions.basicExercise.student.id == null}">
 												<a id="add-without-image" class="label label-info"
-													href="${setExercise}/${solutions.id}">Przypisz zadanie</a>
+													href="${setExercise}/${solutions.id}"> Dodaj do ucznia
+												</a>
 											</c:if></td>
 									</tr>
 								</c:forEach>
@@ -165,6 +168,14 @@
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
 			
 			
         $(document).ready(function () {
@@ -198,6 +209,14 @@
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

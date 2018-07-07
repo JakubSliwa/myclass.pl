@@ -71,9 +71,9 @@
 										<td>${basicExercise.added}</td>
 										<td>${basicExercise.deadline}</td>
 										<td><a id="add-without-image" class="label label-success"
-											href="${editExercises}/${basicExercise.id}">Edytuj</a><a
+											href="${editExercises}/${basicExercise.id}">Edytuj</a> <a
 											id="remove-all" class="label label-warning"
-											href="${reminder}/${basicExercise.id}">Przypomnij</a><a
+											href="${reminder}/${basicExercise.id}">Przypomnij</a> <a
 											id="remove-all" class="label label-danger"
 											href="${deleteExercises}/${basicExercise.id}">Usuń</a></td>
 									</tr>
@@ -245,6 +245,7 @@
 		
 		
 		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -279,6 +280,7 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
 	
 	
 	
