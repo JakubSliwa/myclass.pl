@@ -1,22 +1,17 @@
 package pl.js.web.Controller;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pl.js.entity.Message;
@@ -60,7 +55,8 @@ public class MessageController {
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-				model.addAttribute("message", messageRepository.findAllBySendToTutor(tutor));
+				model.addAttribute("message",
+						messageRepository.findAllBySendToTutorOrSendByTutorOrderBySentDesc(tutor, tutor));
 				return "tutorViews/messages";
 			}
 		} catch (NullPointerException e) {
@@ -235,9 +231,7 @@ public class MessageController {
 			}
 		} else {
 			try {
-				message.setSent(LocalDateTime.now());
-				message.setReaded("NotReaded");
-				messageRepository.save(message);
+				messageService.sendMessage(message);
 			} catch (Exception e) {
 				return "errors/generalExeption";
 			}

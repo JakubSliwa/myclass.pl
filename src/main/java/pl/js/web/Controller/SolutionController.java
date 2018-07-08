@@ -100,7 +100,7 @@ public class SolutionController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			basicSolution = basicSolutionRepository.findOne(solutionId);
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == basicSolution.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));

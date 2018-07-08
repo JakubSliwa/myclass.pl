@@ -63,7 +63,7 @@
 	<div class="container text-center my-auto">
 		<h1 class="mb-1">myclass.pl</h1>
 		<h3 class="mb-5">
-			<em>Twój system zarządzania lekcjami.</em>
+			<em>Twój system zarządzania lekcjami</em>
 		</h3>
 
 		<a class="btn btn-primary btn-xl js-scroll-trigger" href="${login}">Zaloguj

@@ -28,4 +28,6 @@ public interface BasicSolutionRepository extends JpaRepository<BasicSolution, Lo
 
 	@Query(value = "SELECT AVG(grade) FROM basicSolutions WHERE student_id = ?1", nativeQuery = true)
 	Double getAvgGradeByStudentId(Student student);
+
+	List<BasicSolution> findAllByStudentId(Long studentId);
 }

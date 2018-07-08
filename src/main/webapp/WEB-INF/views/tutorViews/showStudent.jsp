@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Tutor - pokaż studenta</title>
+<title>Tutor - profil studenta</title>
 <!-- Bootstrap core CSS -->
 <link href="/sys_school/resources/tutorDashboard/css/bootstrap.css"
 	rel="stylesheet">
@@ -39,60 +39,171 @@
 <body>
 	<c:url value="/../sys_school/editstudents" var="editStudent" />
 	<c:url value="/../sys_school/message" var="sendToStudent" />
+	<c:url value="/../sys_school/adduser" var="newUser" />
+	<c:url value="/../sys_school/invitestudent" var="newStudent" />
+	<c:url value="/../sys_school/addgrade" var="addGrade" />
+	<c:url value="/../sys_school/students" var="studentsList" />
+	<c:url value="/../sys_school/deletesolutions" var="deleteSolution" />
+	<c:url value="/../sys_school/deletemessages" var="deleteMessages" />
+
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
 		file="/WEB-INF/parts/sidebar.jsp"%> <section
 		id="main-content"> <section class="wrapper">
 	<div class="row">
 		<div class="col-lg-9 main-chart">
-			<%@ include file="/WEB-INF/parts/topMenu.jsp"%>
-			<!-- /row mt -->
 			<div class="row mt">
 				<div class="col-md-12">
-					<div class="content-panel">
-						<table class="table table-striped table-advance table-hover">
-							<h4>
-								<i class="fa fa-angle-right"></i> Uczeń
-								${studentForView.username}
-							</h4>
-							<hr>
-							<thead>
-								<tr>
-									<th><i class="fa fa-user"></i> Login</th>
-									<th class="hidden-phone"><i class="fa fa-tasks"></i> Email</th>
-									<th><i class="fa fa-archive"></i>Status</th>
-									<th><i class="fa fa-graduation-cap"></i>Średnia ocena</th>
-									<th><i class=" fa fa-calendar-check-o"></i> Dostępne akcje</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>${studentForView.username}</td>
-									<td>${studentForView.email}</td>
-									<td>${studentForView.status}</td>
-									<td>${studentForView.avgGrade}</td>
-									<td><a id="add-without-image" class="label label-success"
-										href="${editStudent}/${studentForView.id}" />Edytuj ucznia<a
-										id="add-without-image" class="label label-primary"
-										href="${sendToStudent}/${studentForView.id}" />Wyślij
-										wiadomość</td>
-								</tr>
-							</tbody>
-						</table>
+					<div class="row content-panel">
+						<div class="col-md-4 profile-text mt mb centered">
+							<div class="right-divider hidden-sm hidden-xs">
+								<h4>Średnia ocena</h4>
+								<h5>${studentForView.avgGrade}</h5>
+								<h4>Email</h4>
+								<h6>${studentForView.email}</h6>
+								<h4>Numer telefonu</h4>
+								<h6>123-456-789</h6>
+							</div>
+						</div>
+						<div class="col-md-4 profile-text">
+							<h3>${studentForView.username}</h3>
+							<h6>
+								<c:choose>
+									<c:when test="${studentForView.status == 'offline'}">
+										<span class="label label-danger">${studentForView.status}</span>
+									</c:when>
+									<c:otherwise>
+										<span class="label label-success">${studentForView.status}</span>
+									</c:otherwise>
+								</c:choose>
+							</h6>
+							<br>
+							<p>Contrary to popular belief, Lorem Ipsum is not simply
+								random text. It has roots in a piece of classical Latin
+								literature from 45 BC.</p>
+							<br>
+							<p>
+								<a class="btn btn-primary"
+									href="${sendToStudent}/${studentForView.id}"> <i
+									class="fa fa-pencil"></i> Edytuj opis
+								</a>
+							</p>
+						</div>
+						<div class="col-md-4 centered">
+							<div class="profile-pic">
+								<p>
+									<img src="/sys_school/resources/tutorDashboard/img/ui-sam.jpg"
+										class="img-circle">
+								</p>
+								<p>
+									<a class="btn btn-theme"
+										href="${sendToStudent}/${studentForView.id}"> <i
+										class="fa fa-envelope"></i> Wyślij wiadomość
+									</a> <a class="btn btn-theme02"
+										href="${editStudent}/${studentForView.id}">Edytuj dane</a>
+								</p>
+							</div>
+						</div>
 					</div>
-					<!-- /content-panel -->
 				</div>
-				<!-- /col-md-12 -->
 			</div>
 
 			<div class="row mt">
-				<!--CUSTOM CHART START -->
-				<!--custom chart end-->
-			</div>
-			<!-- /row -->
+				<div class="col-lg-12 mt">
+					<div class="row content-panel">
+						<div class="panel-heading">
+							<ul class="nav nav-tabs nav-justified">
+								<li class="active"><a data-toggle="tab" href="#solutions">Odpowiedzi</a>
+								</li>
+								<li class=""><a data-toggle="tab" href="#messages"
+									class="contact-map">Wiadomości</a></li>
+							</ul>
+						</div>
 
+						<div class="panel-body">
+							<div class="tab-content">
+								<div id="solutions" class="tab-pane active">
+									<div class="row">
+										<div class="col-md">
+											<table class="table table-striped table-advance table-hover">
+												<h4>
+													<i class="fa fa-angle-right"></i> Lista rozwiązań
+												</h4>
+												<hr>
+												<thead>
+													<tr>
+														<th class="hidden-phone"><i class="fa fa-tasks"></i>
+															Zadanie</th>
+														<th><i class="fa fa-archive"></i>Odpowiedź</th>
+														<th><i class=" fa fa-calendar-check-o"></i> Dodano</th>
+
+														<th><i class="fa fa-flash"></i>Ocena</th>
+														<th><i class="fa fa-flash"></i>Dostępne akcje</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach items="${solutionsByStudentId}" var="solutions">
+														<tr>
+															<td>${solutions.basicExercise.title}</td>
+															<td>${solutions.answer}</td>
+															<td>${solutions.added}</td>
+															<td>${solutions.grade}</td>
+															<td><a id="add-sticky" class="label label-primary"
+																href="${addGrade}/${solutions.id}">Wystaw ocene</a> <a
+																id="remove-all" class="label label-danger"
+																href="${deleteSolution}/${solutions.id}">Usuń</a></td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+
+									</div>
+								</div>
+								<div id="messages" class="tab-pane">
+									<div class="row">
+										<div class="col-md">
+											<table class="table table-striped table-advance table-hover">
+												<h4>
+													<i class="fa fa-angle-right"></i> Wiadomości
+												</h4>
+												<hr>
+												<thead>
+													<tr>
+														<th><i class="fa fa-user"></i> Od kogo</th>
+														<th class="hidden-phone"><i class="fa fa-tasks"></i>
+															Wiadomość</th>
+														<th><i class="fa fa-archive"></i>Wysłane</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach items="${messagesByStudentId}" var="message">
+														<tr>
+															<td><c:choose>
+																	<c:when test="${empty message.sendByStudent}"> ${tutor.username}</c:when>
+																	<c:otherwise> ${message.sendByStudent.username}</c:otherwise>
+																</c:choose></td>
+															<td>${message.text}</td>
+															<td>${message.sent.format(dateTimeFormatter)}</td>
+															<td><a id="remove-all" class="label label-danger"
+																href="${deleteMessages}/${message.id}">Usuń</a></td>
+
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+					</div>
+				</div>
+			</div>
 		</div>
-		<!-- /col-lg-9 END SECTION MIDDLE -->
 		<!-- **********************************************************************************************************************************************************
       RIGHT SIDEBAR CONTENT
       *********************************************************************************************************************************************************** -->
@@ -163,6 +274,87 @@
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -195,6 +387,87 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

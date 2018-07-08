@@ -13,9 +13,10 @@
 	<c:url value="/../sys_school/checksolutions" var="solutionsList" />
 	<c:url value="/../sys_school/tutorsettings" var="tutorSettings" />
 	<c:url value="/../sys_school/messages" var="messages" />
-	<c:url value="../sys_school/raports" var="raports" />
-	<c:url value="../sys_school/finances" var="finances" />
-	<c:url value="../sys_school/calendar" var="calendar" />
+	<c:url value="/../sys_school/raports" var="raports" />
+	<c:url value="/../sys_school/finances" var="finances" />
+	<c:url value="/../sys_school/calendar" var="calendar" />
+	<c:url value="/../sys_school/help" var="help" />
 	<aside>
 	<div id="sidebar" class="nav-collapse ">
 		<!-- sidebar menu start-->
@@ -33,7 +34,7 @@
 			</a></li>
 
 			<li class="sub-menu"><a href="${messages}"> <i
-					class="fa fa-comments"></i> <span>Otrzymane wiadomości</span>
+					class="fa fa-comments"></i> <span>Wiadomości</span>
 			</a></li>
 
 			<li class="sub-menu"><a href="${studentsList}"> <i
@@ -56,6 +57,9 @@
 			</a></li>
 			<li class="sub-menu"><a href="${tutorSettings}"> <i
 					class=" fa fa-cog"></i> <span>Ustawienia</span>
+			</a></li>
+			<li class="sub-menu"><a href="${help}"> <i
+					class=" fa fa-question-circle"></i> <span>Pomoc</span>
 			</a></li>
 
 		</ul>

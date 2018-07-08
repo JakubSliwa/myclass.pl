@@ -65,16 +65,31 @@
 							<tbody>
 								<c:forEach items="${message}" var="message">
 									<tr>
-										<td>${message.sendByStudent.username}</td>
+										<td><c:choose>
+												<c:when test="${empty message.sendByStudent}"> ${tutor.username}</c:when>
+												<c:otherwise> ${message.sendByStudent.username}</c:otherwise>
+											</c:choose></td>
 										<td>${message.text}</td>
 										<td>${message.sent.format(dateTimeFormatter)}</td>
-										<td><a id="add-without-image" class="label label-success"
-											href="${messagesHistory}/${message.sendByStudent.id}">Sprawdź
-												historię wiadomości</a> <a id="add-without-image"
-											class="label label-primary"
-											href="${sendToStudent}/${message.sendByStudent.id}">Wyślij
-												wiadomość</a> <a id="remove-all" class="label label-danger"
-											href="${deleteMessages}/${message.id}">Usuń</a></td>
+										<td><c:choose>
+												<c:when test="${empty message.sendByStudent.id}">
+													<a id="add-without-image" class="label label-success"
+														href="${messagesHistory}/${message.sendToStudent.id}">Wejdź
+														do rozmowy</a>
+													<a id="remove-all" class="label label-danger"
+														href="${deleteMessages}/${message.id}">Usuń</a>
+												</c:when>
+												<c:otherwise>
+													<a id="add-without-image" class="label label-success"
+														href="${messagesHistory}/${message.sendByStudent.id}">Wejdź
+														do rozmowy</a>
+													<a id="add-without-image" class="label label-primary"
+														href="${sendToStudent}/${message.sendByStudent.id}">Wyślij
+														wiadomość</a>
+													<a id="remove-all" class="label label-danger"
+														href="${deleteMessages}/${message.id}">Usuń</a>
+												</c:otherwise>
+											</c:choose></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -264,6 +279,21 @@
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -298,6 +328,21 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

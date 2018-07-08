@@ -55,7 +55,7 @@
 					<div class="form-panel">
 						<h4 class="mb">
 							<i class="fa fa-angle-right"></i> Oceń rozwiązanie w skali od 1
-							do 6. Użyj '.', zamiast ','.
+							do 6.
 						</h4>
 						<form:form class="form-horizontal style-form" method="post"
 							modelAttribute="basicSolution">
@@ -63,8 +63,9 @@
 								<label class="col-sm-2 col-sm-2 control-label">Wystaw
 									ocenę</label>
 								<div class="col-sm-10">
-									<form:input path="grade" class="form-control" id="txt"
-										type="text" name="grade" placeholder="Wystaw ocenę od 1 do 6" />
+									<form:input path="grade" class="form-control" id="numberBox"
+										type="number" min="1" max="6" step="0.5" name="grade"
+										placeholder="Wystaw ocenę od 1 do 6" />
 									<form:errors path="grade" />
 								</div>
 							</div>
@@ -176,16 +177,35 @@
 	<script
 		src="/sys_school/resources/tutorDashboard/js/zabuto_calendar.js"></script>
 
-
+	<script type="text/javascript">
+		$(function() {
+			$("#numberBox").change(function() {
+				var max = parseInt($(this).attr('max'));
+				var min = parseInt($(this).attr('min'));
+				if ($(this).val() > max) {
+					$(this).val(max);
+				} else if ($(this).val() < min) {
+					$(this).val(min);
+				}
+			});
+		});
+		s
+	</script>
 
 	<script type="text/javascript">
-		$("#txt").bind("change keyup input", function() {
+		$("#numberBox").bind("change keyup input", function() {
 			text = this.value.replace(",", ".");
 			$("#txt").val(text);
 		});
 	</script>
 
 	<script type="application/javascript">
+		
+		
+		
+		
+		
+		
 		
 		
 				
@@ -225,6 +245,12 @@
         
 	
 
+	
+	
+	
+	
+	
+	
 	
 	
 	

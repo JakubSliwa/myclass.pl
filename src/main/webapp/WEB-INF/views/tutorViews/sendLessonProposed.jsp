@@ -20,20 +20,28 @@
 <!-- Bootstrap core CSS -->
 <link href="resources/tutorDashboard/css/bootstrap.css" rel="stylesheet">
 <!--external css-->
-<link href="resources/tutorDashboard/font-awesome/css/font-awesome.css"
-	rel="stylesheet" />
 <link rel="stylesheet" type="text/css"
 	href="resources/tutorDashboard/css/zabuto_calendar.css">
 
 <link rel="stylesheet" type="text/css"
 	href="resources/tutorDashboard/lineicons/style.css">
+<link href="resources/tutorDashboard/font-awesome/css/font-awesome.css"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css"
+	href="resources/tutorDashboard/js/bootstrap-fileupload/bootstrap-fileupload.css" />
+<link rel="stylesheet" type="text/css"
+	href="resources/tutorDashboard/js/bootstrap-datepicker/css/datepicker.css" />
+<link rel="stylesheet" type="text/css"
+	href="resources/tutorDashboard/js/bootstrap-daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" type="text/css"
+	href="resources/tutorDashboard/js/bootstrap-timepicker/compiled/timepicker.css" />
+<link rel="stylesheet" type="text/css"
+	href="resources/tutorDashboard/js/bootstrap-datetimepicker/datetimepicker.css" />
 
 <!-- Custom styles for this template -->
 <link href="resources/tutorDashboard/css/style.css" rel="stylesheet">
 <link href="resources/tutorDashboard/css/style-responsive.css"
 	rel="stylesheet">
-
-<script src="resources/tutorDashboard/js/chart-master/Chart.js"></script>
 </head>
 <body>
 	<c:url value="../sys_school/adduser" var="newUser" />
@@ -50,14 +58,53 @@
 
 			<div class="row mt">
 				<div class="col-lg-12">
-					Wysyłanie propozycji jest obecnie nie dostępne.
+					<div class="form-panel">
+						<h4 class="mb">
+							<i class="fa fa-angle-right"></i> Wybierz studenta i datę lekcji.
+						</h4>
+						<form:form class="form-horizontal style-form" method="post"
+							modelAttribute="lesson">
+							<div class="form-group">
+								<label class="control-label col-md-3">Wybierz studenta:
+								</label>
+								<div class="col-md-3 col-xs-11">
+									<form:select itemValue="id" path="student.id"
+										itemLabel="username" items="${students}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-md-3">Temat lekcji</label>
+								<div class="col-md-3 col-xs-11">
+									<form:input path="subject" class="form-control" type="text"
+										placeholder="Temat lekcji" />
+									<form:errors path="subject" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-md-3">Wybierz datę</label>
+								<div class="col-md-3 col-xs-11">
+									<input
+										class="form-control form-control-inline input-medium default-date-picker"
+										size="16" name="date" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-md-3">O której godzinie?</label>
+								<div class="col-md-4">
+									<div class="input-group bootstrap-timepicker">
+										<input class="form-control timepicker-24" type="text"
+											name="time">
+									</div>
+								</div>
+							</div>
+							<input class="btn btn-primary" type="submit"
+								value="Wyślij propozycję">
+						</form:form>
+					</div>
+
 				</div>
 			</div>
-			<!-- /row -->
-
-
 			<div class="row"></div>
-
 			<div class="row mt">
 				<!--CUSTOM CHART START -->
 				<!--custom chart end-->
@@ -101,28 +148,44 @@
 		</a>
 	</div>
 	</footer> <!--footer end--> </section>
+	</section>
 
 	<!-- js placed at the end of the document so the pages load faster -->
-	<script src="resources/tutorDashboards/js/jquery.js"></script>
-	<script src="resources/tutorDashboard/js/jquery-1.8.3.min.js"></script>
+	<script src="resources/tutorDashboard/js/jquery.js"></script>
 	<script src="resources/tutorDashboard/js/bootstrap.min.js"></script>
 	<script class="include" type="text/javascript"
 		src="resources/tutorDashboard/js/jquery.dcjqaccordion.2.7.js"></script>
 	<script src="resources/tutorDashboard/js/jquery.scrollTo.min.js"></script>
 	<script src="resources/tutorDashboard/js/jquery.nicescroll.js"
 		type="text/javascript"></script>
-	<script src="resources/tutorDashboard/js/jquery.sparkline.js"></script>
 
 
 	<!--common script for all pages-->
 	<script src="resources/tutorDashboard/js/common-scripts.js"></script>
 
 	<!--script for this page-->
+	<script src="resources/tutorDashboard/js/jquery-ui-1.9.2.custom.min.js"></script>
+
+	<script type="text/javascript"
+		src="resources/tutorDashboard/js/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+	<script type="text/javascript"
+		src="resources/tutorDashboard/js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript"
+		src="resources/tutorDashboard/js/bootstrap-daterangepicker/date.js"></script>
+	<script type="text/javascript"
+		src="resources/tutorDashboard/js/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+	<script type="text/javascript"
+		src="resources/tutorDashboard/js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript"
+		src="resources/tutorDashboard/js/bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript"
+		src="resources/tutorDashboard/js/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+
+
+	<script src="resources/tutorDashboard/js/advanced-form-components.js"></script>
 	<script src="resources/tutorDashboard/js/sparkline-chart.js"></script>
 	<script src="resources/tutorDashboard/js/zabuto_calendar.js"></script>
-
-
-
 	<script type="application/javascript">
 		
 		
@@ -140,27 +203,7 @@
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-			
+				
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -176,7 +219,7 @@
                     return myNavFunction(this.id);
                 },
                 ajax: {
-                    url: "show_data.php?action=1",
+                    url: "show_data.?action=1",
                     modal: true
                 },
                 legend: [
@@ -184,35 +227,13 @@
                     {type: "block", label: "Regular event", }
                 ]
             });
-        });
-        
-        
+        });    
         function myNavFunction(id) {
             $("#date-popover").hide();
             var nav = $("#" + id).data("navigation");
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
-        }
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+        }	
 	
 	
 	
@@ -231,6 +252,4 @@
 	
 	
 	</script>
-
-
 </body>

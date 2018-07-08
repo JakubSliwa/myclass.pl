@@ -18,44 +18,145 @@
 
 <title>Tutor - pomoc</title>
 <!-- Bootstrap core CSS -->
-<link href="resources/tutorDashboard/css/bootstrap.css" rel="stylesheet">
+<link href="/sys_school/resources/tutorDashboard/css/bootstrap.css"
+	rel="stylesheet">
 <!--external css-->
-<link href="resources/tutorDashboard/font-awesome/css/font-awesome.css"
+<link
+	href="/sys_school/resources/tutorDashboard/font-awesome/css/font-awesome.css"
 	rel="stylesheet" />
 <link rel="stylesheet" type="text/css"
-	href="resources/tutorDashboard/css/zabuto_calendar.css">
+	href="/sys_school/resources/tutorDashboard/css/zabuto_calendar.css">
 
 <link rel="stylesheet" type="text/css"
-	href="resources/tutorDashboard/lineicons/style.css">
+	href="/sys_school/resources/tutorDashboard/lineicons/style.css">
 
 <!-- Custom styles for this template -->
-<link href="resources/tutorDashboard/css/style.css" rel="stylesheet">
-<link href="resources/tutorDashboard/css/style-responsive.css"
+<link href="/sys_school/resources/tutorDashboard/css/style.css"
+	rel="stylesheet">
+<link
+	href="/sys_school/resources/tutorDashboard/css/style-responsive.css"
 	rel="stylesheet">
 
-<script src="resources/tutorDashboard/js/chart-master/Chart.js"></script>
+<script
+	src="/sys_school/resources/tutorDashboard/js/chart-master/Chart.js"></script>
 </head>
 <body>
-	<c:url value="../sys_school/adduser" var="newUser" />
-	<c:url value="../sys_school/invitestudent" var="newStudent" />
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
 		file="/WEB-INF/parts/sidebar.jsp"%> <section
 		id="main-content"> <section class="wrapper">
 	<div class="row">
 		<div class="col-lg-9 main-chart">
-			<%@ include file="/WEB-INF/parts/topMenu.jsp"%>
-			<!-- /row mt -->
+			<div class="row content-panel">
+				<h2 class="centered">Pomoc</h2>
+				<div class="col-md-10 col-md-offset-1 mt mb">
+					<div class="accordion" id="accordion2">
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse"
+									data-parent="#accordion2" href="faq.html#collapseOne"> <em
+									class="glyphicon glyphicon-chevron-right icon-fixed-width"></em>How
+									to purchase this template?
+								</a>
+							</div>
+							<div id="collapseOne" class="accordion-body collapse in">
+								<div class="accordion-inner">
+									<p>Lorem Ipsum is simply dummy text of the printing and
+										typesetting industry. Lorem Ipsum has been the industry's
+										standard dummy text ever since the 1500s, when an unknown
+										printer took a galley of type and scrambled it to make a type
+										specimen book. It has survived not only five centuries, but
+										also the leap into electronic typesetting, remaining
+										essentially unchanged.</p>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse"
+									data-parent="#accordion2" href="faq.html#collapseTwo"> <em
+									class="glyphicon glyphicon-chevron-right icon-fixed-width"></em>How
+									can I install my server?
+								</a>
+							</div>
+							<div id="collapseTwo" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<p>Lorem Ipsum is simply dummy text of the printing and
+										typesetting industry. Lorem Ipsum has been the industry's
+										standard dummy text ever since the 1500s, when an unknown
+										printer took a galley of type and scrambled it to make a type
+										specimen book. It has survived not only five centuries, but
+										also the leap into electronic typesetting, remaining
+										essentially unchanged.</p>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse"
+									data-parent="#accordion2" href="faq.html#collapseThree"> <em
+									class="glyphicon glyphicon-chevron-right icon-fixed-width"></em>How
+									to change color schemes?
+								</a>
+							</div>
+							<div id="collapseThree" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<p>Lorem Ipsum is simply dummy text of the printing and
+										typesetting industry. Lorem Ipsum has been the industry's
+										standard dummy text ever since the 1500s, when an unknown
+										printer took a galley of type and scrambled it to make a type
+										specimen book. It has survived not only five centuries, but
+										also the leap into electronic typesetting, remaining
+										essentially unchanged.</p>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse"
+									data-parent="#accordion2" href="faq.html#collapseFour"> <em
+									class="glyphicon glyphicon-chevron-right icon-fixed-width"></em>How
+									to integrate Revolution Slider?
+								</a>
+							</div>
+							<div id="collapseFour" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<p>Lorem Ipsum is simply dummy text of the printing and
+										typesetting industry. Lorem Ipsum has been the industry's
+										standard dummy text ever since the 1500s, when an unknown
+										printer took a galley of type and scrambled it to make a type
+										specimen book. It has survived not only five centuries, but
+										also the leap into electronic typesetting, remaining
+										essentially unchanged.</p>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse"
+									data-parent="#accordion2" href="faq.html#collapseFive"> <em
+									class="glyphicon glyphicon-chevron-right icon-fixed-width"></em>How
+									Can I get Support?
+								</a>
+							</div>
+							<div id="collapseFive" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<p>Lorem Ipsum is simply dummy text of the printing and
+										typesetting industry. Lorem Ipsum has been the industry's
+										standard dummy text ever since the 1500s, when an unknown
+										printer took a galley of type and scrambled it to make a type
+										specimen book. It has survived not only five centuries, but
+										also the leap into electronic typesetting, remaining
+										essentially unchanged.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end accordion -->
+				</div>
+				<! --col-md-10 -->
 
-
-			<div class="row mt">
-				<div class="col-lg-12">Sekcja pomocy.</div>
 			</div>
-			<!-- /row -->
-
-
-			<div class="row"></div>
-
 			<div class="row mt">
 				<!--CUSTOM CHART START -->
 				<!--custom chart end-->
@@ -91,8 +192,7 @@
 		</div>
 		<!-- /col-lg-3 -->
 	</div>
-	<! --/row --> </section> </section> <!--main content end--> <!--footer start--> <footer
-		class="site-footer">
+	</section> </section> <footer class="site-footer">
 	<div class="text-center">
 		myclass.pl<a href="#container" class="go-top"> <i
 			class="fa fa-angle-up"></i>
@@ -101,66 +201,35 @@
 	</footer> <!--footer end--> </section>
 
 	<!-- js placed at the end of the document so the pages load faster -->
-	<script src="resources/tutorDashboards/js/jquery.js"></script>
-	<script src="resources/tutorDashboard/js/jquery-1.8.3.min.js"></script>
-	<script src="resources/tutorDashboard/js/bootstrap.min.js"></script>
+	<script src="/sys_school/resources/tutorDashboards/js/jquery.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery-1.8.3.min.js"></script>
+	<script src="/sys_school/resources/tutorDashboard/js/bootstrap.min.js"></script>
 	<script class="include" type="text/javascript"
-		src="resources/tutorDashboard/js/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="resources/tutorDashboard/js/jquery.scrollTo.min.js"></script>
-	<script src="resources/tutorDashboard/js/jquery.nicescroll.js"
+		src="/sys_school/resources/tutorDashboard/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.scrollTo.min.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.nicescroll.js"
 		type="text/javascript"></script>
-	<script src="resources/tutorDashboard/js/jquery.sparkline.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/jquery.sparkline.js"></script>
 
 
 	<!--common script for all pages-->
-	<script src="resources/tutorDashboard/js/common-scripts.js"></script>
+	<script src="/sys_school/resources/tutorDashboard/js/common-scripts.js"></script>
 
 	<!--script for this page-->
-	<script src="resources/tutorDashboard/js/sparkline-chart.js"></script>
-	<script src="resources/tutorDashboard/js/zabuto_calendar.js"></script>
-
-
-
+	<script
+		src="/sys_school/resources/tutorDashboard/js/sparkline-chart.js"></script>
+	<script
+		src="/sys_school/resources/tutorDashboard/js/zabuto_calendar.js"></script>
 	<script type="application/javascript">
 		
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-			
+				
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -194,37 +263,7 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	

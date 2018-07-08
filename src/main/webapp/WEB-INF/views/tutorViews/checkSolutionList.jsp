@@ -32,12 +32,12 @@
 <script src="resources/tutorDashboard/js/chart-master/Chart.js"></script>
 </head>
 <body>
-	<c:url value="../sys_school/adduser" var="newUser" />
-	<c:url value="../sys_school/invitestudent" var="newStudent" />
-	<c:url value="../sys_school/addgrade" var="addGrade" />
-	<c:url value="../sys_school/students" var="studentsList" />
-	<c:url value="../sys_school/solutions/setexercise" var="setExercise" />
-	<c:url value="../sys_school/deletesolutions" var="deleteSolution" />
+	<c:url value="/../sys_school/adduser" var="newUser" />
+	<c:url value="/../sys_school/invitestudent" var="newStudent" />
+	<c:url value="/../sys_school/addgrade" var="addGrade" />
+	<c:url value="/../sys_school/students" var="studentsList" />
+	<c:url value="/../sys_school/solutions/setexercise" var="setExercise" />
+	<c:url value="/../sys_school/deletesolutions" var="deleteSolution" />
 
 
 	<section id="container"> <%@ include
@@ -176,6 +176,8 @@
 		
 		
 		
+		
+		
 			
 			
         $(document).ready(function () {
@@ -209,6 +211,8 @@
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }	
+	
+	
 	
 	
 	

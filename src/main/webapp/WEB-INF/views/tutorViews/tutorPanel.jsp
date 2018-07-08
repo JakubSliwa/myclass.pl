@@ -62,7 +62,7 @@
 									<th class="hidden-phone"><i class="fa fa-tasks"></i>
 										Zadanie</th>
 									<th><i class="fa fa-archive"></i>Odpowiedź</th>
-									<th><i class=" fa fa-calendar-check-o"></i> Dodano</th>
+									<th><i class=" fa fa-calendar"></i> Dodano</th>
 
 									<th><i class="fa fa-flash"></i>Ocena</th>
 									<th><i class="fa fa-flash"></i>Dostępne akcje</th>
@@ -80,8 +80,8 @@
 											<td><a id="add-sticky" class="label label-primary"
 												href="${addGrade}/${solutions.id}">Wystaw ocene</a> <a
 												id="add-without-image" class="label label-success"
-												href="${studentsList}/${solutions.basicExercise.student.id}">Sprawdź
-													ucznia</a></td>
+												href="${studentsList}/${solutions.basicExercise.student.id}">Zobacz
+													profil ucznia </a></td>
 										</tr>
 									</c:if>
 								</c:forEach>
@@ -201,6 +201,7 @@
 		
 		
 		
+		
 				
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -233,6 +234,7 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
 	
 	
 	

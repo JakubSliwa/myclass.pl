@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import pl.js.entity.Lesson;
 import pl.js.entity.exercise.BasicExercise;
 import pl.js.entity.exercise.BasicSolution;
 
@@ -23,10 +24,20 @@ public class Student extends User {
 	private List<BasicExercise> basicExercises;
 	@Column(precision = 6, scale = 2)
 	private Double avgGrade;
+	@OneToMany
+	private List<Lesson> lessons;
 
 	public Student() {
 		super();
 
+	}
+
+	public List<Lesson> getLessons() {
+		return lessons;
+	}
+
+	public void setLessons(List<Lesson> lessons) {
+		this.lessons = lessons;
 	}
 
 	public Double getAvgGrade() {
@@ -60,6 +71,7 @@ public class Student extends User {
 		result = prime * result + ((avgGrade == null) ? 0 : avgGrade.hashCode());
 		result = prime * result + ((basicExercises == null) ? 0 : basicExercises.hashCode());
 		result = prime * result + ((basicSolution == null) ? 0 : basicSolution.hashCode());
+		result = prime * result + ((lessons == null) ? 0 : lessons.hashCode());
 		return result;
 	}
 
@@ -86,6 +98,11 @@ public class Student extends User {
 			if (other.basicSolution != null)
 				return false;
 		} else if (!basicSolution.equals(other.basicSolution))
+			return false;
+		if (lessons == null) {
+			if (other.lessons != null)
+				return false;
+		} else if (!lessons.equals(other.lessons))
 			return false;
 		return true;
 	}

@@ -75,6 +75,12 @@ public class MessageService {
 		return unreadedMessages.size();
 	}
 
+	public void sendMessage(Message message) {
+		message.setSent(LocalDateTime.now());
+		message.setReaded("NotReaded");
+		messageRepository.save(message);
+	}
+
 	@SuppressWarnings("unchecked")
 	public long countCurrentUnreaded(Tutor tutor, HttpSession session) {
 		List<Message> unreadedMessages = new ArrayList<>();

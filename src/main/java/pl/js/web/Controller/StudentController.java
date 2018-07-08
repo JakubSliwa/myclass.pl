@@ -74,6 +74,9 @@ public class StudentController {
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("studentForView", student);
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutionsByStudentId", basicSolutionRepository.findAllByStudentId(studentId));
+				model.addAttribute("messagesByStudentId",
+						messageRepository.findAllBySendByTutorAndSendToStudent(tutor, student));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/showStudent";
 			}
