@@ -68,7 +68,7 @@ public class StudentController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			student = studentRepository.findOne(studentId);
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == student.getClassroom().getId()) {
 				studentService.updateAvgG(tutorService.getStudentListByClassroomId(id));
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
@@ -135,7 +135,7 @@ public class StudentController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			student = studentRepository.findOne(studentId);
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == student.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				basicExerciseService.basicExerciseSetNullForStudentId(studentId);
@@ -157,7 +157,7 @@ public class StudentController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			student = studentRepository.findOne(studentId);
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == student.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));

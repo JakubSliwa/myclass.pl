@@ -75,7 +75,7 @@ public class MessageController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			student = studentRepository.findOne(studentId);
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == student.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
@@ -102,7 +102,7 @@ public class MessageController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			message = messageRepository.findOne(messageId);
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == message.getClassroom().getId()) {
 				messageService.setToReaded(message);
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
@@ -126,7 +126,7 @@ public class MessageController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			message = messageRepository.findOne(messageId);
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == message.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
@@ -144,10 +144,12 @@ public class MessageController {
 			@PathVariable(value = "studentId") Long studentId) {
 		Long id;
 		Tutor tutor;
+		Student student;
 		try {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+			student = studentRepository.findOne(studentId);
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == student.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
@@ -183,7 +185,7 @@ public class MessageController {
 			try {
 				student = studentRepository.findOne(studentId);
 				tutor = (Tutor) session.getAttribute("tutor");
-				messageService.sendMessageFromTutorToStudent(message, student, tutor, text);
+				messageService.sendMessageFromTutorToStudent(message, student, tutor, text, session);
 			} catch (Exception e) {
 				return "errors/generalExeption";
 			}
@@ -231,7 +233,7 @@ public class MessageController {
 			}
 		} else {
 			try {
-				messageService.sendMessage(message);
+				messageService.sendMessage(message, session);
 			} catch (Exception e) {
 				return "errors/generalExeption";
 			}

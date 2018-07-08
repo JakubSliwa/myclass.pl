@@ -25,6 +25,8 @@ public class Message {
 	private String text;
 	private LocalDateTime sent;
 	private String readed;
+	@ManyToOne
+	private Classroom classroom;
 
 	@ManyToOne
 	private Student sendToStudent;
@@ -37,6 +39,14 @@ public class Message {
 
 	@OneToOne
 	private Tutor sendByTutor;
+
+	public Classroom getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(Classroom classroom) {
+		this.classroom = classroom;
+	}
 
 	public Long getId() {
 		return id;
@@ -106,6 +116,7 @@ public class Message {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((classroom == null) ? 0 : classroom.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((readed == null) ? 0 : readed.hashCode());
 		result = prime * result + ((sendByStudent == null) ? 0 : sendByStudent.hashCode());
@@ -126,6 +137,11 @@ public class Message {
 		if (getClass() != obj.getClass())
 			return false;
 		Message other = (Message) obj;
+		if (classroom == null) {
+			if (other.classroom != null)
+				return false;
+		} else if (!classroom.equals(other.classroom))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;

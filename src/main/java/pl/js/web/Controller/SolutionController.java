@@ -50,10 +50,12 @@ public class SolutionController {
 	public String setExercise(Model model, HttpSession session, @PathVariable(value = "solutionId") Long solutionId) {
 		Long id;
 		Tutor tutor;
+		BasicSolution basicSolution;
 		try {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+			basicSolution = basicSolutionRepository.findOne(solutionId);
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == basicSolution.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
@@ -166,10 +168,12 @@ public class SolutionController {
 			@PathVariable(value = "solutionId") Long solutionId) {
 		Long id;
 		Tutor tutor;
+		BasicSolution basicSolution;
 		try {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+			basicSolution = basicSolutionRepository.findOne(solutionId);
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == basicSolution.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				basicSolutionRepository.delete(solutionId);

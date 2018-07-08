@@ -1,3 +1,12 @@
 insert	into	roles	(id,	role)	values	(1,	'ROLE_TUTOR');
 insert	into	roles	(id,	role)	values	(2,	'ROLE_STUDENT');
 
+ALTER TABLE messages CONVERT TO CHARACTER SET utf8;
+ALTER TABLE students CONVERT TO CHARACTER SET utf8;
+ALTER TABLE basicExercises CONVERT TO CHARACTER SET utf8;
+ALTER TABLE basicSolutions CONVERT TO CHARACTER SET utf8;
+ALTER TABLE classrooms CONVERT TO CHARACTER SET utf8;
+ALTER TABLE lessons CONVERT TO CHARACTER SET utf8;
+ALTER TABLE tutors CONVERT TO CHARACTER SET utf8;
+ALTER TABLE basicSolutions CONVERT TO CHARACTER SET utf8;
+

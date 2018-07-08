@@ -28,6 +28,16 @@ public class Lesson {
 	private LocalDateTime date;
 	@ManyToOne
 	private Student student;
+	@ManyToOne
+	private Classroom classroom;
+
+	public Classroom getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(Classroom classroom) {
+		this.classroom = classroom;
+	}
 
 	public Student getStudent() {
 		return student;
@@ -74,6 +84,7 @@ public class Lesson {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + accepted;
+		result = prime * result + ((classroom == null) ? 0 : classroom.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((student == null) ? 0 : student.hashCode());
@@ -91,6 +102,11 @@ public class Lesson {
 			return false;
 		Lesson other = (Lesson) obj;
 		if (accepted != other.accepted)
+			return false;
+		if (classroom == null) {
+			if (other.classroom != null)
+				return false;
+		} else if (!classroom.equals(other.classroom))
 			return false;
 		if (date == null) {
 			if (other.date != null)

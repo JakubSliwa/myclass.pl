@@ -60,9 +60,8 @@ public class LessonController {
 	}
 
 	@PostMapping("/lesson")
-	@ResponseBody
 	public String editExercise(@Validated @ModelAttribute Lesson lesson, BindingResult result,
-			@RequestParam String date, @RequestParam String time, Model model, HttpSession session) {
+			@RequestParam String dateString, @RequestParam String time, Model model, HttpSession session) {
 		Long id;
 		if (result.hasErrors()) {
 
@@ -70,16 +69,16 @@ public class LessonController {
 				id = classroomService.getClassroomId(session);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-
-				return result.getAllErrors().toString();
-				/* return "tutorViews/sendLessonProposed"; */
+				return "tutorViews/sendLessonProposed";
 			} catch (Exception e) {
+				e.printStackTrace();
 				return "errors/generalExeption";
 			}
 		} else {
 			try {
-				lessonService.sendLessonProposed(lesson, date, time);
+				lessonService.sendLessonProposed(lesson, dateString, time);
 			} catch (Exception e) {
+				e.printStackTrace();
 				return "errors/generalExeption";
 			}
 		}

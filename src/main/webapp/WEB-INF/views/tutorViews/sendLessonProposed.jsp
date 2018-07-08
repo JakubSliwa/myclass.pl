@@ -85,7 +85,7 @@
 								<div class="col-md-3 col-xs-11">
 									<input
 										class="form-control form-control-inline input-medium default-date-picker"
-										size="16" name="date" type="text">
+										size="16" name="dateString" type="text">
 								</div>
 							</div>
 							<div class="form-group">
@@ -203,6 +203,7 @@
 		
 		
 		
+		
 				
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -234,6 +235,7 @@
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }	
+	
 	
 	
 	

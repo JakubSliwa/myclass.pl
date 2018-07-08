@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import pl.js.entity.Classroom;
 import pl.js.entity.Message;
 import pl.js.entity.exercise.BasicExercise;
 import pl.js.entity.users.Student;
@@ -24,11 +25,13 @@ public class MessageService {
 	MessageRepository messageRepository;
 
 	public void sendMessageFromTutorToStudent(@ModelAttribute Message message, Student student, Tutor tutor,
-			String text) {
+			String text, HttpSession session) {
 		message.setReaded("NotReaded");
 		message.setSendByTutor(tutor);
 		message.setSendToStudent(student);
 		message.setSent(LocalDateTime.now());
+		Classroom classroom = (Classroom) session.getAttribute("class");
+		message.setClassroom(classroom);
 		messageRepository.save(message);
 	}
 
@@ -75,9 +78,11 @@ public class MessageService {
 		return unreadedMessages.size();
 	}
 
-	public void sendMessage(Message message) {
+	public void sendMessage(Message message, HttpSession session) {
 		message.setSent(LocalDateTime.now());
 		message.setReaded("NotReaded");
+		Classroom classroom = (Classroom) session.getAttribute("class");
+		message.setClassroom(classroom);
 		messageRepository.save(message);
 	}
 

@@ -14,8 +14,10 @@ public class LessonService {
 	@Autowired
 	LessonRepository lessonRepository;
 
-	public void sendLessonProposed(Lesson lesson, String date, String time) {
-		String datetime = date + "T" + time;
+	public void sendLessonProposed(Lesson lesson, String dateString, String time) {
+		String[] parts = dateString.split("-");
+		String dateStringCorrectFormat = parts[2] + "-" + parts[0] + "-" + parts[1];
+		String datetime = dateStringCorrectFormat + "T" + time;
 		LocalDateTime localDateTime = LocalDateTime.parse(datetime);
 		lesson.setDate(localDateTime);
 		lesson.setAccepted(0);

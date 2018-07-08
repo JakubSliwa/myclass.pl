@@ -14,7 +14,7 @@ import pl.js.entity.users.Tutor;
 public interface MessageRepository extends JpaRepository<Message, Long> {
 	List<Message> findAllBySendToTutorAndReaded(Tutor tutor, String readed);
 
-	@Query(value = "select left(text, 20) as text, sendToTutor_id,sendByStudent_id, sendByTutor_id, sendToStudent_id, readed, sent, id from messages where (readed =?1 and sendToTutor_id =?2) order by sent desc;", nativeQuery = true)
+	@Query(value = "select left(text, 20) as text, sendToTutor_id,sendByStudent_id, sendByTutor_id, sendToStudent_id, readed, sent,classroom_id ,id from messages where (readed =?1 and sendToTutor_id =?2) order by sent desc;", nativeQuery = true)
 	List<Message> findAllBySendToTutorAndNotReadedAndLimited(String readed, Tutor tutor);
 
 	@Query(value = "select * from messages where (readed =?1 and sendByTutor_id =?2) order by sent desc", nativeQuery = true)

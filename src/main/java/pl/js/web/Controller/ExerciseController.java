@@ -68,7 +68,7 @@ public class ExerciseController {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
 			basicExercise = basicExerciseRepository.findOne(exerciseId);
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == basicExercise.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
@@ -124,10 +124,12 @@ public class ExerciseController {
 			@PathVariable(value = "exerciseId") Long exerciseId) {
 		Long id;
 		Tutor tutor;
+		BasicExercise basicExercise;
 		try {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+			basicExercise = basicExerciseRepository.findOne(exerciseId);
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == basicExercise.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				basicSolutionService.basicSolutionSetNullForExerciseId(exerciseId);
@@ -173,7 +175,7 @@ public class ExerciseController {
 			tutor = (Tutor) session.getAttribute("tutor");
 			basicExercise = basicExerciseRepository.findOne(exerciseId);
 			student = basicExercise.getStudent();
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == basicExercise.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
