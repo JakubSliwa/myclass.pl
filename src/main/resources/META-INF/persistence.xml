@@ -15,6 +15,9 @@
 			<property
 				name="javax.persistence.schema-generation.database.action"
 				value="none" />
+			<property name="maxPoolSize" value="10" />
+			<property name="minPoolSize" value="4" />
+			<property name="maxStatements" value="100" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
