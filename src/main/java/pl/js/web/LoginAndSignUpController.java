@@ -96,7 +96,6 @@ public class LoginAndSignUpController {
 	}
 
 	@PostMapping("/loginStudent")
-	@ResponseBody
 	public String loginStudent(@RequestParam String email, @RequestParam String password, HttpSession session,
 			Model model) {
 		Student student;
@@ -104,17 +103,18 @@ public class LoginAndSignUpController {
 		List<Message> messages = new ArrayList<>();
 		try {
 			student = studentRepository.findByEmail(email);
-			// doddac wiadomosci
+			messages.addAll(messageRepository.findAllBySendToStudentOrderBySentDesc(student));
+			session.setAttribute("messages", messages);
 			session.setAttribute("student", student);
 			session.setAttribute("class", student.getClassroom());
+			session.setAttribute("dateTimeFormatter", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
 			if ((BCrypt.checkpw(password, student.getPassword())
 					&& "ROLE_STUDENT".equals(student.getRole().getRole()))) {
 				studentRepository.setStudentStatusById("online", student.getId());
-				return "success " + password + " " + student.getPassword();
+				return "redirect:/startpage";
 			} else {
-				BCrypt.checkpw(password, student.getPassword());
-				return student.getPassword() + password + BCrypt.checkpw(password, student.getPassword());
-				/* return "errors/loginPasswordError"; */
+
+				return "errors/loginPasswordError";
 			}
 		} catch (NullPointerException e) {
 			return "errors/loginEmailError";

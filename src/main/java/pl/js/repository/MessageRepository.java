@@ -31,4 +31,6 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 	List<Message> findAllBySendByTutorOrderBySentDesc(Tutor tutor);
 
 	List<Message> findAllBySendByTutorAndSendToStudent(Tutor tutor, Student student);
+
+	List<Message> findAllBySendToStudentOrderBySentDesc(Student student);
 }

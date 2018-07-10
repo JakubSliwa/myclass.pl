@@ -90,8 +90,7 @@
 						<button class="login100-form-btn">Zarejestruj się</button>
 					</div>
 					<ul class="login-more p-t-190">
-						<li class="m-b-8"><span class="txt1"> Potrzebujesz
-								pomocy?</span> <a href="#" class="txt2"> Kliknij tutaj</a></li>
+						<li class="m-b-8"><span class="txt1"> myclass.pl</span></li>
 					</ul>
 				</form:form>
 			</div>

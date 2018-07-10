@@ -63,8 +63,8 @@
 					src="resources/login/images/hello.png" alt="AVATAR">
 				</span> <span class="login100-form-title p-b-70"> <br>
 					<h3>Wystąpił błąd podczas logowania.</h3>
-					<h4>Zweryfikuj, czy wpisałeś poprawne hasło.</h4>
-					</br> <h3>Zaloguj się ponownie na koncie:</h3>
+					<h4>Zweryfikuj, czy wpisałeś poprawne hasło.</h4> </br>
+					<h3>Zaloguj się ponownie na koncie:</h3>
 				</span> </span>
 
 
@@ -77,8 +77,7 @@
 					<a class="login100-form-btn" href="${loginTutor}">Nauczyciela</a>
 				</div>
 				<ul class="login-more p-t-190">
-					<li class="m-b-8"><span class="txt1"> Potrzebujesz
-							pomocy?</span> <a href="#" class="txt2"> Kliknij tutaj</a></li>
+					<li class="m-b-8"><span class="txt1"> myclass.pl</span></li>
 				</ul>
 
 			</div>

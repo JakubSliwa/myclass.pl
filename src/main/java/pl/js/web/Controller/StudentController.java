@@ -20,6 +20,7 @@ import pl.js.entity.users.Tutor;
 import pl.js.repository.BasicExerciseRepository;
 import pl.js.repository.BasicSolutionRepository;
 import pl.js.repository.ClassroomRepository;
+import pl.js.repository.LessonRepository;
 import pl.js.repository.MessageRepository;
 import pl.js.repository.StudentRepository;
 import pl.js.repository.TutorRepository;
@@ -57,6 +58,28 @@ public class StudentController {
 	BasicExerciseRepository basicExerciseRepository;
 	@Autowired
 	BasicExerciseService basicExerciseService;
+	@Autowired
+	LessonRepository lessonRepository;
+
+	@GetMapping("/startpage")
+	public String startpage(Model model, HttpSession session) {
+		Long id;
+		Student student;
+		try {
+			id = classroomService.getClassroomId(session);
+			student = (Student) session.getAttribute("student");
+			if ("ROLE_STUDENT".equals(student.getRole().getRole()) && id == student.getClassroom().getId()) {
+				model.addAttribute("basicExercises", basicExerciseRepository.findAllByStudentId(student.getId()));
+				model.addAttribute("lessons", lessonRepository.findAllByStudent(student));
+				model.addAttribute("messagesToView", messageRepository.findAllBySendToStudentOrderBySentDesc(student));
+				return "studentViews/startpage";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notAStudent";
+
+	}
 
 	@GetMapping("/students/addnote/{studentId}")
 	public String addNote(Model model, HttpSession session, @PathVariable(value = "studentId") Long studentId) {
