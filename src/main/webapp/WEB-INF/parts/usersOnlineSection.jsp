@@ -12,14 +12,21 @@
 	<c:forEach items="${students}" var="students">
 		<div class="desc">
 			<div class="thumb">
-				<img class="img-circle"
+				<a href="${student}/${students.id}"><img class="img-circle"
 					src="/sys_school/resources/tutorDashboard/img/ui-sam.jpg"
-					width="35px" height="35px" align="">
+					width="35px" height="35px"></a>
 			</div>
 			<div class="details">
 				<p>
 					<a href="${student}/${students.id}">${students.username }</a><br />
-					<muted>${students.status }</muted>
+					<muted> <c:choose>
+						<c:when test="${students.status == 'offline'}">
+							<span class="label label-danger">${students.status}</span>
+						</c:when>
+						<c:otherwise>
+							<span class="label label-success">${students.status}</span>
+						</c:otherwise>
+					</c:choose></muted>
 				</p>
 			</div>
 		</div>

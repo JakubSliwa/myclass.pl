@@ -16,7 +16,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Tutor - dodaj nowe zadanie</title>
+<title>Tutor - dodaj notatkę o studencie</title>
 <!-- Bootstrap core CSS -->
 <link href="/sys_school/resources/tutorDashboard/css/bootstrap.css"
 	rel="stylesheet">
@@ -56,34 +56,30 @@
 				<div class="col-lg-12">
 					<div class="form-panel">
 						<form:form class="form-horizontal style-form" method="post"
-							modelAttribute="basicSolution">
-
+							modelAttribute="studentToEdit">
 							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">Do
-									którego zadania chcesz ustawić tą odpowiedź?</label>
+								<label class="col-sm-2 col-sm-2 control-label">Notatka</label>
 								<div class="col-sm-10">
-									<form:select itemValue="id" path="basicExercise.id"
-										itemLabel="title" items="${basicExercises}" />
+									<form:input path="note" class="form-control"
+										placeholder="Wpisz treść notatki" type="text" />
+									<form:errors path="note" />
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">Który
-									student napisał to rozwiązanie?</label>
-								<div class="col-sm-10">
-									<form:select itemValue="id" path="student.id" itemLabel="username"
-										items="${students}" />
-								</div>
-							</div>
-							<input type="hidden" name="id" value="${basicSolution.id}">
-							<input type="hidden" name="answer"
-								value="${basicSolution.answer}">
-							<input type="hidden" name="grade" value="${basicSolution.grade}">
-							<input type="hidden" name="added" value="${basicSolution.added}">
+							<input type="hidden" name="id" value="${studentToEdit.id}">
+							<input type="hidden" name="email" value="${studentToEdit.email}">
+							<input type="hidden" name="role"
+								value="${studentToEdit.role.role}">
+							<input type="hidden" name="avgGrade"
+								value="${studentToEdit.avgGrade}">
+							<input type="hidden" name="username"
+								value="${studentToEdit.username}">
+							<input type="hidden" name="password"
+								value="${studentToEdit.password}">
+							<input type="hidden" name="status"
+								value="${studentToEdit.status}">
 							<input type="hidden" name="classroom.id"
-								value="${basicSolution.classroom.id}">
-
-							<input class="btn btn-primary" type="submit"
-								value="Przypisz zadanie">
+								value="${studentToEdit.classroom.id}">
+							<input class="btn btn-primary" type="submit" value="Dodaj opis">
 						</form:form>
 					</div>
 
@@ -244,6 +240,32 @@
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -278,6 +300,32 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

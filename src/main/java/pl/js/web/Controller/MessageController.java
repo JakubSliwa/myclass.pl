@@ -55,8 +55,8 @@ public class MessageController {
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-				model.addAttribute("message",
-						messageRepository.findAllBySendToTutorOrSendByTutorOrderBySentDesc(tutor, tutor));
+				model.addAttribute("messageSendToTutor", messageRepository.findAllBySendToTutorOrderBySentDesc(tutor));
+				model.addAttribute("messageSendByTutor", messageRepository.findAllBySendByTutorOrderBySentDesc(tutor));
 				return "tutorViews/messages";
 			}
 		} catch (NullPointerException e) {
@@ -157,6 +157,30 @@ public class MessageController {
 				model.addAttribute("message", new Message());
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/sendMessageToStudent";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notATutor";
+	}
+
+	@GetMapping("/mailview/{messageId}")
+	public String mailView(Model model, HttpSession session, @PathVariable(value = "messageId") Long messageId) {
+		Long id;
+		Tutor tutor;
+		Message message;
+		try {
+			id = classroomService.getClassroomId(session);
+			tutor = (Tutor) session.getAttribute("tutor");
+			message = messageRepository.findOne(messageId);
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == message.getClassroom().getId()) {
+				messageService.setToReaded(message);
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("messageForView", messageRepository.findOne(messageId));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				return "tutorViews/mailView";
 			}
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";

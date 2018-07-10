@@ -22,7 +22,6 @@ public class Lesson {
 	private Long id;
 	@NotNull
 	@Size(min = 2, max = 30)
-	@Column(unique = true)
 	private String subject;
 	private int accepted;
 	private LocalDateTime date;

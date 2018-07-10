@@ -36,7 +36,7 @@
 	<c:url value="/../sys_school/message" var="sendToStudent" />
 	<c:url value="/../sys_school/messages" var="messagesHistory" />
 	<c:url value="/../sys_school/deletemessages" var="deleteMessages" />
-
+	<c:url value="/../sys_school/mailview" var="mailView" />
 
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
@@ -46,68 +46,91 @@
 		<div class="col-lg-9 main-chart">
 			<%@ include file="/WEB-INF/parts/topMenu.jsp"%>
 			<div class="row mt">
-				<div class="col-md-12">
-					<div class="content-panel">
-						<table class="table table-striped table-advance table-hover">
-							<h4>
-								<i class="fa fa-angle-right"></i> Otrzymane wiadomości
-							</h4>
-							<hr>
-							<thead>
-								<tr>
-									<th><i class="fa fa-user"></i> Od kogo</th>
-									<th class="hidden-phone"><i class="fa fa-tasks"></i>
-										Wiadomość</th>
-									<th><i class="fa fa-archive"></i>Wysłane</th>
-									<th><i class="fa fa-flash"></i>Dostępne akcje</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${message}" var="message">
-									<tr>
-										<td><c:choose>
-												<c:when test="${empty message.sendByStudent}"> ${tutor.username}</c:when>
-												<c:otherwise> ${message.sendByStudent.username}</c:otherwise>
-											</c:choose></td>
-										<td>${message.text}</td>
-										<td>${message.sent.format(dateTimeFormatter)}</td>
-										<td><c:choose>
-												<c:when test="${empty message.sendByStudent.id}">
-													<a id="add-without-image" class="label label-success"
-														href="${messagesHistory}/${message.sendToStudent.id}">Wejdź
-														do rozmowy</a>
-													<a id="remove-all" class="label label-danger"
-														href="${deleteMessages}/${message.id}">Usuń</a>
-												</c:when>
-												<c:otherwise>
-													<a id="add-without-image" class="label label-success"
-														href="${messagesHistory}/${message.sendByStudent.id}">Wejdź
-														do rozmowy</a>
-													<a id="add-without-image" class="label label-primary"
-														href="${sendToStudent}/${message.sendByStudent.id}">Wyślij
-														wiadomość</a>
-													<a id="remove-all" class="label label-danger"
-														href="${deleteMessages}/${message.id}">Usuń</a>
-												</c:otherwise>
-											</c:choose></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+				<div class="col-lg-12 mt">
+					<div class="row content-panel">
+						<div class="panel-heading">
+							<ul class="nav nav-tabs nav-justified">
+								<li class="active"><a data-toggle="tab" href="#inbox"><h4
+											class="gen-case">Skrzynka odbiorcza</h4></a></li>
+								<li class=""><a data-toggle="tab" href="#sendMail"
+									class="contact-map"><h4 class="gen-case">Wysłane</h4></a></li>
+							</ul>
+						</div>
+						<div class="panel-body">
+							<div class="tab-content">
+								<div id="inbox" class="tab-pane active">
+									<section class="panel"> <header
+										class="panel-heading wht-bg"> </header>
+									<div class="panel-body minimal">
+										<div class="table-inbox-wrap ">
+											<table class="table table-inbox table-hover">
+												<tbody>
+													<c:forEach items="${messageSendToTutor}"
+														var="messageSendToTutor">
+														<c:set var="readed" value="NotReaded" />
+														<c:choose>
+															<c:when
+																test="${messageSendToTutor.readed == 'NotReaded'}">
+																<tr class="unread">
+															</c:when>
+															<c:otherwise>
+																<tr class="">
+															</c:otherwise>
+														</c:choose>
+														<td>${messageSendToTutor.sendByStudent.username}</td>
+														<td><a href="${mailView}/${messageSendToTutor.id}">${messageSendToTutor.text}</a></td>
+														<td>${messageSendToTutor.sent.format(dateTimeFormatter)}</td>
+														<td><a id="add-without-image"
+															class="label label-success"
+															href="${messagesHistory}/${messageSendToTutor.sendByStudent.id}">Sprawdź
+																wszystkie</a> <a id="remove-all" class="label label-danger"
+															href="${deleteMessages}/${messageSendToTutor.id}">Usuń</a></td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div id="sendMail" class="tab-pane">
+									<section class="panel"> <header
+										class="panel-heading wht-bg"> </header>
+									<div class="panel-body minimal">
+										<div class="table-inbox-wrap ">
+											<table class="table table-inbox table-hover">
+												<tbody>
+													<c:forEach items="${messageSendByTutor}"
+														var="messageSendByTutor">
+														<c:set var="readed" value="NotReaded" />
+														<c:choose>
+															<c:when
+																test="${messageSendByTutor.readed == 'NotReaded'}">
+																<tr class="unread">
+															</c:when>
+															<c:otherwise>
+																<tr class="">
+															</c:otherwise>
+														</c:choose>
+														<td>Do ${messageSendByTutor.sendToStudent.username}</td>
+														<td></td>
+														<td><a href="${mailView}/${messageSendByTutor.id}">${messageSendByTutor.text}</a></td>
+														<td>${messageSendByTutor.sent.format(dateTimeFormatter)}</td>
+														<td><a id="remove-all" class="label label-danger"
+															href="${deleteMessages}/${messageSendByTutor.id}">Usuń</a></td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<!-- /content-panel -->
 				</div>
-				<!-- /col-md-12 -->
 			</div>
-
-
-			<div class="row"></div>
-
-			<div class="row mt">
-				<!--CUSTOM CHART START -->
-				<!--custom chart end-->
-			</div>
-			<!-- /row -->
+			<div class="row mt"></div>
 
 		</div>
 		<!-- /col-lg-9 END SECTION MIDDLE -->
@@ -119,26 +142,11 @@
 			<%@ include file="/WEB-INF/parts/notifications.jsp"%>
 			<%@ include file="/WEB-INF/parts/usersOnlineSection.jsp"%>
 
-			<!-- CALENDAR-->
-			<div id="calendar" class="mb">
-				<div class="panel green-panel no-margin">
-					<div class="panel-body">
-						<div id="date-popover" class="popover top"
-							style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
-							<div class="arrow"></div>
-							<h3 class="popover-title" style="disadding: none;"></h3>
-							<div id="date-popover-content" class="popover-content"></div>
-						</div>
-						<div id="my-calendar"></div>
-					</div>
-				</div>
-			</div>
-			<!-- / calendar -->
 
 		</div>
-		<!-- /col-lg-3 -->
+
 	</div>
-	<! --/row --> </section> </section> <!--main content end--> <!--footer start--> <footer
+	</section> </section> <!--main content end--> <!--footer start--> <footer
 		class="site-footer">
 	<div class="text-center">
 		myclass.pl<a href="#container" class="go-top"> <i
@@ -166,8 +174,6 @@
 	<script src="resources/tutorDashboard/js/sparkline-chart.js"></script>
 	<script src="resources/tutorDashboard/js/zabuto_calendar.js"></script>
 
-
-
 	<script type="application/javascript">
 		
 		
@@ -183,119 +189,7 @@
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-			
-        $(document).ready(function () {
+	  $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
             $("#date-popover").click(function (e) {
@@ -328,116 +222,6 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

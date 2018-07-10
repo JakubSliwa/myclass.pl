@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import pl.js.entity.exercise.BasicExercise;
-import pl.js.entity.exercise.BasicSolution;
 import pl.js.entity.users.Student;
 import pl.js.entity.users.Tutor;
 import pl.js.repository.BasicExerciseRepository;
@@ -58,6 +57,52 @@ public class StudentController {
 	BasicExerciseRepository basicExerciseRepository;
 	@Autowired
 	BasicExerciseService basicExerciseService;
+
+	@GetMapping("/students/addnote/{studentId}")
+	public String addNote(Model model, HttpSession session, @PathVariable(value = "studentId") Long studentId) {
+		Long id;
+		Tutor tutor;
+		Student student;
+		try {
+			id = classroomService.getClassroomId(session);
+			tutor = (Tutor) session.getAttribute("tutor");
+			student = studentRepository.findOne(studentId);
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == student.getClassroom().getId()) {
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				model.addAttribute("studentToEdit", studentRepository.findOne(studentId));
+				return "tutorViews/addNote";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notATutor";
+	}
+
+	@PostMapping("/students/addnote/{studentId}")
+	public String addNote(@Validated @ModelAttribute Student student, BindingResult result, Model model,
+			@PathVariable(value = "studentId") Long studentId, HttpSession session) {
+		Long id;
+		if (result.hasErrors()) {
+			try {
+				id = classroomService.getClassroomId(session);
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				return "tutorViews/addNote";
+			} catch (Exception e) {
+				return "errors/generalExeption";
+			}
+		} else {
+			try {
+				studentRepository.save(student);
+			} catch (Exception e) {
+				return "errors/generalExeption";
+			}
+		}
+		return "redirect:/students/{studentId}";
+	}
 
 	@GetMapping("/students/{studentId}")
 	public String showStudent(Model model, HttpSession session, @PathVariable(value = "studentId") Long studentId) {

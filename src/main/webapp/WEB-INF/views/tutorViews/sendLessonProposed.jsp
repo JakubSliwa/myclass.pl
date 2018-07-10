@@ -76,7 +76,7 @@
 								<label class="control-label col-md-3">Temat lekcji</label>
 								<div class="col-md-3 col-xs-11">
 									<form:input path="subject" class="form-control" type="text"
-										placeholder="Temat lekcji" />
+										placeholder="Temat lekcji" min="2" max="30" />
 									<form:errors path="subject" />
 								</div>
 							</div>

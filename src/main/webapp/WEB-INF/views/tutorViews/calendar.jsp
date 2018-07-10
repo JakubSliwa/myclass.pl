@@ -37,20 +37,30 @@
 		file="/WEB-INF/parts/sidebar.jsp"%> <section
 		id="main-content"> <section class="wrapper">
 	<h3>
-		<i class="fa fa-angle-right"></i> Kalendarz jest obecnie nie dostępny.
+		<i class="fa fa-angle-right"></i> Kalendarz jest obecnie w trakcie
+		testów.
 	</h3>
 	<!-- page start-->
 	<div class="row mt">
 		<aside class="col-lg-3 mt">
 		<h4>
-			<i class="fa fa-angle-right"></i> Kalendarz jest obecnie nie
-			dostępny.
+			<i class="fa fa-angle-right"></i> Lekcje:
 		</h4>
 		<div id="external-events">
-
-			<div class="external-event label label-warning">Kalendarz jest
-				obecnie nie dostępny.</div>
-
+			<c:forEach items="${lessons}" var="lesson">
+				<c:choose>
+					<c:when test="${lesson.accepted == '1'}">
+						<div class="external-event label label-success">Lekcja z:
+							${lesson.student.username}, ${lesson.subject},
+							${lesson.date.format(dateTimeFormatter)}</div>
+					</c:when>
+					<c:otherwise>
+						<div class="external-event label label-warning">Propozycja
+							lekcji z: ${lesson.student.username}, ${lesson.subject},
+							${lesson.date.format(dateTimeFormatter)}</div>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
 		</div>
 		</aside>
 		<aside class="col-lg-9 mt"> <section class="panel">
@@ -83,12 +93,5 @@
 
 	<script
 		src="/sys_school/resources/tutorDashboard/js/calendar-conf-events.js"></script>
-
-	<script>
-		$(function() {
-			$("select.styled").customSelect();
-		});
-	</script>
-
 </body>
 </html>

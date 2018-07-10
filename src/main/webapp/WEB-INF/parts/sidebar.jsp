@@ -16,6 +16,7 @@
 	<c:url value="/../sys_school/raports" var="raports" />
 	<c:url value="/../sys_school/finances" var="finances" />
 	<c:url value="/../sys_school/calendar" var="calendar" />
+	<c:url value="/../sys_school/lessons" var="lessonsList" />
 	<c:url value="/../sys_school/help" var="help" />
 	<aside>
 	<div id="sidebar" class="nav-collapse ">
@@ -40,6 +41,9 @@
 			<li class="sub-menu"><a href="${studentsList}"> <i
 					class="fa fa-users"></i> <span>Uczniowie</span>
 			</a></li>
+			<li class="sub-menu"><a href="${lessonsList}"> <i
+					class="fa fa-graduation-cap"></i> <span>Lekcje</span>
+			</a></li>
 			<li class="sub-menu"><a href="${exercisesList}"> <i
 					class="fa fa-tasks"></i> <span>Zadania</span>
 			</a></li>
@@ -52,9 +56,9 @@
 			<li class="sub-menu"><a href="${calendar}"> <i
 					class="fa fa-calendar"></i> <span>Kalendarz</span>
 			</a></li>
-			<li class="sub-menu"><a href="${finances}"> <i
+			<%-- <li class="sub-menu"><a href="${finances}"> <i
 					class=" fa fa-money"></i> <span>Finanse</span>
-			</a></li>
+			</a></li> --%>
 			<li class="sub-menu"><a href="${tutorSettings}"> <i
 					class=" fa fa-cog"></i> <span>Ustawienia</span>
 			</a></li>

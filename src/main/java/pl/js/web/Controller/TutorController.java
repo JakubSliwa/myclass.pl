@@ -17,6 +17,7 @@ import pl.js.entity.users.Tutor;
 import pl.js.repository.BasicExerciseRepository;
 import pl.js.repository.BasicSolutionRepository;
 import pl.js.repository.ClassroomRepository;
+import pl.js.repository.LessonRepository;
 import pl.js.repository.MessageRepository;
 import pl.js.repository.StudentRepository;
 import pl.js.repository.TutorRepository;
@@ -54,6 +55,8 @@ public class TutorController {
 	BasicExerciseRepository basicExerciseRepository;
 	@Autowired
 	BasicExerciseService basicExerciseService;
+	@Autowired
+	LessonRepository lessonRepository;
 
 	@GetMapping("/dashboard")
 	public String showTutorDashboard(Model model, HttpSession session) {
@@ -163,6 +166,7 @@ public class TutorController {
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				model.addAttribute("lessons", lessonRepository.findAllByClassroomId(id));
 				return "tutorViews/calendar";
 			}
 		} catch (NullPointerException e) {

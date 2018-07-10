@@ -65,7 +65,6 @@ public class TutorService {
 	}
 
 	public void save(Tutor tutor) {
-		/* tutor.setPassword(bCryptPasswordEncoder.encode(tutor.getPassword())); */
 		tutor.setRole(roleRepository.findByRole("ROLE_TUTOR"));
 		tutorRepository.save(tutor);
 	}

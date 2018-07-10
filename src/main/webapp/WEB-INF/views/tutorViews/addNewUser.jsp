@@ -71,8 +71,9 @@
 								<div class="col-sm-10">
 									<form:input path="email" class="form-control"
 										placeholder="Podaj adres email nowego ucznia" type="email" />
+									<form:errors path="email" />
 								</div>
-								<form:errors path="email" />
+
 							</div>
 							<div class="form-group">
 								<label class="col-sm-2 col-sm-2 control-label">Hasło</label>
@@ -197,6 +198,7 @@
 		
 		
 		
+		
 			
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -231,6 +233,7 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
 	
 	
 	

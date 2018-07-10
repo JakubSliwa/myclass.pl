@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	response.setCharacterEncoding("UTF-8");
-	request.setCharacterEncoding("UTF-8");
-%>
 <%@	taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@	taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -16,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Tutor - dodaj nowe zadanie</title>
+<title>Tutor - wiadomość</title>
 <!-- Bootstrap core CSS -->
 <link href="/sys_school/resources/tutorDashboard/css/bootstrap.css"
 	rel="stylesheet">
@@ -36,12 +32,18 @@
 <link
 	href="/sys_school/resources/tutorDashboard/css/style-responsive.css"
 	rel="stylesheet">
+
 <script
 	src="/sys_school/resources/tutorDashboard/js/chart-master/Chart.js"></script>
 </head>
 <body>
-	<c:url value="../sys_school/adduser" var="newUser" />
-	<c:url value="../sys_school/invitestudent" var="newStudent" />
+	<c:url value="/../sys_school/students" var="studentsList" />
+	<c:url value="/../sys_school/deleteexercises" var="deleteExercises" />
+	<c:url value="/../sys_school/editexercises" var="editExercises" />
+	<c:url value="/../sys_school/students" var="student" />
+	<c:url value="/../sys_school/message" var="sendToStudent" />
+	<c:url value="/../sys_school/deletemessages" var="deleteMessages" />
+
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
 		file="/WEB-INF/parts/sidebar.jsp"%> <section
@@ -49,47 +51,60 @@
 	<div class="row">
 		<div class="col-lg-9 main-chart">
 			<%@ include file="/WEB-INF/parts/topMenu.jsp"%>
-
-			<!-- /row mt -->
-
 			<div class="row mt">
-				<div class="col-lg-12">
-					<div class="form-panel">
-						<form:form class="form-horizontal style-form" method="post"
-							modelAttribute="basicSolution">
+				<div class="col-md-12">
+					<div class="content-panel">
+						<div class="panel-body ">
 
-							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">Do
-									którego zadania chcesz ustawić tą odpowiedź?</label>
-								<div class="col-sm-10">
-									<form:select itemValue="id" path="basicExercise.id"
-										itemLabel="title" items="${basicExercises}" />
+							<div class="mail-header row">
+								<div class="col-md-8">
+									<h4>Wiadomość</h4>
+								</div>
+								<div class="col-md-4">
+									<div class="compose-btn pull-right">
+										<c:choose>
+											<c:when test="${empty messageForView.sendByTutor}">
+												<a href="mail_compose.html" class="btn btn-sm btn-theme"><i
+													class="fa fa-reply"></i> Odpowiedz</a>
+											</c:when>
+											<c:otherwise></c:otherwise>
+										</c:choose>
+										<a href="${deleteMessages}/${messageForView.id}">
+											<button class="btn btn-sm tooltips"
+												data-original-title="Trash" data-toggle="tooltip"
+												data-placement="top" title="">
+												<i class="fa fa-trash-o"></i>
+											</button>
+										</a>
+									</div>
+								</div>
+
+							</div>
+							<div class="mail-sender">
+								<div class="row">
+									<div class="col-md-8">
+										<strong><c:choose>
+												<c:when test="${empty messageForView.sendByStudent}"> ${messageForView.sendByTutor.username}</c:when>
+												<c:otherwise> ${messageForView.sendByStudent.username}</c:otherwise>
+											</c:choose></strong> to <strong><c:choose>
+												<c:when test="${empty messageForView.sendToStudent}"> me</c:when>
+												<c:otherwise> ${messageForView.sendToStudent.username}</c:otherwise>
+											</c:choose></strong>
+									</div>
+									<div class="col-md-4">
+										<p class="date">${messageForView.sent.format(dateTimeFormatter)}</p>
+									</div>
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">Który
-									student napisał to rozwiązanie?</label>
-								<div class="col-sm-10">
-									<form:select itemValue="id" path="student.id" itemLabel="username"
-										items="${students}" />
-								</div>
+							<div class="view-mail">
+								<p>${messageForView.text}</p>
 							</div>
-							<input type="hidden" name="id" value="${basicSolution.id}">
-							<input type="hidden" name="answer"
-								value="${basicSolution.answer}">
-							<input type="hidden" name="grade" value="${basicSolution.grade}">
-							<input type="hidden" name="added" value="${basicSolution.added}">
-							<input type="hidden" name="classroom.id"
-								value="${basicSolution.classroom.id}">
-
-							<input class="btn btn-primary" type="submit"
-								value="Przypisz zadanie">
-						</form:form>
+						</div>
 					</div>
-
+					<!-- /content-panel -->
 				</div>
+				<!-- /col-md-12 -->
 			</div>
-			<!-- /row -->
 
 
 			<div class="row"></div>
@@ -165,7 +180,27 @@
 
 
 
-	<script type="application/javascript">
+	<script type="/sys_school/application/javascript">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -278,6 +313,26 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

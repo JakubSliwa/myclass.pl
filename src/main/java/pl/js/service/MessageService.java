@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pl.js.entity.Classroom;
 import pl.js.entity.Message;
@@ -35,10 +36,25 @@ public class MessageService {
 		messageRepository.save(message);
 	}
 
-	public void sendReminderFromTutorToStudent(Student student, Tutor tutor, BasicExercise basicExercise) {
+	public void sendMessageAfterCancelLesson(Message message, Student student, Tutor tutor, String text,
+			HttpSession session) {
+		message.setReaded("NotReaded");
+		message.setSendByTutor(tutor);
+		message.setSendToStudent(student);
+		message.setText(text);
+		message.setSent(LocalDateTime.now());
+		Classroom classroom = (Classroom) session.getAttribute("class");
+		message.setClassroom(classroom);
+		messageRepository.save(message);
+	}
+
+	public void sendReminderFromTutorToStudent(Student student, Tutor tutor, BasicExercise basicExercise,
+			HttpSession session) {
 		Message message = new Message();
 		LocalDate deadline = basicExercise.getDeadline();
 		Long daysToDeadline = ChronoUnit.DAYS.between(LocalDate.now(), deadline);
+		Classroom classroom = (Classroom) session.getAttribute("class");
+		message.setClassroom(classroom);
 		if (daysToDeadline >= 2) {
 			String text = "Zostało Ci " + daysToDeadline + " dni na wykonanie zadania " + basicExercise.getTitle()
 					+ ". Nie zapomnij o nim;)";

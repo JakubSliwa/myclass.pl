@@ -181,7 +181,7 @@ public class ExerciseController {
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("basicExercise", basicExercise);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
-				messageService.sendReminderFromTutorToStudent(student, tutor, basicExercise);
+				messageService.sendReminderFromTutorToStudent(student, tutor, basicExercise, session);
 				return "redirect:/messages/" + student.getId();
 			}
 		} catch (NullPointerException e) {

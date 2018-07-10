@@ -45,6 +45,7 @@
 	<c:url value="/../sys_school/students" var="studentsList" />
 	<c:url value="/../sys_school/deletesolutions" var="deleteSolution" />
 	<c:url value="/../sys_school/deletemessages" var="deleteMessages" />
+	<c:url value="/../sys_school/students/addnote" var="addNote" />
 
 	<section id="container"> <%@ include
 		file="/WEB-INF/parts/header.jsp"%> <%@ include
@@ -58,6 +59,10 @@
 						<div class="col-md-4 profile-text mt mb centered">
 							<div class="right-divider hidden-sm hidden-xs">
 								<h4>Średnia ocena</h4>
+
+								<c:if test="${studentForView.avgGrade == null}">
+									<h5>brak ocen</h5>
+								</c:if>
 								<h5>${studentForView.avgGrade}</h5>
 								<h4>Email</h4>
 								<h6>${studentForView.email}</h6>
@@ -78,13 +83,11 @@
 								</c:choose>
 							</h6>
 							<br>
-							<p>Contrary to popular belief, Lorem Ipsum is not simply
-								random text. It has roots in a piece of classical Latin
-								literature from 45 BC.</p>
+							<p>${studentForView.note}</p>
 							<br>
 							<p>
 								<a class="btn btn-primary"
-									href="${sendToStudent}/${studentForView.id}"> <i
+									href="${addNote}/${studentForView.id}"> <i
 									class="fa fa-pencil"></i> Edytuj opis
 								</a>
 							</p>
@@ -355,6 +358,18 @@
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -387,6 +402,18 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
