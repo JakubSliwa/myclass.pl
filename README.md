@@ -5,5 +5,5 @@
 - Spring (Web, MVC, DATA)
 - Hibernate
 - Tomcat
-- MySql
+- Mysql
 - Maven

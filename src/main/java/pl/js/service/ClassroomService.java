@@ -10,7 +10,7 @@ import pl.js.entity.Classroom;
 @Service
 public class ClassroomService {
 	public Long getClassroomId(HttpSession session) {
-		Classroom classroom = (Classroom) session.getAttribute("class");
+		Classroom classroom = (Classroom) session.getAttribute("classroom");
 		Long id = classroom.getId();
 		return id;
 	}

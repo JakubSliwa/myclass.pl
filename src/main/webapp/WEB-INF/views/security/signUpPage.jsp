@@ -56,7 +56,8 @@
 				<form:form method="post" modelAttribute="tutor"
 					class="login100-form validate-form">
 
-					<span class="login100-form-title p-b-70"> ${class.name} <br>
+					<span class="login100-form-title p-b-70"> ${classroom.name}
+						<br>
 						<h3>Witaj, obecnie jedynym dostępnym pakietem jest pakiet
 							basic.</h3>
 					</span>

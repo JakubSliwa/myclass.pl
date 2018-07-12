@@ -29,7 +29,7 @@ public class LessonService {
 		LocalDateTime localDateTime = LocalDateTime.parse(datetime);
 		lesson.setDate(localDateTime);
 		lesson.setAccepted(0);
-		Classroom classroom = (Classroom) session.getAttribute("class");
+		Classroom classroom = (Classroom) session.getAttribute("classroom");
 		lesson.setClassroom(classroom);
 		lessonRepository.save(lesson);
 	}

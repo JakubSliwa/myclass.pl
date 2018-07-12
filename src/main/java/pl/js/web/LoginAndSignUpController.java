@@ -32,7 +32,7 @@ import pl.js.service.MessageService;
 import pl.js.service.TutorService;
 
 @Controller
-@SessionAttributes({ "class", "tutor", "student" })
+@SessionAttributes({ "classroom", "tutor", "student" })
 public class LoginAndSignUpController {
 	@Autowired
 	ClassroomRepository classroomRepository;
@@ -74,7 +74,7 @@ public class LoginAndSignUpController {
 			session.setAttribute("messagesLimited",
 					messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 			session.setAttribute("tutor", tutor);
-			session.setAttribute("class", tutor.getClassroom());
+			session.setAttribute("classroom", tutor.getClassroom());
 			session.setAttribute("dateTimeFormatter", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
 			session.setAttribute("unreaded", messageService.countUnreaded(unreadedMessages, messages));
 			if ((BCrypt.checkpw(password, tutor.getPassword()) && "ROLE_TUTOR".equals(tutor.getRole().getRole()))) {
@@ -106,7 +106,7 @@ public class LoginAndSignUpController {
 			messages.addAll(messageRepository.findAllBySendToStudentOrderBySentDesc(student));
 			session.setAttribute("messages", messages);
 			session.setAttribute("student", student);
-			session.setAttribute("class", student.getClassroom());
+			session.setAttribute("classroom", student.getClassroom());
 			session.setAttribute("dateTimeFormatter", DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
 			if ((BCrypt.checkpw(password, student.getPassword())
 					&& "ROLE_STUDENT".equals(student.getRole().getRole()))) {
@@ -128,7 +128,7 @@ public class LoginAndSignUpController {
 		try {
 			id = classroomService.getClassroomId(session);
 			Classroom classroom = classroomRepository.findAById(id);
-			model.addAttribute("class", classroom);
+			model.addAttribute("classroom", classroom);
 			model.addAttribute("tutor", new Tutor());
 			return "security/signUpPage";
 		} catch (NullPointerException e) {
@@ -148,7 +148,7 @@ public class LoginAndSignUpController {
 			session.setAttribute("tutor", tutor);
 			Classroom classroom;
 			try {
-				classroom = (Classroom) session.getAttribute("class");
+				classroom = (Classroom) session.getAttribute("classroom");
 				tutor.setClassroom(classroom);
 				tutorService.save(tutor);
 			} catch (NullPointerException e) {
@@ -156,7 +156,7 @@ public class LoginAndSignUpController {
 			} catch (Exception e) {
 				return "errors/nonUniqueTutorNameOrEmail";
 			}
-			return "redirect:/dashboard";
+			return "redirect:/loginTutor";
 		}
 	}
 
@@ -173,8 +173,8 @@ public class LoginAndSignUpController {
 			return "createClassroom";
 		} else {
 			try {
-				session.setAttribute("class", classroom);
-				model.addAttribute("class", classroom);
+				session.setAttribute("classroom", classroom);
+				model.addAttribute("classroom", classroom);
 				classroomRepository.save(classroom);
 			} catch (Exception e) {
 				return "errors/nonUniqueName";

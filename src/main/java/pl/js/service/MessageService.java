@@ -31,7 +31,7 @@ public class MessageService {
 		message.setSendByTutor(tutor);
 		message.setSendToStudent(student);
 		message.setSent(LocalDateTime.now());
-		Classroom classroom = (Classroom) session.getAttribute("class");
+		Classroom classroom = (Classroom) session.getAttribute("classroom");
 		message.setClassroom(classroom);
 		messageRepository.save(message);
 	}
@@ -43,7 +43,7 @@ public class MessageService {
 		message.setSendToStudent(student);
 		message.setText(text);
 		message.setSent(LocalDateTime.now());
-		Classroom classroom = (Classroom) session.getAttribute("class");
+		Classroom classroom = (Classroom) session.getAttribute("classroom");
 		message.setClassroom(classroom);
 		messageRepository.save(message);
 	}
@@ -53,7 +53,7 @@ public class MessageService {
 		Message message = new Message();
 		LocalDate deadline = basicExercise.getDeadline();
 		Long daysToDeadline = ChronoUnit.DAYS.between(LocalDate.now(), deadline);
-		Classroom classroom = (Classroom) session.getAttribute("class");
+		Classroom classroom = (Classroom) session.getAttribute("classroom");
 		message.setClassroom(classroom);
 		if (daysToDeadline >= 2) {
 			String text = "Zostało Ci " + daysToDeadline + " dni na wykonanie zadania " + basicExercise.getTitle()
@@ -97,7 +97,7 @@ public class MessageService {
 	public void sendMessage(Message message, HttpSession session) {
 		message.setSent(LocalDateTime.now());
 		message.setReaded("NotReaded");
-		Classroom classroom = (Classroom) session.getAttribute("class");
+		Classroom classroom = (Classroom) session.getAttribute("classroom");
 		message.setClassroom(classroom);
 		messageRepository.save(message);
 	}

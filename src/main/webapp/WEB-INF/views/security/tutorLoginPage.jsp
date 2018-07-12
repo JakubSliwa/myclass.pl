@@ -57,7 +57,9 @@
 					class="login100-form validate-form">
 
 					<span class="login100-form-title p-b-70"> <br>
-						<h3>Myclass.pl</h3>
+						<h3>
+							Myclass.pl<br> Zaloguj się podając swoje dane
+						</h3>
 					</span> <span class="login100-form-avatar"> <img
 						src="resources/login/images/hello.png" alt="AVATAR">
 					</span>

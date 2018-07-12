@@ -29,7 +29,7 @@ import pl.js.service.StudentService;
 import pl.js.service.TutorService;
 
 @Controller
-@SessionAttributes({ "class", "tutor", "messages", "dateTimeFormatter" })
+@SessionAttributes({ "classroom", "tutor", "messages", "dateTimeFormatter" })
 public class TutorController {
 	@Autowired
 	TutorService tutorService;

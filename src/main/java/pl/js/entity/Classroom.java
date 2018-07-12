@@ -17,7 +17,7 @@ public class Classroom {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotNull
-	@Size(min = 2, max = 30)
+	@Size(min = 1, max = 30)
 	@Column(unique = true)
 	private String name;
 

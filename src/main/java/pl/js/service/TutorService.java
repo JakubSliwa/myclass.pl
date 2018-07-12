@@ -34,7 +34,7 @@ public class TutorService {
 	private StudentRepository studentRepository;
 
 	public void addNewStudent(@ModelAttribute Student student, HttpSession session) {
-		Classroom classroom = (Classroom) session.getAttribute("class");
+		Classroom classroom = (Classroom) session.getAttribute("classroom");
 		student.setClassroom(classroom);
 		student.setStatus("offline");
 		studentService.save(student);
@@ -51,7 +51,7 @@ public class TutorService {
 	public void addNewBasicExercise(@ModelAttribute BasicExercise basicExercise, HttpSession session) {
 		basicExercise.setAdded(LocalDate.now());
 		basicExercise.setDeadline(basicExercise.getDaysToAdd());
-		Classroom classroom = (Classroom) session.getAttribute("class");
+		Classroom classroom = (Classroom) session.getAttribute("classroom");
 		basicExercise.setClassroom(classroom);
 		basicExerciseRepository.save(basicExercise);
 	}
