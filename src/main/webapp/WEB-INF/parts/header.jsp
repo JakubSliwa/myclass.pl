@@ -29,9 +29,14 @@
 			</a>
 				<ul class="dropdown-menu extended inbox">
 					<div class="notify-arrow notify-arrow-green"></div>
-					<li>
-						<p class="green">You have ${unreaded} new messages</p>
-					</li>
+					<li><c:set var="readed" value="NotReaded" /> <c:choose>
+							<c:when test="${unreaded == 1}">
+								<p class="green">Masz ${unreaded} nową wiadomość</p>
+							</c:when>
+							<c:otherwise>
+								<p class="green">Masz ${unreaded} nowe wiadomości</p>
+							</c:otherwise>
+						</c:choose></li>
 					<c:url value="/../sys_school/students" var="student" />
 					<c:forEach items="${messagesLimited}" var="m">
 						<li><a href="${showMessage}/${m.id}"> <span class="photo"><img
@@ -43,7 +48,7 @@
 							</span> <span class="message"><br>${m.text}...</span>
 						</a></li>
 					</c:forEach>
-					<li><a href="${messagesList}">See all messages</a></li>
+					<li><a href="${messagesList}">Zobacz wszystkie</a></li>
 				</ul></li>
 			<!-- inbox dropdown end -->
 		</ul>

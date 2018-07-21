@@ -68,6 +68,8 @@ public class TutorController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("student", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
@@ -91,6 +93,8 @@ public class TutorController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("student", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("tutor", tutorService.findTutorById(tutor.getId()));
@@ -142,6 +146,8 @@ public class TutorController {
 				studentService.updateAvgG(tutorService.getStudentListByClassroomId(id));
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("avgeragegrades", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
@@ -164,6 +170,8 @@ public class TutorController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("lessons", lessonRepository.findAllByClassroomId(id));
@@ -186,6 +194,8 @@ public class TutorController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/finances";
@@ -206,6 +216,8 @@ public class TutorController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "tutorViews/help";

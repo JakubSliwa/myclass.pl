@@ -57,6 +57,8 @@ public class SolutionController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == basicSolution.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("basicSolution", basicSolutionRepository.findOne(solutionId));
@@ -104,6 +106,8 @@ public class SolutionController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == basicSolution.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("basicSolution", basicSolution);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
@@ -151,6 +155,8 @@ public class SolutionController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getBasicSolutionListByClassroomId(id));
 				model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
@@ -175,6 +181,8 @@ public class SolutionController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == basicSolution.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				basicSolutionRepository.delete(solutionId);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "redirect:/checksolutions";

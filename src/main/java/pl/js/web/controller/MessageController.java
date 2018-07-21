@@ -53,6 +53,8 @@ public class MessageController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("messageSendToTutor", messageRepository.findAllBySendToTutorOrderBySentDesc(tutor));
@@ -78,6 +80,8 @@ public class MessageController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == student.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("message",
@@ -106,6 +110,8 @@ public class MessageController {
 				messageService.setToReaded(message);
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("message", message);
@@ -129,6 +135,8 @@ public class MessageController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == message.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				messageRepository.delete(message);
 				return "redirect:/messages";
@@ -152,6 +160,8 @@ public class MessageController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == student.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("studentForView", studentRepository.findOne(studentId));
 				model.addAttribute("message", new Message());
@@ -177,6 +187,8 @@ public class MessageController {
 				messageService.setToReaded(message);
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("messageForView", messageRepository.findOne(messageId));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
@@ -227,6 +239,8 @@ public class MessageController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("message", new Message());
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));

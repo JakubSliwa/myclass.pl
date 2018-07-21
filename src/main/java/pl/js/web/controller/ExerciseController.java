@@ -70,6 +70,8 @@ public class ExerciseController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == basicExercise.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("basicExercise", basicExercise);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
@@ -91,6 +93,8 @@ public class ExerciseController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("basicExercise", new BasicExercise());
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
@@ -131,6 +135,8 @@ public class ExerciseController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == basicExercise.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				basicSolutionService.clearBasicSolution(exerciseId);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "redirect:/exercises";
@@ -151,6 +157,8 @@ public class ExerciseController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
@@ -177,6 +185,8 @@ public class ExerciseController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == basicExercise.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("basicExercise", basicExercise);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));

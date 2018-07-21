@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import pl.js.entity.Lesson;
 import pl.js.entity.users.Tutor;
 import pl.js.repository.LessonRepository;
+import pl.js.repository.MessageRepository;
 import pl.js.service.BasicSolutionService;
 import pl.js.service.ClassroomService;
 import pl.js.service.LessonService;
@@ -39,6 +40,8 @@ public class LessonController {
 	LessonService lessonService;
 	@Autowired
 	LessonRepository lessonRepository;
+	@Autowired
+	MessageRepository messageRepository;
 
 	@GetMapping("/lesson")
 	public String sendLessonProposed(Model model, HttpSession session) {
@@ -50,6 +53,8 @@ public class LessonController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("lesson", new Lesson());
@@ -97,6 +102,8 @@ public class LessonController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("lessons", lessonRepository.findAllByClassroomId(id));
@@ -120,6 +127,8 @@ public class LessonController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == lesson.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				session.setAttribute("messagesLimited",
+						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				lessonService.deleteLessonAndSendMessageToStudent(lesson, session);
 				return "redirect:/lessons";
