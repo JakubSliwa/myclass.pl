@@ -29,11 +29,20 @@ public class LogoutController {
 			session.invalidate();
 			return "security/logout";
 		} else {
+			return "redirect:/dashboard";
+		}
+	}
+
+	@GetMapping("/student/logout")
+	public String studentLogout(HttpSession session) {
+		if (session.getAttribute("student") != null) {
 			Student studentSess = (Student) session.getAttribute("student");
 			Student student = studentRepository.findByEmail(studentSess.getEmail());
 			studentRepository.setStudentStatusById("offline", student.getId());
 			session.invalidate();
 			return "security/logout";
+		} else {
+			return "redirect:/startpage";
 		}
 	}
 

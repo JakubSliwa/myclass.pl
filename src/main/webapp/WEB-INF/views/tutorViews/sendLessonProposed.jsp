@@ -204,6 +204,7 @@
 		
 		
 		
+		
 				
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -235,6 +236,7 @@
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }	
+	
 	
 	
 	

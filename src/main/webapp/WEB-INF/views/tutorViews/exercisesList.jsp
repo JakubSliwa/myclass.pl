@@ -143,8 +143,6 @@
 	<script src="resources/tutorDashboard/js/jquery.nicescroll.js"
 		type="text/javascript"></script>
 	<script src="resources/tutorDashboard/js/jquery.sparkline.js"></script>
-
-
 	<!--common script for all pages-->
 	<script src="resources/tutorDashboard/js/common-scripts.js"></script>
 
@@ -155,6 +153,15 @@
 
 
 	<script type="application/javascript">
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -280,6 +287,15 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

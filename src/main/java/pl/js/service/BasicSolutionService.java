@@ -1,13 +1,16 @@
 package pl.js.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import pl.js.entity.Classroom;
 import pl.js.entity.exercise.BasicSolution;
 import pl.js.repository.BasicExerciseRepository;
 import pl.js.repository.BasicSolutionRepository;
@@ -49,6 +52,15 @@ public class BasicSolutionService {
 	public void addGrade(String grade, Long solutionId) {
 		Double gradeD = Double.parseDouble(grade.replace(",", "."));
 		basicSolutionRepository.setBasicSolutionGradeById(gradeD, solutionId);
+
+	}
+
+	@Transactional
+	public void addSolution(BasicSolution basicSolution, HttpSession session) {
+		basicSolution.setAdded(LocalDate.now());
+		Classroom classroom = (Classroom) session.getAttribute("classroom");
+		basicSolution.setClassroom(classroom);
+		basicSolutionRepository.save(basicSolution);
 
 	}
 }

@@ -8,7 +8,11 @@
 <title>Strona w trakcie budowy</title>
 </head>
 <body>
-	Witaj ${student.username }
+	<c:url value="/../sys_school/student/logout" var="logout" />
+	<c:url value="/../sys_school/student/addsolution" var="addSolution" />
+	<c:url value="/../sys_school/student/sendmessage" var="sendMessage" />
+	Witaj ${student.username }.
+	<a href="${logout}">Logout</a>
 	<br>
 	<table>
 		<h4>Otrzymane wiadomości</h4>
@@ -17,6 +21,7 @@
 				<th>Od</th>
 				<th>Treść</th>
 				<th>Kiedy</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -25,6 +30,7 @@
 					<td>${messagesToView.sendByTutor.username}</td>
 					<td>${messagesToView.text}</td>
 					<td>${messagesToView.sent.format(dateTimeFormatter)}</td>
+					<td><a href="${sendMessage}/${messagesToView.sendByTutor.id}">Odpowiedź</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -36,6 +42,7 @@
 				<th>Tytuł</th>
 				<th>Opis zadania</th>
 				<th>Deadline</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -44,6 +51,8 @@
 					<td>${basicExercises.title}</td>
 					<td>${basicExercises.description}</td>
 					<td>${basicExercises.deadline}</td>
+					<td><a href="${addSolution}/${basicExercises.id}">Dodaj
+							odpowiedź</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

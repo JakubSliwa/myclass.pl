@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import pl.js.entity.Message;
+import pl.js.entity.exercise.BasicExercise;
+import pl.js.entity.exercise.BasicSolution;
 import pl.js.entity.users.Student;
 import pl.js.entity.users.Tutor;
 import pl.js.repository.BasicExerciseRepository;
@@ -78,6 +81,86 @@ public class StudentController {
 		}
 		return "errors/notAStudent";
 
+	}
+
+	@GetMapping("/student/sendmessage/{tutorId}")
+	public String sendMessageToTutor(Model model, @PathVariable(value = "tutorId") Long tutorId, HttpSession session) {
+		Long id;
+		Student student;
+		Tutor tutor;
+		try {
+			id = classroomService.getClassroomId(session);
+			student = (Student) session.getAttribute("student");
+			tutor = tutorRepository.findOne(tutorId);
+			if ("ROLE_STUDENT".equals(student.getRole().getRole()) && id == student.getClassroom().getId()
+					&& tutor.getClassroom().getId() == student.getClassroom().getId()) {
+				model.addAttribute("message", new Message());
+				model.addAttribute("tutorToView", tutor);
+				return "studentViews/sendMessage";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notAStudent";
+	}
+
+	@PostMapping("/student/sendmessage/{tutorId}")
+	public String sendMessage(@Validated @ModelAttribute Message message, BindingResult result, Model model,
+			@PathVariable(value = "tutorId") Long tutorId, HttpSession session) {
+		Long id;
+		Student student;
+		try {
+			if (result.hasErrors()) {
+				student = (Student) session.getAttribute("student");
+				id = classroomService.getClassroomId(session);
+				return "studentViews/sendMessage";
+			} else {
+				messageService.sendMessage(message, session);
+			}
+		} catch (Exception e) {
+			return "errors/generalExeption";
+		}
+		return "redirect:/startpage";
+	}
+
+	@GetMapping("/student/addsolution/{exerciseId}")
+	public String addSolution(Model model, @PathVariable(value = "exerciseId") Long exerciseId, HttpSession session) {
+		Long id;
+		Student student;
+		BasicExercise basicExercise;
+		try {
+			id = classroomService.getClassroomId(session);
+			student = (Student) session.getAttribute("student");
+			basicExercise = basicExerciseRepository.findOne(exerciseId);
+			if ("ROLE_STUDENT".equals(student.getRole().getRole()) && id == student.getClassroom().getId()
+					&& basicExercise.getClassroom().getId() == student.getClassroom().getId()) {
+				model.addAttribute("basicSolution", new BasicSolution());
+				model.addAttribute("basicExerciseToView", basicExercise);
+				return "studentViews/addSolution";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notAStudent";
+	}
+
+	@PostMapping("/student/addsolution/{exerciseId}")
+	public String addSolution(@Validated @ModelAttribute BasicSolution basicSolution, BindingResult result, Model model,
+			@PathVariable(value = "exerciseId") Long exerciseId, HttpSession session) {
+		Long id;
+		Student student;
+		try {
+			if (result.hasErrors()) {
+				student = (Student) session.getAttribute("student");
+				id = classroomService.getClassroomId(session);
+				return "studentViews/addSolution";
+			} else {
+				basicSolutionService.addSolution(basicSolution, session);
+			}
+		} catch (Exception e) {
+			return "errors/generalExeption";
+		}
+		return "redirect:/startpage";
 	}
 
 	@GetMapping("/students/addnote/{studentId}")
