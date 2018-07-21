@@ -2,10 +2,11 @@ package pl.js.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pl.js.entity.Message;
 import pl.js.entity.users.Student;
 import pl.js.repository.BasicSolutionRepository;
 import pl.js.repository.RoleRepository;
@@ -16,6 +17,7 @@ public class StudentService {
 
 	@Autowired
 	private BasicSolutionRepository basicSolutionRepository;
+
 	@Autowired
 	private StudentRepository studentRepository;
 
@@ -26,6 +28,7 @@ public class StudentService {
 		return studentRepository.findByEmail(email);
 	}
 
+	@Transactional
 	public void save(Student student) {
 		student.setRole(roleRepository.findByRole("ROLE_STUDENT"));
 		studentRepository.save(student);
@@ -35,6 +38,7 @@ public class StudentService {
 		return studentRepository.findByUserName(username);
 	}
 
+	@Transactional
 	public void updateAvgG(List<Student> students) {
 		Double avgG;
 		for (Student s : students) {

@@ -1,4 +1,4 @@
-package pl.js.web.Controller;
+package pl.js.web.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pl.js.entity.Lesson;
-import pl.js.entity.Message;
 import pl.js.entity.users.Tutor;
 import pl.js.repository.LessonRepository;
 import pl.js.service.BasicSolutionService;

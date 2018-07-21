@@ -16,6 +16,7 @@ public class BasicSolution extends Solution {
 
 	@ManyToOne
 	private BasicExercise basicExercise;
+
 	@ManyToOne
 	private Classroom classroom;
 
@@ -23,11 +24,6 @@ public class BasicSolution extends Solution {
 
 	@ManyToOne
 	private Student student;
-
-	public BasicSolution() {
-		super();
-
-	}
 
 	public Student getStudent() {
 		return student;

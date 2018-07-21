@@ -6,11 +6,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tutors")
 public class Tutor extends User {
-
-	public Tutor() {
-		super();
-	}
-
 	@Override
 	public String toString() {
 		return "Tutor [getId()=" + getId() + ", getUsername()=" + getUsername() + ", getEmail()=" + getEmail()

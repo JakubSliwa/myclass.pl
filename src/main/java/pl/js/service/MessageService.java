@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pl.js.entity.Classroom;
 import pl.js.entity.Message;
@@ -25,6 +25,7 @@ public class MessageService {
 	@Autowired
 	MessageRepository messageRepository;
 
+	@Transactional
 	public void sendMessageFromTutorToStudent(@ModelAttribute Message message, Student student, Tutor tutor,
 			String text, HttpSession session) {
 		message.setReaded("NotReaded");
@@ -36,6 +37,7 @@ public class MessageService {
 		messageRepository.save(message);
 	}
 
+	@Transactional
 	public void sendMessageAfterCancelLesson(Message message, Student student, Tutor tutor, String text,
 			HttpSession session) {
 		message.setReaded("NotReaded");
@@ -48,6 +50,7 @@ public class MessageService {
 		messageRepository.save(message);
 	}
 
+	@Transactional
 	public void sendReminderFromTutorToStudent(Student student, Tutor tutor, BasicExercise basicExercise,
 			HttpSession session) {
 		Message message = new Message();
@@ -94,6 +97,7 @@ public class MessageService {
 		return unreadedMessages.size();
 	}
 
+	@Transactional
 	public void sendMessage(Message message, HttpSession session) {
 		message.setSent(LocalDateTime.now());
 		message.setReaded("NotReaded");
@@ -114,6 +118,7 @@ public class MessageService {
 		return unreadedMessages.size();
 	}
 
+	@Transactional
 	public void setToReaded(Message message) {
 		message.setReaded("Readed");
 		messageRepository.save(message);

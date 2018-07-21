@@ -11,13 +11,12 @@ public abstract class Exercise {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@Size(min = 1, max = 300)
 	private String title;
+
 	@Size(min = 1, max = 600)
 	private String description;
-
-	public Exercise() {
-	}
 
 	public Long getId() {
 		return id;

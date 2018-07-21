@@ -38,9 +38,9 @@
 									alt="avatar"
 									src="/sys_school/resources/tutorDashboard/img/ui-sam.jpg"></span>
 								<span class="subject"> <span class="from">${m.sendByStudent.username}</span>
-									<span class="time"> ${m.sent.format(dateTimeFormatter)}
+									<span class="time"> <br>${m.sent.format(dateTimeFormatter)}
 								</span>
-							</span> <span class="message">${m.text}...</span>
+							</span> <span class="message"><br>${m.text}...</span>
 						</a></li>
 					</c:forEach>
 					<li><a href="${messagesList}">See all messages</a></li>

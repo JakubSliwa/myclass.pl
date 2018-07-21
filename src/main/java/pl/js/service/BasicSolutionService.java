@@ -35,7 +35,8 @@ public class BasicSolutionService {
 		basicSolutionRepository.setBasicSolutionGradeById(grade, basicSolution.getId());
 	}
 
-	public void basicSolutionSetNullForExerciseId(Long exerciseId) {
+	@Transactional
+	public void clearBasicSolution(Long exerciseId) {
 		List<BasicSolution> basicSolutionsList = basicSolutionRepository.findAllByBasicExerciseId(exerciseId);
 		for (BasicSolution bs : basicSolutionsList) {
 			bs.setBasicExercise(null);
@@ -44,6 +45,7 @@ public class BasicSolutionService {
 		basicExerciseRepository.delete(exerciseId);
 	}
 
+	@Transactional
 	public void addGrade(String grade, Long solutionId) {
 		Double gradeD = Double.parseDouble(grade.replace(",", "."));
 		basicSolutionRepository.setBasicSolutionGradeById(gradeD, solutionId);

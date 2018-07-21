@@ -24,17 +24,21 @@ public abstract class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@NotNull
 	@Size(min = 2, max = 30)
 	@Column(unique = true)
 	private String username;
+
 	@Transient
 	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}")
 	private String password;
+
 	@Email
 	@Column(unique = true)
 	@NotEmpty
 	private String email;
+
 	@ManyToOne
 	Role role;
 
@@ -71,9 +75,6 @@ public abstract class User {
 
 	public void setRole(Role role) {
 		this.role = role;
-	}
-
-	public User() {
 	}
 
 	public Long getId() {

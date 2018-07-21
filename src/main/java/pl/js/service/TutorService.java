@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import pl.js.repository.TutorRepository;
 
 @Service
 public class TutorService {
+
 	@Autowired
 	private RoleRepository roleRepository;
 
@@ -28,11 +30,14 @@ public class TutorService {
 
 	@Autowired
 	private BasicExerciseRepository basicExerciseRepository;
+
 	@Autowired
 	private StudentService studentService;
+
 	@Autowired
 	private StudentRepository studentRepository;
 
+	@Transactional
 	public void addNewStudent(@ModelAttribute Student student, HttpSession session) {
 		Classroom classroom = (Classroom) session.getAttribute("classroom");
 		student.setClassroom(classroom);
@@ -48,6 +53,7 @@ public class TutorService {
 		return studentRepository.findAllByClassroomId(id);
 	}
 
+	@Transactional
 	public void addNewBasicExercise(@ModelAttribute BasicExercise basicExercise, HttpSession session) {
 		basicExercise.setAdded(LocalDate.now());
 		basicExercise.setDeadline(basicExercise.getDaysToAdd());
@@ -64,6 +70,7 @@ public class TutorService {
 		return basicExerciseRepository.findAllByClassroomId(id);
 	}
 
+	@Transactional
 	public void save(Tutor tutor) {
 		tutor.setRole(roleRepository.findByRole("ROLE_TUTOR"));
 		tutorRepository.save(tutor);
@@ -81,6 +88,7 @@ public class TutorService {
 		return tutorRepository.findOne(id);
 	}
 
+	@Transactional
 	public void updateTutor(Tutor tutor, String username, String email, String password, HttpSession session) {
 		tutor.setPassword(password);
 		Long id = tutor.getId();

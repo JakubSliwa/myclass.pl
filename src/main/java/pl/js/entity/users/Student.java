@@ -20,20 +20,18 @@ public class Student extends User {
 
 	@OneToMany
 	private List<BasicSolution> basicSolution;
+
 	@Size(min = 1, max = 100)
 	private String note;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "student")
 	private List<BasicExercise> basicExercises;
+
 	@Column(precision = 6, scale = 2)
 	private Double avgGrade;
+
 	@OneToMany
 	private List<Lesson> lessons;
-
-	public Student() {
-		super();
-
-	}
 
 	public List<Lesson> getLessons() {
 		return lessons;

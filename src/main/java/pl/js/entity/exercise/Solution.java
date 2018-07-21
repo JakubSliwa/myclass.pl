@@ -15,15 +15,12 @@ public abstract class Solution {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@Size(min = 1, max = 600)
 	private String answer;
+
 	@Range(min = (long) 1.0, max = (long) 6.0)
 	private Double grade;
-	
-	
-	
-	public Solution() {
-	}
 
 	public Long getId() {
 		return id;

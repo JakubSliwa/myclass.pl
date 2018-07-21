@@ -1,7 +1,6 @@
-package pl.js.web.Controller;
+package pl.js.web.controller;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,17 +9,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import pl.js.entity.exercise.BasicExercise;
-import pl.js.entity.users.Student;
 import pl.js.entity.users.Tutor;
 import pl.js.repository.BasicExerciseRepository;
 import pl.js.repository.BasicSolutionRepository;
 import pl.js.repository.ClassroomRepository;
+import pl.js.repository.LessonRepository;
 import pl.js.repository.MessageRepository;
 import pl.js.repository.StudentRepository;
 import pl.js.repository.TutorRepository;
@@ -33,7 +30,7 @@ import pl.js.service.TutorService;
 
 @Controller
 @SessionAttributes({ "classroom", "tutor", "messages", "dateTimeFormatter" })
-public class ExerciseController {
+public class TutorController {
 	@Autowired
 	TutorService tutorService;
 	@Autowired
@@ -58,32 +55,11 @@ public class ExerciseController {
 	BasicExerciseRepository basicExerciseRepository;
 	@Autowired
 	BasicExerciseService basicExerciseService;
+	@Autowired
+	LessonRepository lessonRepository;
 
-	@GetMapping("/editexercises/{exerciseId}")
-	public String editExercise(Model model, HttpSession session, @PathVariable(value = "exerciseId") Long exerciseId) {
-		Long id;
-		Tutor tutor;
-		BasicExercise basicExercise;
-		try {
-			id = classroomService.getClassroomId(session);
-			tutor = (Tutor) session.getAttribute("tutor");
-			basicExercise = basicExerciseRepository.findOne(exerciseId);
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == basicExercise.getClassroom().getId()) {
-				messageService.updateUnreadedMessages(tutor, session);
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
-				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-				model.addAttribute("basicExercise", basicExercise);
-				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
-				return "tutorViews/editExercise";
-			}
-		} catch (NullPointerException e) {
-			return "errors/nullPointerError";
-		}
-		return "errors/notATutor";
-	}
-
-	@GetMapping("/createexercise")
-	public String showViewToAddNewExercise(Model model, HttpSession session) {
+	@GetMapping("/dashboard")
+	public String showTutorDashboard(Model model, HttpSession session) {
 		Long id;
 		Tutor tutor;
 		try {
@@ -92,128 +68,152 @@ public class ExerciseController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
-				model.addAttribute("basicExercise", new BasicExercise());
-				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
-				return "tutorViews/addNewBasicExercise";
-			}
-
-		} catch (NullPointerException e) {
-			return "errors/nullPointerError";
-		}
-		return "errors/notATutor";
-	}
-
-	@PostMapping("/createexercise")
-	public String addNewExercise(@Validated @ModelAttribute BasicExercise basicExercise, BindingResult result,
-			HttpSession session, Model model) {
-		Long id;
-		if (result.hasErrors()) {
-			id = classroomService.getClassroomId(session);
-			model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
-			model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-			return "tutorViews/addNewBasicExercise";
-		} else {
-			tutorService.addNewBasicExercise(basicExercise, session);
-			return "redirect:/dashboard";
-		}
-	}
-
-	@GetMapping("/deleteexercises/{exerciseId}")
-	public String deleteExercises(Model model, HttpSession session,
-			@PathVariable(value = "exerciseId") Long exerciseId) {
-		Long id;
-		Tutor tutor;
-		BasicExercise basicExercise;
-		try {
-			id = classroomService.getClassroomId(session);
-			tutor = (Tutor) session.getAttribute("tutor");
-			basicExercise = basicExerciseRepository.findOne(exerciseId);
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == basicExercise.getClassroom().getId()) {
-				messageService.updateUnreadedMessages(tutor, session);
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
-				basicSolutionService.basicSolutionSetNullForExerciseId(exerciseId);
-				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
-				return "redirect:/exercises";
-			}
-		} catch (NullPointerException e) {
-			return "errors/nullPointerError";
-		}
-		return "errors/notATutor";
-	}
-
-	@GetMapping("/exercises")
-	public String showExercises(Model model, HttpSession session) {
-		Long id;
-		Tutor tutor;
-		try {
-			id = classroomService.getClassroomId(session);
-			tutor = (Tutor) session.getAttribute("tutor");
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
-				messageService.updateUnreadedMessages(tutor, session);
-				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				model.addAttribute("student", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("basicExercises", tutorService.getBasicExerciseListClassroomId(id));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
-				return "tutorViews/exercisesList";
+				return "tutorViews/tutorPanel";
 			}
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";
 		}
 		return "errors/notATutor";
+
 	}
 
-	@GetMapping("/exercises/reminder/{exerciseId}")
-	public String remiderExercise(Model model, HttpSession session,
-			@PathVariable(value = "exerciseId") Long exerciseId) {
+	@GetMapping("/tutorsettings")
+	public String tutorSettings(Model model, HttpSession session) {
 		Long id;
 		Tutor tutor;
-		BasicExercise basicExercise;
-		Student student;
 		try {
 			id = classroomService.getClassroomId(session);
 			tutor = (Tutor) session.getAttribute("tutor");
-			basicExercise = basicExerciseRepository.findOne(exerciseId);
-			student = basicExercise.getStudent();
-			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == basicExercise.getClassroom().getId()) {
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				model.addAttribute("student", tutorService.getStudentListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-				model.addAttribute("basicExercise", basicExercise);
+				model.addAttribute("tutor", tutorService.findTutorById(tutor.getId()));
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
-				messageService.sendReminderFromTutorToStudent(student, tutor, basicExercise, session);
-				return "redirect:/messages/" + student.getId();
+				return "tutorViews/tutorSettings";
 			}
 		} catch (NullPointerException e) {
 			return "errors/nullPointerError";
 		}
+
 		return "errors/notATutor";
+
 	}
 
-	@PostMapping("/editexercises/{exerciseId}")
-	public String editExercise(@Validated @ModelAttribute BasicExercise basicExercise, BindingResult result,
-			@RequestParam String title, @RequestParam String description, @RequestParam Integer daysToAdd, Model model,
-			@PathVariable(value = "exerciseId") Long exerciseId, HttpSession session) {
+	@PostMapping("/tutorsettings")
+	public String tutorSettings(@Validated @ModelAttribute Tutor tutor, BindingResult result,
+			@RequestParam String username, @RequestParam String email, @RequestParam String password, Model model,
+			HttpSession session) {
 		Long id;
-		Student student = (Student) basicExercise.getStudent();
 		if (result.hasErrors()) {
 			try {
 				id = classroomService.getClassroomId(session);
-				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
-				return "tutorViews/editExercise";
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				return "tutorViews/tutorSettings";
 			} catch (Exception e) {
 				return "errors/generalExeption";
 			}
 		} else {
 			try {
-				basicExerciseService.basicExcerciseUpdate(basicExercise, title, description, daysToAdd, exerciseId,
-						student);
+				tutor = (Tutor) session.getAttribute("tutor");
+				tutorService.updateTutor(tutor, username, email, password, session);
 			} catch (Exception e) {
 				return "errors/generalExeption";
 			}
+			return "redirect:/tutorsettings";
 		}
-		return "redirect:/exercises";
+	}
+
+	@GetMapping("/raports")
+	public String raports(Model model, HttpSession session) {
+		Long id;
+		Tutor tutor;
+
+		try {
+			id = classroomService.getClassroomId(session);
+			tutor = (Tutor) session.getAttribute("tutor");
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+				studentService.updateAvgG(tutorService.getStudentListByClassroomId(id));
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				model.addAttribute("avgeragegrades", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				return "tutorViews/raports";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notATutor";
+	}
+
+	@GetMapping("/calendar")
+	public String calendar(Model model, HttpSession session) {
+		Long id;
+		Tutor tutor;
+
+		try {
+			id = classroomService.getClassroomId(session);
+			tutor = (Tutor) session.getAttribute("tutor");
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				model.addAttribute("lessons", lessonRepository.findAllByClassroomId(id));
+				return "tutorViews/calendar";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notATutor";
+	}
+
+	@GetMapping("/finances")
+	public String finances(Model model, HttpSession session) {
+		Long id;
+		Tutor tutor;
+
+		try {
+			id = classroomService.getClassroomId(session);
+			tutor = (Tutor) session.getAttribute("tutor");
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				return "tutorViews/finances";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notATutor";
+	}
+
+	@GetMapping("/help")
+	public String help(Model model, HttpSession session) {
+		Long id;
+		Tutor tutor;
+		try {
+			id = classroomService.getClassroomId(session);
+			tutor = (Tutor) session.getAttribute("tutor");
+			if ("ROLE_TUTOR".equals(tutor.getRole().getRole())) {
+				messageService.updateUnreadedMessages(tutor, session);
+				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
+				model.addAttribute("students", tutorService.getStudentListByClassroomId(id));
+				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
+				return "tutorViews/help";
+			}
+		} catch (NullPointerException e) {
+			return "errors/nullPointerError";
+		}
+		return "errors/notATutor";
 	}
 
 }

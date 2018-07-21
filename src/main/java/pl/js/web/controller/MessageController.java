@@ -1,4 +1,4 @@
-package pl.js.web.Controller;
+package pl.js.web.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -214,7 +214,7 @@ public class MessageController {
 				return "errors/generalExeption";
 			}
 		}
-		return "redirect:/students";
+		return "redirect:/messages";
 	}
 
 	@GetMapping("/sendmessage")

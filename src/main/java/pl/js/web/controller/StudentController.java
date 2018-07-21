@@ -1,4 +1,4 @@
-package pl.js.web.Controller;
+package pl.js.web.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pl.js.entity.users.Student;
@@ -206,7 +205,7 @@ public class StudentController {
 			if ("ROLE_TUTOR".equals(tutor.getRole().getRole()) && id == student.getClassroom().getId()) {
 				messageService.updateUnreadedMessages(tutor, session);
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
-				basicExerciseService.basicExerciseSetNullForStudentId(studentId);
+				basicExerciseService.clearBasicExercise(studentId);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "redirect:/students";
 			}

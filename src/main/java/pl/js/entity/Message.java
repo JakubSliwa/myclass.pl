@@ -17,14 +17,17 @@ import pl.js.entity.users.Tutor;
 @Entity
 @Table(name = "messages")
 public class Message {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@Size(min = 1, max = 200)
 	private String text;
+
 	private LocalDateTime sent;
+
 	private String readed;
+
 	@ManyToOne
 	private Classroom classroom;
 

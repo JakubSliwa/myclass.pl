@@ -64,8 +64,10 @@
 									<div class="compose-btn pull-right">
 										<c:choose>
 											<c:when test="${empty messageForView.sendByTutor}">
-												<a href="mail_compose.html" class="btn btn-sm btn-theme"><i
-													class="fa fa-reply"></i> Odpowiedz</a>
+												<a
+													href="${sendToStudent}/${messageForView.sendByStudent.id}"
+													class="btn btn-sm btn-theme"><i class="fa fa-reply"></i>
+													Odpowiedz</a>
 											</c:when>
 											<c:otherwise></c:otherwise>
 										</c:choose>
@@ -86,8 +88,8 @@
 										<strong><c:choose>
 												<c:when test="${empty messageForView.sendByStudent}"> ${messageForView.sendByTutor.username}</c:when>
 												<c:otherwise> ${messageForView.sendByStudent.username}</c:otherwise>
-											</c:choose></strong> to <strong><c:choose>
-												<c:when test="${empty messageForView.sendToStudent}"> me</c:when>
+											</c:choose></strong> do <strong><c:choose>
+												<c:when test="${empty messageForView.sendToStudent}"> mnie</c:when>
 												<c:otherwise> ${messageForView.sendToStudent.username}</c:otherwise>
 											</c:choose></strong>
 									</div>

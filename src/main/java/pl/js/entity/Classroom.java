@@ -12,7 +12,6 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "classrooms")
 public class Classroom {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -21,8 +20,6 @@ public class Classroom {
 	@Column(unique = true)
 	private String name;
 
-	public Classroom() {
-	}
 
 	public Long getId() {
 		return id;

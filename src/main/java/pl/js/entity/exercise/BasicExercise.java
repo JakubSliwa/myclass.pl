@@ -15,21 +15,20 @@ import pl.js.entity.users.Student;
 @Entity
 @Table(name = "basicExercises")
 public class BasicExercise extends Exercise {
-	@ManyToOne(fetch = FetchType.EAGER)
-	Student student;
+
+	@ManyToOne
+	private Student student;
 
 	private LocalDate added;
+
 	private LocalDate deadline;
+
 	@Min(value = 1)
 	@Max(value = 31)
 	private Integer daysToAdd;
+
 	@ManyToOne
-	Classroom classroom;
-
-	public BasicExercise() {
-		super();
-
-	}
+	private Classroom classroom;
 
 	public Classroom getClassroom() {
 		return classroom;
@@ -41,7 +40,6 @@ public class BasicExercise extends Exercise {
 
 	public void setDeadline(Integer daysToAdd) {
 		this.deadline = LocalDate.now().plusDays(daysToAdd);
-
 	}
 
 	public Student getStudent() {
@@ -120,7 +118,5 @@ public class BasicExercise extends Exercise {
 			return false;
 		return true;
 	}
-
-	
 
 }
