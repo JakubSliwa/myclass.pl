@@ -30,7 +30,8 @@
 			<input type="hidden" name="basicExercise.id"
 				value="${basicExerciseToView.id}">
 			<input type="hidden" name="student.id" value="${student.id}">
-			<input class="btn btn-primary" type="submit" value="Wyślij wiadomość">
+			<input class="btn btn-primary" type="submit"
+				value="Dodaj rozwiązanie">
 		</form:form>
 	</div>
 </body>

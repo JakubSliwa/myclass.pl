@@ -72,7 +72,7 @@
 									<tr>
 										<td>${solutions.basicExercise.student.username}</td>
 										<td>${solutions.basicExercise.title}</td>
-										<td>${solutions.answer}</td>
+										<td width="40%">${solutions.answer}</td>
 										<td>${solutions.added}</td>
 										<td>${solutions.grade}</td>
 										<td><a id="add-sticky" class="label label-primary"
@@ -178,6 +178,8 @@
 		
 		
 		
+		
+		
 			
 			
         $(document).ready(function () {
@@ -211,6 +213,8 @@
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }	
+	
+	
 	
 	
 	

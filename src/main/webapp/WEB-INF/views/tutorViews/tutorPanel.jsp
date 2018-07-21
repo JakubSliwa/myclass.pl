@@ -74,7 +74,7 @@
 										<tr>
 											<td>${solutions.basicExercise.student.username}</td>
 											<td>${solutions.basicExercise.title}</td>
-											<td>${solutions.answer}</td>
+											<td width="40%">${solutions.answer}</td>
 											<td>${solutions.added}</td>
 											<td>${solutions.grade}</td>
 											<td><a id="add-sticky" class="label label-primary"
@@ -202,6 +202,7 @@
 		
 		
 		
+		
 				
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -234,6 +235,7 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
 
+	
 	
 	
 	

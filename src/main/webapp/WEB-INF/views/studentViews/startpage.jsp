@@ -52,7 +52,7 @@
 					<td>${basicExercises.description}</td>
 					<td>${basicExercises.deadline}</td>
 					<td><a href="${addSolution}/${basicExercises.id}">Dodaj
-							odpowiedź</a></td>
+							rozwiązanie</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
