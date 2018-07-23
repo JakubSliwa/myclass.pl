@@ -1,0 +1,35 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+													http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
+	<persistence-unit name="h2DbPersistenceUnit">
+
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>pl.js.entity.exercise.BasicExercise</class>
+		<class>pl.js.entity.exercise.BasicSolution</class>
+		<class>pl.js.entity.Classroom</class>
+		<class>pl.js.entity.users.Student</class>
+		<class>pl.js.entity.users.Tutor</class>
+		<class>pl.js.entity.Role</class>
+		<class>pl.js.entity.Lesson</class>
+		<class>pl.js.entity.Message</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:h2:mem:myDb" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password"
+				value="pass" />
+			<property name="javax.persistence.jdbc.driver"
+				value="org.h2.Driver" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.H2Dialect" />
+			<property name="hibernate.connection.useUnicode"
+				value="true" />
+			<property name="hibernate.connection.characterEncoding"
+				value="utf8" />
+			<property name="hibernate.connection.CharSet" value="utf8" />
+		</properties>
+	</persistence-unit>
+</persistence>

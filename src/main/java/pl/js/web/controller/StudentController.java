@@ -296,7 +296,7 @@ public class StudentController {
 				session.setAttribute("unreaded", messageService.countCurrentUnreaded(tutor, session));
 				session.setAttribute("messagesLimited",
 						messageRepository.findAllBySendToTutorAndNotReadedAndLimited("NotReaded", tutor));
-				basicExerciseService.clearBasicExercise(studentId);
+				studentService.clearBasicExerciseAndDeleteMessages(studentId);
 				model.addAttribute("solutions", basicSolutionService.getFirst10BasicSolutionListByClassroomId(id));
 				return "redirect:/students";
 			}

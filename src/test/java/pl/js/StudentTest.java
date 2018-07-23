@@ -1,4 +1,4 @@
-package sys_school;
+package pl.js;
 
 import static org.junit.Assert.*;
 

@@ -65,6 +65,7 @@ public class LoginAndSignUpController {
 		Tutor tutor;
 		List<Message> unreadedMessages = new ArrayList<>();
 		List<Message> messages = new ArrayList<>();
+		session.invalidate();
 		try {
 			tutor = tutorRepository.findByEmail(email);
 			messages.addAll(messageRepository.findAllBySendToTutorAndReaded(tutor, "NotReaded"));
@@ -99,6 +100,7 @@ public class LoginAndSignUpController {
 		Student student;
 		List<Message> unreadedMessages = new ArrayList<>();
 		List<Message> messages = new ArrayList<>();
+		session.invalidate();
 		try {
 			student = studentRepository.findByEmail(email);
 			messages.addAll(messageRepository.findAllBySendToStudentOrderBySentDesc(student));
