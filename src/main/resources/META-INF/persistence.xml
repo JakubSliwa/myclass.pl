@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
 													http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 	version="2.1">
-	<persistence-unit name="sysSchool2dbPersistenceUnit">	<!-- STGtbz74546 value="jdbc:mysql://node56384-env-4113743.unicloud.pl:3306/sysSchool2" -->
+	<persistence-unit name="sysSchool2dbPersistenceUnit">	<!-- value="jdbc:mysql://localhost:3306/sysSchool2" -->
 		<properties>
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/sysSchool2" />
+				value="jdbc:mysql://node56384-env-4113743.unicloud.pl:3306/sysSchool2" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password"
-				value="coderslab" />
+				value="STGtbz74546" />
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />
 			<property

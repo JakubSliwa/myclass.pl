@@ -31,7 +31,6 @@ import pl.js.service.MessageService;
 import pl.js.service.TutorService;
 
 @Controller
-@SessionAttributes({ "classroom", "tutor", "student" })
 public class LoginAndSignUpController {
 	@Autowired
 	ClassroomRepository classroomRepository;
@@ -50,12 +49,16 @@ public class LoginAndSignUpController {
 
 	@GetMapping("/login")
 	public String login() {
+
 		return "security/preLoginPage";
 	}
 
 	@GetMapping("/loginTutor")
-	public String loginTutor() {
-
+	public String loginTutor(HttpSession session) {
+		session.removeAttribute("tutor");
+		session.removeAttribute("messages");
+		session.removeAttribute("messagesLimited");
+		session.removeAttribute("classroom");
 		return "security/tutorLoginPage";
 	}
 
@@ -65,10 +68,6 @@ public class LoginAndSignUpController {
 		Tutor tutor;
 		List<Message> unreadedMessages = new ArrayList<>();
 		List<Message> messages = new ArrayList<>();
-		session.removeAttribute("messages");
-		session.removeAttribute("messagesLimited");
-		session.removeAttribute("tutor");
-		session.removeAttribute("classroom");
 		try {
 			tutor = tutorRepository.findByEmail(email);
 			messages.addAll(messageRepository.findAllBySendToTutorAndReaded(tutor, "NotReaded"));
@@ -92,8 +91,8 @@ public class LoginAndSignUpController {
 	}
 
 	@GetMapping("/loginStudent")
-	public String loginStudent() {
-
+	public String loginStudent(HttpSession session) {
+		session.invalidate();
 		return "security/studentLoginPage";
 	}
 
