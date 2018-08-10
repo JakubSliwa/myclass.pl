@@ -15,7 +15,7 @@ I created a backend of myclass.pl and I used and a few free frontend templates. 
 # Description
 This is a CRM system for tutors and their students. Tutor easily can add students to his class, create task and review answers. Myclass.pl have a notify system and basic lessons management tool. Students can accept or decline the proposed by tutor date for the lesson. 
 # TO DO
-- [] create tests for repositories
-- [] implement Spring Security
-- [] refactor existing code (improve some methods)
+- [ ] create tests for repositories
+- [ ] implement Spring Security
+- [ ] refactor existing code (improve some methods)
 
